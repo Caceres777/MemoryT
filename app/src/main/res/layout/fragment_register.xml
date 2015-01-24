@@ -30,22 +30,19 @@
 
         <EditText
             style="@style/TextFields"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:inputType="textEmailAddress"
+            android:background="@drawable/edit_text_top"
+            android:drawableLeft="@drawable/ic_action_email"
             android:ems="10"
             android:id="@+id/editEmail"
             android:layout_gravity="center_horizontal"
             android:layout_below="@+id/imageView"
             android:layout_centerHorizontal="true"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
             android:text="E-Mail" />
 
         <EditText
             style="@style/TextFields"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/ic_action_password"
             android:inputType="textPassword"
             android:ems="10"
             android:id="@+id/editPass1"
@@ -54,22 +51,18 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
             android:text="Password"/>
 
         <EditText
             style="@style/TextFields"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:inputType="textPassword"
+            android:background="@drawable/edit_text_bottom"
+            android:drawableLeft="@drawable/ic_action_password"
             android:ems="10"
             android:id="@+id/editPass2"
             android:layout_gravity="center_horizontal"
             android:layout_below="@+id/editPass1"
             android:layout_centerHorizontal="true"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
             android:text="Password"/>
 
     </LinearLayout>
