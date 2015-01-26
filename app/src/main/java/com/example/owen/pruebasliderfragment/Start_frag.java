@@ -13,7 +13,7 @@ import android.widget.Button;
 public class Start_frag extends Fragment {
 
 
-    Button btnReg, btnLogin;
+    Button btnReg, btnLogin, btnGoogle, btnFacebook;
     FragmentManager fragmentmanager;
     FragmentTransaction ft;
 
@@ -35,6 +35,7 @@ public class Start_frag extends Fragment {
         fragmentmanager = getFragmentManager();
         ft = fragmentmanager.beginTransaction();
 
+        // register button and listener
         btnReg = (Button)v.findViewById(R.id.buttonEMail);
         btnReg.setOnClickListener( new View.OnClickListener() {
             @Override
@@ -47,6 +48,7 @@ public class Start_frag extends Fragment {
             }
         });
 
+        // login button and listener
         btnLogin = (Button)v.findViewById(R.id.buttonLogin);
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,6 +60,25 @@ public class Start_frag extends Fragment {
                 ft.commit();
             }
         });
+
+        // google plus button and listener
+        btnGoogle = (Button)v.findViewById(R.id.buttonGooglePlus);
+        btnGoogle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        // facebook button and listener
+        btnFacebook = (Button)v.findViewById(R.id.buttonFacebook);
+        btnFacebook.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
         return v;
 
 

@@ -38,7 +38,8 @@
             android:layout_gravity="center_horizontal"
             android:layout_below="@+id/imageView"
             android:layout_centerHorizontal="true"
-            android:text="E-Mail" />
+            android:text="E-Mail"
+            android:textIsSelectable="false" />
 
         <EditText
             style="@style/TextFields"
@@ -49,8 +50,8 @@
             android:layout_gravity="center_horizontal"
             android:layout_below="@+id/editEmail"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
+            android:layout_marginTop="3dp"
+            android:layout_marginBottom="3dp"
             android:text="Password"/>
 
         <EditText
