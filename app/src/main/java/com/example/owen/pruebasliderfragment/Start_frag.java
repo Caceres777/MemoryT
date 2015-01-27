@@ -40,6 +40,7 @@ public class Start_frag extends Fragment {
         btnReg.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // creation of the new fragment, setting the animation and replacing the old fragment
                 Register_frag registerFrag = new Register_frag();
                 ft.setCustomAnimations(R.animator.slide_in_left, R.animator.slide_out_right,R.animator.slide_in_left, R.animator.slide_out_right);
                 ft.replace(R.id.background_start, registerFrag);
@@ -53,6 +54,7 @@ public class Start_frag extends Fragment {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // creation of the new fragment, setting the animation and replacing the old fragment
                 Login_frag loginFrag = new Login_frag();
                 ft.setCustomAnimations(R.animator.slide_in_left, R.animator.slide_out_right,R.animator.slide_in_left, R.animator.slide_out_right);
                 ft.replace(R.id.background_start, loginFrag);

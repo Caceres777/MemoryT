@@ -1,8 +1,6 @@
 package com.example.owen.pruebasliderfragment;
 
-import android.app.ActionBar;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
+import android.content.pm.ActivityInfo;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -17,6 +15,9 @@ public class Home extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         // hides the status bar
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        // makes the orientation of the screen only portrait
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        // set the content view
         setContentView(R.layout.activity_home);
     }
 
