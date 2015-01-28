@@ -20,12 +20,14 @@
         <item name="android:textColorHint">@color/Hint_color</item>
     </style>
 
+    <!-- Menu buttons style -->
     <style name="Menu_buttons">
         <item name="android:background">@color/Light_blue</item>
-        <!--<item name="android:layout_height">109dp</item>-->
+        <item name="android:height">100dp</item>
         <item name="android:textColor">@color/White</item>
     </style>
 
+    <!-- Smaller menu buttons style -->
     <style name="Menu_buttons_small" parent="Menu_buttons">
         <item name="android:layout_weight">0.49</item>
     </style>
