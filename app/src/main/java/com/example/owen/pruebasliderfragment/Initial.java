@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
@@ -23,8 +22,7 @@ public class Initial extends Activity {
         super.onCreate(savedInstanceState);
         // hides the status bar
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        // makes the orientation of the screen only portrait
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        // set the content view
         setContentView(R.layout.activity_initial);
 
         // we introduce the first fragment into the activity

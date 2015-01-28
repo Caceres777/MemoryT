@@ -1,11 +1,14 @@
 package com.example.owen.pruebasliderfragment;
 
-import android.content.pm.ActivityInfo;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.WindowManager;
+import android.widget.AdapterView;
+import android.widget.GridView;
+import android.widget.Toast;
 
 
 public class Home extends ActionBarActivity {
@@ -15,8 +18,9 @@ public class Home extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         // hides the status bar
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        // makes the orientation of the screen only portrait
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        // icon set on action bar
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setIcon(R.drawable.ic_logo);
         // set the content view
         setContentView(R.layout.activity_home);
     }

@@ -38,7 +38,7 @@
             android:layout_gravity="center_horizontal"
             android:layout_below="@+id/imageView"
             android:layout_centerHorizontal="true"
-            android:text="User email"
+            android:hint="User email"
             android:selectAllOnFocus="false" />
 
         <EditText
@@ -52,7 +52,7 @@
             android:layout_below="@+id/editEmail"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="3dp"
-            android:text="Password"/>
+            android:hint="Password"/>
 
     </LinearLayout>
 </FrameLayout>
