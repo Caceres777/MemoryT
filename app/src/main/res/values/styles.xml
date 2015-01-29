@@ -23,13 +23,7 @@
     <!-- Menu buttons style -->
     <style name="Menu_buttons">
         <item name="android:background">@color/Light_blue</item>
-        <item name="android:height">0dip</item>
         <item name="android:textColor">@color/White</item>
-    </style>
-
-    <!-- Smaller menu buttons style -->
-    <style name="Menu_buttons_small" parent="Menu_buttons">
-        <item name="android:layout_weight">0.49</item>
     </style>
 
     <!-- Action bar custom style -->

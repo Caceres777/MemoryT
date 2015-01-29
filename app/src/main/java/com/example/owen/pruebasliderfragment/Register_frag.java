@@ -3,7 +3,6 @@ package com.example.owen.pruebasliderfragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,26 +10,22 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.parse.FindCallback;
 import com.parse.ParseException;
-import com.parse.ParseObject;
-import com.parse.ParseQuery;
+import com.parse.ParseUser;
+import com.parse.SignUpCallback;
 
 
 public class Register_frag extends Fragment {
 
     Button btnRegister;
-    EditText email = null;
-    EditText contrasena;
-    EditText contrasena2;
+    EditText email = null, pass1, pass2;
     static String mensajeContrasenaMala = "contrasena incorrecta";
     static String mensajeCamposVacios = "Faltan campos por rellenar";
-    static String mensajeC = "EXITO GARRAFAL, NICO PAGAFANTAS!!";
-    Toast toastContr;
-    Toast toastCamposVacios;
-    Toast mensaje;
-    Log log;
-    Button register;
+    static String mensajeNoReg = "No se a podido registrar";
+    static String mensajeReg = "Registro con exito";
+    Toast toastCamposVacios, toastMensajeError, toastMensajeCorreto, toastContr;
+    private static final String TAG="activity_register";
+    //Log log;
 
     public Register_frag() {
         // Required empty public constructor
@@ -48,13 +43,15 @@ public class Register_frag extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_register, container, false);
 
-        email = (EditText) v.findViewById(R.id.editEmail);
-        contrasena = (EditText) v.findViewById(R.id.editPass1);
-        contrasena2 = (EditText) v.findViewById(R.id.editPass2);
-        register= (Button) v.findViewById(R.id.buttonRegister);
+        // definition of the text fields
+        email = (EditText) v.findViewById(R.id.register_email);
+        pass1 = (EditText) v.findViewById(R.id.register_Pass1);
+        pass2 = (EditText) v.findViewById(R.id.register_Pass2);
+        // mensajes de error
         toastContr = Toast.makeText(getActivity(), mensajeContrasenaMala, Toast.LENGTH_LONG);
         toastCamposVacios= Toast.makeText(getActivity(), mensajeCamposVacios, Toast.LENGTH_LONG);
-        mensaje= Toast.makeText(getActivity(), mensajeC, Toast.LENGTH_LONG);
+        toastMensajeError= Toast.makeText(getActivity(), mensajeNoReg, Toast.LENGTH_LONG);
+        toastMensajeCorreto=Toast.makeText(getActivity(),mensajeReg, Toast.LENGTH_LONG);
 
         // Button register and listener
         btnRegister = (Button)v.findViewById(R.id.buttonRegister);
@@ -67,30 +64,37 @@ public class Register_frag extends Fragment {
         return v;
     }
 
+
+
+    // method in charge of the users register
     public void register(){
-        String usuario=email.getText().toString();
-        String contrasenia=contrasena.getText().toString();
-        String contrasenia2=contrasena2.getText().toString();
-        // Log.d(TAG, "USUARIO="+email.getText().toString()+"CONTRASENIA="+contrasena.getText().toString()+"CONTRASENIA2="+contrasena2.getText().toString());
-        if("".equals(usuario) ||"".equals(contrasenia) || "".equals(contrasenia2)){
+        String user_email=email.getText().toString();
+        String password1=pass1.getText().toString();
+        String password2=pass2.getText().toString();
+        if("".equals(user_email) ||"".equals(password1) || "".equals(password2)){
             toastCamposVacios.show();
-                // Log.d(TAG, "USUARIO="+email.getText().toString()+"CONTRASENIA="+contrasena.getText().toString()+"CONTRASENIA2="+contrasena2.getText().toString());
-                // Log.d(TAG, "campos VACIOS");
-        }
-        else{
-            if(!contrasenia.equals(contrasenia2)){
+        }else{
+            if(!password1.equals(password2)){
                 toastContr.show();
-                // Log.d(TAG, "USUARIO="+email.getText()+"CONTRASENIA="+contrasena.getText()+"CONTRASENIA2="+contrasena2.getText());
-                // Log.d(TAG, "contrasenias INCORRECTAS");
-            }
-            else{
-                mensaje.show();
-                //Log.d(TAG, "BIEEN");
-                ParseObject newUser= new ParseObject("User");
-                newUser.put("user",usuario);
-                newUser.put("password",contrasenia);
-                newUser.saveInBackground();
-                startActivity(new Intent(getActivity(), Home.class));
+            }else{
+                ParseUser newUser= new ParseUser();
+                newUser.setUsername("Owen1");
+                newUser.setEmail(user_email);
+                newUser.setPassword(password1);
+                newUser.signUpInBackground(new SignUpCallback() {
+                    public void done(ParseException e) {
+                        if (e == null) {
+                            // sing up was successful
+                            toastMensajeCorreto.show();
+                            startActivity(new Intent(getActivity(), Home.class));
+                            getActivity().overridePendingTransition(R.animator.left_in, R.animator.left_out);
+                        } else {
+                            // sing in wasn't successful, show a Log with reason
+                            toastMensajeError= Toast.makeText(getActivity(), e.getMessage().toString(), Toast.LENGTH_LONG);
+                            toastMensajeError.show();
+                        }
+                    }
+                });
             }
         }
     }

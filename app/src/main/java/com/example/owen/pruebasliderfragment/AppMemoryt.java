@@ -5,13 +5,23 @@ package com.example.owen.pruebasliderfragment;
  */
 
 import android.app.Application;
-import android.os.Bundle;
 import com.parse.Parse;
+import com.parse.ParseACL;
+import com.parse.ParseUser;
 
 public class AppMemoryt extends Application{
-    protected void onCreate(Bundle savedInstanceState) {
+
+    @Override
+    public void onCreate() {
         super.onCreate();
+
+
         Parse.enableLocalDatastore(this);
-        Parse.initialize(this, "NCFX0CqHDFkXHidY44fbhBanCKzk0l4rbU7NW0BJ", "pHD2gqjxkgtEzYBCV3Aqflw8dEKX0StD5Hzbe4yR");
+        Parse.initialize(this, "eUm1h1r7STn62J6CMZpISBQCtM7izmp8b001Udab", "g3qvGnhMjsVrMGn03ZkcdmIGBvUPEDIoTJUMyrxP");
+
+
+        ParseUser.enableAutomaticUser();
+        ParseACL defaultACL = new ParseACL();
     }
+
 }
