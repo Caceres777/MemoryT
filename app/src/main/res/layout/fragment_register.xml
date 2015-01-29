@@ -43,12 +43,24 @@
 
         <EditText
             style="@style/TextFields"
+            android:drawableLeft="@drawable/ic_action_user"
+            android:inputType="textPassword"
+            android:ems="10"
+            android:id="@+id/register_user"
+            android:layout_gravity="center_horizontal"
+            android:layout_below="@+id/register_email"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="3dp"
+            android:hint = "User" />
+
+        <EditText
+            style="@style/TextFields"
             android:drawableLeft="@drawable/ic_action_password"
             android:inputType="textPassword"
             android:ems="10"
             android:id="@+id/register_Pass1"
             android:layout_gravity="center_horizontal"
-            android:layout_below="@+id/editEmail"
+            android:layout_below="@+id/register_user"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="3dp"
             android:layout_marginBottom="3dp"
@@ -62,7 +74,7 @@
             android:ems="10"
             android:id="@+id/register_Pass2"
             android:layout_gravity="center_horizontal"
-            android:layout_below="@+id/editPass1"
+            android:layout_below="@+id/register_Pass1"
             android:layout_centerHorizontal="true"
             android:hint="Password"/>
 

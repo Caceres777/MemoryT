@@ -8,6 +8,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.Toast;
+
+import com.parse.ParseUser;
 
 
 public class Initial extends Activity {
@@ -16,9 +19,16 @@ public class Initial extends Activity {
     FragmentManager fragmentmanager;
     FragmentTransaction ft;
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        // check if the user is already logged
+        checkLogged();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         // hides the status bar
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
@@ -45,5 +55,12 @@ public class Initial extends Activity {
         });
     }
 
+
+    private void checkLogged(){
+        ParseUser currentUser = ParseUser.getCurrentUser();
+        if( currentUser != null){
+            startActivity(new Intent(this, Home.class));
+        }
+    }
 
 }

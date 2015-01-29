@@ -18,24 +18,36 @@ import com.parse.SignUpCallback;
 public class Register_frag extends Fragment {
 
     Button btnRegister;
-    EditText email = null, pass1, pass2;
+    EditText email = null, pass1, pass2, user;
     static String mensajeContrasenaMala = "contrasena incorrecta";
     static String mensajeCamposVacios = "Faltan campos por rellenar";
     static String mensajeNoReg = "No se a podido registrar";
     static String mensajeReg = "Registro con exito";
     Toast toastCamposVacios, toastMensajeError, toastMensajeCorreto, toastContr;
     private static final String TAG="activity_register";
-    //Log log;
+
+
+
+
 
     public Register_frag() {
         // Required empty public constructor
     }
+
+
+
+
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
     }
+
+
+
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -44,6 +56,7 @@ public class Register_frag extends Fragment {
         View v = inflater.inflate(R.layout.fragment_register, container, false);
 
         // definition of the text fields
+        user = (EditText)v.findViewById(R.id.register_user);
         email = (EditText) v.findViewById(R.id.register_email);
         pass1 = (EditText) v.findViewById(R.id.register_Pass1);
         pass2 = (EditText) v.findViewById(R.id.register_Pass2);
@@ -66,8 +79,13 @@ public class Register_frag extends Fragment {
 
 
 
+
+
+
+
     // method in charge of the users register
     public void register(){
+        String user_name=user.getText().toString();
         String user_email=email.getText().toString();
         String password1=pass1.getText().toString();
         String password2=pass2.getText().toString();
@@ -78,7 +96,7 @@ public class Register_frag extends Fragment {
                 toastContr.show();
             }else{
                 ParseUser newUser= new ParseUser();
-                newUser.setUsername("Owen1");
+                newUser.setUsername(user_name);
                 newUser.setEmail(user_email);
                 newUser.setPassword(password1);
                 newUser.signUpInBackground(new SignUpCallback() {

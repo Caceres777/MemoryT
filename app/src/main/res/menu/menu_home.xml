@@ -10,7 +10,7 @@
         app:showAsAction="ifRoom" >
             <menu>
                 <item android:id="@+id/option1"
-                    android:title="Option1" />
+                    android:title="Log out" />
                 <item android:id="@+id/option2"
                     android:title="Option2" />
             </menu>
