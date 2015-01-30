@@ -13,5 +13,16 @@
     <string name="title_activity_prueba">prueba</string>
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_splash_screen">SplashScreen</string>
+    <string name="title_activity_memoryt_hom">Memoryt_hom</string>
+
+
+    <array name="Memoryt_menu_home">
+        <item>My Courses</item>
+        <item>Profile</item>
+        <item>VS</item>
+        <item>Search Courses</item>
+        <item>Badges</item>
+        <item>Settings</item>
+    </array>
 
 </resources>
