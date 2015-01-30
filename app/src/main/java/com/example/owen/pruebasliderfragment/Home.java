@@ -31,20 +31,20 @@ public class Home extends ActionBarActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setIcon(R.drawable.ic_logo);
         // font style
-        //Typeface tf = Typeface.createFromAsset(getAssets(),"fonts/BrushScriptStd.otf");
+        Typeface tf = Typeface.createFromAsset(getAssets(),"fonts/BrushScriptStd.otf");
         my_courses = (Button)findViewById(R.id.menu_my_courses);
         find_courses = (Button)findViewById(R.id.menu_find_courses);
         vs = (Button)findViewById(R.id.menu_vs);
         profile = (Button)findViewById(R.id.menu_profile);
         badges = (Button)findViewById(R.id.menu_badges);
         // Setting font style
-/*
+
         my_courses.setTypeface(tf);
         find_courses.setTypeface(tf);
         vs.setTypeface(tf);
         profile.setTypeface(tf);
         badges.setTypeface(tf);
-*/
+
         // set the content view
 
     }
