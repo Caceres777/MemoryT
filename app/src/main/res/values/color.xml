@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="Light_blue">#58ACFA</color>
-    <color name="Darck_blue">#3370a8</color>
+    <color name="Dark_blue">#3370a8</color>
     <color name="White">#FFFFFF</color>
     <color name="Hint_color">#848484</color>
-    <color name="Ligh_orange"> #FE9A2E</color>
-    <color name="Darck_orange">#c67720</color>
+    <color name="Light_orange"> #FE9A2E</color>
+    <color name="Dark_orange">#c67720</color>
     <color name="Initial_buttons">#46e5e5e5</color>
-    <color name="Initial_buttons_pressed"></color>
+    <color name="Initial_buttons_pressed">#96FFFFFF</color>
 </resources>

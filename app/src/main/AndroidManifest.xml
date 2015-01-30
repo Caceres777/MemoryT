@@ -22,15 +22,13 @@
 
         <activity
             android:name=".Home"
-            android:label="@string/title_activity_home"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.MemorytActionBar" >
         </activity>
 
         <activity
             android:name=".SplashScreen"
-            android:screenOrientation="portrait"
-            android:label="@string/title_activity_splash_screen">
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

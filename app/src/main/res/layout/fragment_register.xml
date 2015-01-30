@@ -11,8 +11,6 @@
     <Button
         style="@style/Initial_buttons"
         android:background="@drawable/button_custom_initial"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:text="Register"
         android:id="@+id/buttonRegister"
         android:layout_gravity="bottom|center_horizontal"
