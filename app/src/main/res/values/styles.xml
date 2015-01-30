@@ -20,11 +20,12 @@
         <item name="android:textColorHint">@color/Hint_color</item>
     </style>
 
-    <!-- Menu buttons style -->
-    <style name="Menu_buttons">
-        <item name="android:background">@color/Light_blue</item>
+
+    <!-- initial login and register buttons -->
+    <style name="Initial_buttons">
         <item name="android:textColor">@color/White</item>
     </style>
+
 
     <!-- Action bar custom style -->
     <style name="Theme.MemorytActionBar" parent="@style/Theme.AppCompat.Light">

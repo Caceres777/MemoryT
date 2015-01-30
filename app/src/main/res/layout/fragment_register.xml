@@ -44,7 +44,7 @@
         <EditText
             style="@style/TextFields"
             android:drawableLeft="@drawable/ic_action_user"
-            android:inputType="textPassword"
+            android:inputType="text"
             android:ems="10"
             android:id="@+id/register_user"
             android:layout_gravity="center_horizontal"

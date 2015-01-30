@@ -6,4 +6,6 @@
     <color name="Hint_color">#848484</color>
     <color name="Ligh_orange"> #FE9A2E</color>
     <color name="Darck_orange">#c67720</color>
+    <color name="Initial_buttons">#46e5e5e5</color>
+    <color name="Initial_buttons_pressed"></color>
 </resources>
