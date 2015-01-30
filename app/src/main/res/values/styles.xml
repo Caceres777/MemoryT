@@ -21,9 +21,18 @@
     </style>
 
 
+    <!-- menu buttons -->
+    <style name="Menu_buttons">
+        <item name="android:background">@color/Light_blue</item>
+        <item name="android:textColor">@color/White</item>
+    </style>
+
+
     <!-- initial login and register buttons -->
     <style name="Initial_buttons">
         <item name="android:textColor">@color/White</item>
+        <item name="android:layout_marginLeft">5dp</item>
+        <item name="android:layout_marginRight">5dp</item>
     </style>
 
 

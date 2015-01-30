@@ -9,15 +9,13 @@
     <!-- TODO: Update blank fragment layout -->
 
     <Button
-        android:background="#46e5e5e5"
-        android:textColor="#ffffffff"
+        style="@style/Initial_buttons"
+        android:background="@drawable/button_custom_initial"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Register"
         android:id="@+id/buttonRegister"
         android:layout_gravity="bottom|center_horizontal"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
         android:layout_marginBottom="8dp"/>
 
 
