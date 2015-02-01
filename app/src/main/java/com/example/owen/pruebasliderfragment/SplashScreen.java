@@ -2,11 +2,13 @@ package com.example.owen.pruebasliderfragment;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.parse.ParseUser;
 import java.util.Timer;
@@ -28,6 +30,9 @@ public class SplashScreen extends Activity {
         // animates the logo
         setContentView(R.layout.activity_splash_screen);
 
+        TextView charging = (TextView)findViewById(R.id.textView);
+        Typeface tf = Typeface.createFromAsset(getAssets(),"fonts/BrushScriptStd.otf");
+        charging.setTypeface(tf);
         animate_logo();
 
         TimerTask task = new TimerTask() {
@@ -38,7 +43,7 @@ public class SplashScreen extends Activity {
                 // check if the user is already logged
                 ParseUser currentUser = ParseUser.getCurrentUser();
                 if( currentUser != null){
-                    startActivity(new Intent(SplashScreen.this, Home.class));
+                    startActivity(new Intent(SplashScreen.this, Memoryt_home.class));
                 }else{
                     startActivity(new Intent(SplashScreen.this, Initial.class));
                 }

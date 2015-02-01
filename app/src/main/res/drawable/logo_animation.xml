@@ -45,5 +45,4 @@
     <item
         android:drawable="@drawable/logo13"
         android:duration="20"/>
-
 </animation-list>

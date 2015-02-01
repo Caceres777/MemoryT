@@ -1,35 +1,32 @@
 package com.example.owen.pruebasliderfragment;
 
-import android.support.v4.widget.DrawerLayout;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
+import android.content.Intent;
+import android.support.v4.content.IntentCompat;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
+import android.view.WindowManager;
+
+import com.parse.ParseUser;
 
 
 public class Memoryt_home extends ActionBarActivity {
 
-    private String[] mPlanetTitles;
-    private DrawerLayout mDrawerLayout;
-    private ListView mDrawerList;
-
+    Navigation_drawer_frag menuFrag;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_memoryt_home);
+        // hides the status bar
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        // icon set on action bar
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setIcon(R.drawable.ic_logo);
 
-
-        mPlanetTitles = getResources().getStringArray(R.array.Memoryt_menu_home);
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        mDrawerList = (ListView) findViewById(R.id.left_drawer);
-
-        /*// Set the adapter for the list view
-        mDrawerList.setAdapter(new ArrayAdapter<String>(this, R.layout.drawer_list_item, mPlanetTitles));
-        // Set the list's click listener
-        mDrawerList.setOnItemClickListener(new DrawerItemClickListener());*/
 
     }
 
@@ -46,13 +43,36 @@ public class Memoryt_home extends ActionBarActivity {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        switch(item.getItemId()){
+            case R.id.option1:
+                ParseUser.getCurrentUser().logOut();
+                Intent intent = new Intent(this, Initial.class);
+                Intent mainIntent = IntentCompat.makeRestartActivityTask(intent.getComponent());
+                startActivity(mainIntent);
+                overridePendingTransition(R.animator.left_in, R.animator.left_out);
+                break;
+            case R.id.option2:
+                menuFrag = new Navigation_drawer_frag();
+                FragmentManager fm = getFragmentManager();
+                FragmentTransaction ft = fm.beginTransaction();
+                ft.setCustomAnimations(R.animator.slide_in_left, R.animator.slide_out_right,R.animator.slide_in_left, R.animator.slide_out_right);
+                ft.add(R.id.Home, menuFrag);
+                ft.addToBackStack(null);
+                ft.commit();
         }
 
         return super.onOptionsItemSelected(item);
     }
+
+
+    @Override
+    public void onBackPressed(){
+        if (getSupportFragmentManager().getBackStackEntryCount() == 1){
+            finish();
+        }
+        else {
+            super.onBackPressed();
+        }
+    }
+
 }
