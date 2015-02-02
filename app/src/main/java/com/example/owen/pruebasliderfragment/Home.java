@@ -16,7 +16,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.support.v4.widget.DrawerLayout;
 import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
+
+import java.util.List;
 
 
 public class Home extends ActionBarActivity implements NavigationDrawerFragment.NavigationDrawerCallbacks {
@@ -138,6 +141,17 @@ public class Home extends ActionBarActivity implements NavigationDrawerFragment.
             super.onAttach(activity);
             ((Home) activity).onSectionAttached(
                     getArguments().getInt(ARG_SECTION_NUMBER));
+        }
+    }
+
+
+    @Override
+    public void onBackPressed(){
+        if (mNavigationDrawerFragment.isDrawerOpen()) {
+            mNavigationDrawerFragment.closeDrawer();
+        }
+        else {
+            super.onBackPressed();
         }
     }
 

@@ -22,6 +22,9 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Fragment used for managing interactions for and presentation of a navigation drawer.
  * See the <a href="https://developer.android.com/design/patterns/navigation-drawer.html#Interaction">
@@ -29,6 +32,11 @@ import android.widget.Toast;
  */
 public class NavigationDrawerFragment extends Fragment {
 
+    private String[] menuTitles;
+    private Integer[] menuImages ={R.drawable.ic_action_vs,R.drawable.ic_action_vs,R.drawable.ic_action_vs
+            ,R.drawable.ic_action_search,R.drawable.ic_action_courses,R.drawable.ic_action_settings,R.drawable.ic_action_search};
+    ListView listView;
+    List<RowItem> rowItems;
     /**
      * Remember the position of the selected item.
      */
@@ -87,21 +95,27 @@ public class NavigationDrawerFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        mDrawerListView = (ListView) inflater.inflate(
-                R.layout.fragment_navigation_drawer, container, false);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
+        mDrawerListView = (ListView) inflater.inflate(R.layout.fragment_navigation_drawer, container, false);
         mDrawerListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                selectItem(position);
-            }
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {selectItem(position);}
         });
-        mDrawerListView.setAdapter(new ArrayAdapter<String>(
+
+        menuTitles = getResources().getStringArray(R.array.Memoryt_menu_home);
+        rowItems = new ArrayList<RowItem>();
+        for (int i = 0; i < menuTitles.length; i++) {
+            RowItem item = new RowItem(menuImages[i], menuTitles[i]);
+            rowItems.add(item);
+        }
+        MenuAdapter adapter = new MenuAdapter(mDrawerListView.getContext(), R.layout.menu_item, rowItems);
+        mDrawerListView.setAdapter(adapter);
+        /*mDrawerListView.setAdapter(new ArrayAdapter<String>(
                 getActionBar().getThemedContext(),
                 android.R.layout.simple_list_item_activated_1,
                 android.R.id.text1,
-                getResources().getStringArray(R.array.Memoryt_menu_home)));
+                getResources().getStringArray(R.array.Memoryt_menu_home)));*/
         mDrawerListView.setItemChecked(mCurrentSelectedPosition, true);
         return mDrawerListView;
     }
@@ -274,5 +288,10 @@ public class NavigationDrawerFragment extends Fragment {
          * Called when an item in the navigation drawer is selected.
          */
         void onNavigationDrawerItemSelected(int position);
+    }
+
+
+    public void closeDrawer(){
+        mDrawerLayout.closeDrawer(mFragmentContainerView);
     }
 }
