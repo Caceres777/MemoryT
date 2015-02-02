@@ -74,7 +74,7 @@ public class Login_frag extends Fragment {
             public void done(ParseUser parseUser, ParseException e) {
                 if (parseUser != null) {
                     // Hooray! The user is logged in.
-                    startActivity(new Intent(getActivity(), Memoryt_home.class));
+                    startActivity(new Intent(getActivity(), Home.class));
                     getActivity().overridePendingTransition(R.animator.left_in, R.animator.left_out);
                 } else {
                     Toast toastMensajeError= Toast.makeText(getActivity(), e.getMessage().toString(), Toast.LENGTH_LONG);

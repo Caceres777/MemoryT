@@ -43,7 +43,7 @@ public class SplashScreen extends Activity {
                 // check if the user is already logged
                 ParseUser currentUser = ParseUser.getCurrentUser();
                 if( currentUser != null){
-                    startActivity(new Intent(SplashScreen.this, Memoryt_home.class));
+                    startActivity(new Intent(SplashScreen.this, Home.class));
                 }else{
                     startActivity(new Intent(SplashScreen.this, Initial.class));
                 }

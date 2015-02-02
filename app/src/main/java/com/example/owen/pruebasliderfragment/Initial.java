@@ -37,7 +37,7 @@ public class Initial extends Activity {
         logo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(v.getContext(),Memoryt_home.class));
+                startActivity(new Intent(v.getContext(),Home.class));
                 // makes an animation for the transition of the activities
                 overridePendingTransition(R.animator.left_in, R.animator.left_out);
             }

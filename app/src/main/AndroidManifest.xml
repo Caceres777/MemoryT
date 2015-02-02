@@ -18,7 +18,6 @@
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" >
         </activity>
-
         <activity
             android:name=".SplashScreen"
             android:screenOrientation="portrait" >
@@ -28,12 +27,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
-            android:name=".Memoryt_home"
-            android:label="@string/title_activity_memoryt_hom"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.MemorytActionBar" >
+            android:name=".Home"
+            android:label="@string/title_activity_home"
+            android:theme="@style/Theme.MemorytActionBar">
         </activity>
     </application>
 

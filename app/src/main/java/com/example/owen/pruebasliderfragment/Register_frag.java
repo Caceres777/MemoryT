@@ -104,7 +104,7 @@ public class Register_frag extends Fragment {
                         if (e == null) {
                             // sing up was successful
                             toastMensajeCorreto.show();
-                            startActivity(new Intent(getActivity(), Memoryt_home.class));
+                            startActivity(new Intent(getActivity(), Home.class));
                             getActivity().overridePendingTransition(R.animator.left_in, R.animator.left_out);
                         } else {
                             // sing in wasn't successful, show a Log with reason
