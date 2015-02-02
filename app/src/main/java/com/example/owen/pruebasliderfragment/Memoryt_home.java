@@ -8,12 +8,13 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.Window;
 import android.view.WindowManager;
 
 import com.parse.ParseUser;
 
 
-public class Memoryt_home extends ActionBarActivity {
+public class Memoryt_home extends ActionBarActivity{
 
     Navigation_drawer_frag menuFrag;
 
@@ -25,8 +26,8 @@ public class Memoryt_home extends ActionBarActivity {
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         // icon set on action bar
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setIcon(R.drawable.ic_logo);
-
+        getSupportActionBar().setIcon(R.drawable.ic_action_menu);
+        getSupportActionBar().setHomeButtonEnabled(true);
 
     }
 
@@ -52,27 +53,36 @@ public class Memoryt_home extends ActionBarActivity {
                 overridePendingTransition(R.animator.left_in, R.animator.left_out);
                 break;
             case R.id.option2:
-                menuFrag = new Navigation_drawer_frag();
-                FragmentManager fm = getFragmentManager();
-                FragmentTransaction ft = fm.beginTransaction();
-                ft.setCustomAnimations(R.animator.slide_in_left, R.animator.slide_out_right,R.animator.slide_in_left, R.animator.slide_out_right);
-                ft.add(R.id.Home, menuFrag);
-                ft.addToBackStack(null);
-                ft.commit();
+                showMenuFragment();
+                break;
+            case R.id.title:
+                showMenuFragment();
         }
 
         return super.onOptionsItemSelected(item);
     }
 
 
+    // checks out to see if the fragment is showing or not, if showing the we close menu instead of closing activity
     @Override
     public void onBackPressed(){
-        if (getSupportFragmentManager().getBackStackEntryCount() == 1){
-            finish();
-        }
-        else {
+        Navigation_drawer_frag myFragment = (Navigation_drawer_frag)getFragmentManager().findFragmentByTag("Menu_fragment");
+        if (myFragment.isVisible()) {
+            getFragmentManager().beginTransaction().remove(myFragment).commit();
+        }else {
             super.onBackPressed();
         }
+    }
+
+
+    private void showMenuFragment(){
+        menuFrag = new Navigation_drawer_frag();
+        FragmentManager fm = getFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
+        ft.setCustomAnimations(R.animator.slide_in_left, R.animator.slide_out_right,R.animator.slide_in_left, R.animator.slide_out_right);
+        ft.add(R.id.Home, menuFrag, "Menu_fragment");
+        ft.addToBackStack(null);
+        ft.commit();
     }
 
 }
