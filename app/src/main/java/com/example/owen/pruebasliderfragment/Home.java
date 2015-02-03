@@ -2,6 +2,8 @@ package com.example.owen.pruebasliderfragment;
 
 import android.app.Activity;
 import android.app.FragmentTransaction;
+import android.content.Intent;
+import android.support.v4.content.IntentCompat;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
@@ -9,10 +11,12 @@ import android.support.v4.app.FragmentManager;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.support.v4.widget.DrawerLayout;
 
+import com.parse.ParseUser;
 
 
 public class Home extends ActionBarActivity implements NavigationDrawerFragment.NavigationDrawerCallbacks {
@@ -150,6 +154,23 @@ public class Home extends ActionBarActivity implements NavigationDrawerFragment.
         }
         else {
             super.onBackPressed();
+        }
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle presses on the action bar items
+        switch (item.getItemId()) {
+            case R.id.logOut:
+                ParseUser.getCurrentUser().logOut();
+                Intent intent = new Intent(this, Initial.class);
+                Intent mainIntent = IntentCompat.makeRestartActivityTask(intent.getComponent());
+                startActivity(mainIntent);
+                overridePendingTransition(R.animator.left_in, R.animator.left_out);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
     }
 

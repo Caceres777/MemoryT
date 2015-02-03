@@ -2,6 +2,8 @@ package com.example.owen.pruebasliderfragment;
 
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.util.Log;
@@ -16,11 +18,14 @@ import com.parse.LogInCallback;
 import com.parse.ParseException;
 import com.parse.ParseUser;
 
+import java.io.ByteArrayOutputStream;
+
 
 public class Login_frag extends Fragment {
 
     Button btnLogin;
     EditText user, pass;
+
 
 
 
@@ -51,6 +56,7 @@ public class Login_frag extends Fragment {
 
         user = (EditText)v.findViewById(R.id.user_email);
         pass = (EditText)v.findViewById(R.id.login_Pass);
+
         // Button login and listener
         btnLogin = (Button)v.findViewById(R.id.buttonLogin);
         btnLogin.setOnClickListener(new View.OnClickListener() {

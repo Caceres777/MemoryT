@@ -1,5 +1,7 @@
 package com.example.owen.pruebasliderfragment;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.v7.app.ActionBarActivity;
 import android.app.Activity;
 import android.support.v7.app.ActionBar;
@@ -15,11 +17,18 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import com.parse.ParseException;
+import com.parse.ParseFile;
+import com.parse.ParseUser;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -96,7 +105,8 @@ public class NavigationDrawerFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        mDrawerListView = (ListView) inflater.inflate(R.layout.fragment_navigation_drawer, container, false);
+        View v = inflater.inflate(R.layout.fragment_navigation_drawer, container, false);
+        mDrawerListView =(ListView) v.findViewById(R.id.listView_drawer);
         mDrawerListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {selectItem(position);}
@@ -110,13 +120,13 @@ public class NavigationDrawerFragment extends Fragment {
         }
         MenuAdapter adapter = new MenuAdapter(mDrawerListView.getContext(), R.layout.menu_item, rowItems);
         mDrawerListView.setAdapter(adapter);
-        /*mDrawerListView.setAdapter(new ArrayAdapter<String>(
-                getActionBar().getThemedContext(),
-                android.R.layout.simple_list_item_activated_1,
-                android.R.id.text1,
-                getResources().getStringArray(R.array.Memoryt_menu_home)));*/
         mDrawerListView.setItemChecked(mCurrentSelectedPosition, true);
-        return mDrawerListView;
+
+        ImageView profile_img = (ImageView)v.findViewById(R.id.profile_pic);
+        setProfileImg(profile_img);
+        TextView user_name = (TextView)v.findViewById(R.id.profile_name);
+        user_name.setText(ParseUser.getCurrentUser().getUsername());
+        return v;
     }
 
     public boolean isDrawerOpen() {
@@ -256,11 +266,6 @@ public class NavigationDrawerFragment extends Fragment {
             return true;
         }
 
-        if (item.getItemId() == R.id.action_example) {
-            Toast.makeText(getActivity(), "Example action.", Toast.LENGTH_SHORT).show();
-            return true;
-        }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -292,5 +297,19 @@ public class NavigationDrawerFragment extends Fragment {
 
     public void closeDrawer(){
         mDrawerLayout.closeDrawer(mFragmentContainerView);
+    }
+
+
+    public void setProfileImg(ImageView imageview){
+        ParseFile data = (ParseFile) ParseUser.getCurrentUser().get("image");
+        if(data != null) {
+            try {
+                byte[] img = data.getData();
+                Bitmap bitmap = BitmapFactory.decodeByteArray(img, 0, img.length);
+                imageview.setImageBitmap(new ImageHelper().getRoundedCornerBitmap(bitmap,90));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }

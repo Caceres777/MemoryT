@@ -1,6 +1,8 @@
 package com.example.owen.pruebasliderfragment;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.view.LayoutInflater;
@@ -11,14 +13,21 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.parse.ParseException;
+import com.parse.ParseFile;
 import com.parse.ParseUser;
+import com.parse.SaveCallback;
 import com.parse.SignUpCallback;
+
+import java.io.ByteArrayOutputStream;
 
 
 public class Register_frag extends Fragment {
 
     Button btnRegister;
     EditText email = null, pass1, pass2, user;
+    ParseUser newUser;
+    ParseFile parseImage;
+    byte[] image;
     static String mensajeContrasenaMala = "contrasena incorrecta";
     static String mensajeCamposVacios = "Faltan campos por rellenar";
     static String mensajeNoReg = "No se a podido registrar";
@@ -95,22 +104,35 @@ public class Register_frag extends Fragment {
             if(!password1.equals(password2)){
                 toastContr.show();
             }else{
-                ParseUser newUser= new ParseUser();
+                newUser= new ParseUser();
                 newUser.setUsername(user_name);
                 newUser.setEmail(user_email);
                 newUser.setPassword(password1);
-                newUser.signUpInBackground(new SignUpCallback() {
+                Bitmap profile_img = BitmapFactory.decodeResource(getResources(), R.drawable.user_img);
+                // Convert it to byte
+                ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                // Compress image to lower quality scale 1 - 100
+                profile_img.compress(Bitmap.CompressFormat.PNG, 100, stream);
+                image = stream.toByteArray();
+                parseImage = new ParseFile("profilePic.png", image);
+                parseImage.saveInBackground(new SaveCallback() {
                     public void done(ParseException e) {
-                        if (e == null) {
-                            // sing up was successful
-                            toastMensajeCorreto.show();
-                            startActivity(new Intent(getActivity(), Home.class));
-                            getActivity().overridePendingTransition(R.animator.left_in, R.animator.left_out);
-                        } else {
-                            // sing in wasn't successful, show a Log with reason
-                            toastMensajeError= Toast.makeText(getActivity(), e.getMessage().toString(), Toast.LENGTH_LONG);
-                            toastMensajeError.show();
-                        }
+                        // If successful add file to user and signUpInBackground
+                        newUser.put("image", parseImage);
+                        newUser.signUpInBackground(new SignUpCallback() {
+                            public void done(ParseException e) {
+                                if (e == null) {
+                                    // sing up was successful
+                                    toastMensajeCorreto.show();
+                                    startActivity(new Intent(getActivity(), Home.class));
+                                    getActivity().overridePendingTransition(R.animator.left_in, R.animator.left_out);
+                                } else {
+                                    // sing in wasn't successful, show a Log with reason
+                                    toastMensajeError= Toast.makeText(getActivity(), e.getMessage().toString(), Toast.LENGTH_LONG);
+                                    toastMensajeError.show();
+                                }
+                            }
+                        });
                     }
                 });
             }

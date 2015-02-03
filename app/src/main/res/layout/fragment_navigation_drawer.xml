@@ -1,9 +1,53 @@
-<ListView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:choiceMode="singleChoice"
-    android:divider="@color/Initial_buttons"
-    android:dividerHeight="1dp"
-    android:background="@color/Dark_blue"
-    tools:context="com.example.owen.pruebasliderfragment.NavigationDrawerFragment" />
+    android:id="@+id/navigation_drawer_fragment"
+    android:orientation="vertical"
+    tools:context="com.example.owen.pruebasliderfragment.fragment_navigation_drawer">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/Light_orange"
+        android:orientation="horizontal"
+        android:layout_weight="0.80">
+
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/profile_pic"
+            android:layout_margin="10dp"
+            android:layout_gravity="center_vertical" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="New Text"
+            android:id="@+id/profile_name"
+            android:layout_gravity="center_vertical"
+            android:textColor="@color/White"
+            android:textStyle="bold"
+            android:textSize="20dp"/>
+    </LinearLayout>
+
+
+
+    <ListView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_weight="0.20"
+        android:id="@+id/listView_drawer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:choiceMode="singleChoice"
+        android:divider="@color/Initial_buttons"
+        android:dividerHeight="1dp"
+        android:background="@color/Dark_blue"
+        tools:context="com.example.owen.pruebasliderfragment.NavigationDrawerFragment" />
+
+
+
+
+</LinearLayout>
