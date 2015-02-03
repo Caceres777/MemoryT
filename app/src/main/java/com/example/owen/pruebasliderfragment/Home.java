@@ -1,14 +1,12 @@
 package com.example.owen.pruebasliderfragment;
 
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.view.WindowManager;
-import android.widget.AdapterView;
-import android.widget.GridView;
-import android.widget.Toast;
+
+import com.example.owen.pruebasliderfragment.data.Ayudante;
 
 
 public class Home extends ActionBarActivity {
@@ -22,6 +20,7 @@ public class Home extends ActionBarActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setIcon(R.drawable.ic_logo);
         // set the content view
+        Ayudante mSQLiteHelper= new Ayudante(this);
         setContentView(R.layout.activity_home);
     }
 
