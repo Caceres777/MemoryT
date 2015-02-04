@@ -34,44 +34,6 @@ public class Settings_frag extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        prefs= getActivity().getSharedPreferences("MemorytPrefs", Context.MODE_PRIVATE);
-        editor=prefs.edit();
-        switchSonido=(Switch) getActivity().findViewById(R.id.switch1);
-        switchVibracion=(Switch) getActivity().findViewById(R.id.switch2);
-        switchNotificaciones=(Switch) getActivity().findViewById(R.id.switch3);
-        switchRecordatorios=(Switch) getActivity().findViewById(R.id.switch4);
-        switchSonidoTactil=(Switch) getActivity().findViewById(R.id.switch5);
-        cargarConfiguracion();
-        switchSonido.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                editor.putBoolean("Sonido", switchSonido.isChecked());
-            }
-        });
-        switchVibracion.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                editor.putBoolean("Vibracion", switchVibracion.isChecked());
-            }
-        });
-        switchNotificaciones.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                editor.putBoolean("Notificaciones", switchNotificaciones.isChecked());
-            }
-        });
-        switchRecordatorios.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                editor.putBoolean("Recordatorios", switchRecordatorios.isChecked());
-            }
-        });
-        switchSonidoTactil.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                editor.putBoolean("SonidoTactil", switchSonidoTactil.isChecked());
-            }
-        });
     }
 
 
@@ -79,29 +41,55 @@ public class Settings_frag extends Fragment {
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_settings_frag, container, false);
+        View v = inflater.inflate(R.layout.fragment_settings_frag, container, false);
+        prefs= getActivity().getSharedPreferences("MemorytPrefs", Context.MODE_PRIVATE);
+        editor=prefs.edit();
+
+
+        switchSonido=(Switch) v.findViewById(R.id.switch1);
+        switchVibracion=(Switch) v.findViewById(R.id.switch2);
+        switchNotificaciones=(Switch) v.findViewById(R.id.switch3);
+        switchRecordatorios=(Switch) v.findViewById(R.id.switch4);
+        switchSonidoTactil=(Switch) v.findViewById(R.id.switch5);
+        cargarConfiguracion();
+
+        switchSonido.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                editor.putBoolean("Sonido", switchSonido.isChecked()).apply();
+            }
+        });
+        switchVibracion.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                editor.putBoolean("Vibracion", switchVibracion.isChecked()).apply();
+            }
+        });
+        switchNotificaciones.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                editor.putBoolean("Notificaciones", switchNotificaciones.isChecked()).apply();
+            }
+        });
+        switchRecordatorios.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                editor.putBoolean("Recordatorios", switchRecordatorios.isChecked()).apply();
+            }
+        });
+        switchSonidoTactil.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                editor.putBoolean("SonidoTactil", switchSonidoTactil.isChecked()).apply();
+            }
+        });
+        return v;
     }
-
-
-
-
-    public void guardarConfiguracion()
-    {
-        editor.putBoolean("Sonido", switchSonido.isChecked());
-        editor.putBoolean("Vibracion", switchVibracion.isChecked());
-        editor.putBoolean("Notificaciones", switchNotificaciones.isChecked());
-        editor.putBoolean("Recordatorios", switchRecordatorios.isChecked());
-        editor.putBoolean("SonidoTactil", switchSonidoTactil.isChecked());
-        editor.commit();
-    }
-
 
 
     public void cargarConfiguracion(){
-        SharedPreferences prefs =getActivity().getSharedPreferences("MemorytPrefs", Context.MODE_PRIVATE);
         switchSonido.setChecked(prefs.getBoolean("Sonido", true));
         switchVibracion.setChecked(prefs.getBoolean("Vibracion", true));
         switchNotificaciones.setChecked(prefs.getBoolean("Notificaciones", true));
