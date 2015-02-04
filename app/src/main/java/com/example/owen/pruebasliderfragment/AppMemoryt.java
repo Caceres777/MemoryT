@@ -6,8 +6,6 @@ package com.example.owen.pruebasliderfragment;
 
 import android.app.Application;
 import com.parse.Parse;
-import com.parse.ParseACL;
-import com.parse.ParseUser;
 
 public class AppMemoryt extends Application{
 
@@ -20,8 +18,8 @@ public class AppMemoryt extends Application{
         Parse.initialize(this, "eUm1h1r7STn62J6CMZpISBQCtM7izmp8b001Udab", "g3qvGnhMjsVrMGn03ZkcdmIGBvUPEDIoTJUMyrxP");
 
 
-        ParseUser.enableAutomaticUser();
-        ParseACL defaultACL = new ParseACL();
+        //ParseUser.enableAutomaticUser();
+        //ParseACL defaultACL = new ParseACL();
     }
 
 }

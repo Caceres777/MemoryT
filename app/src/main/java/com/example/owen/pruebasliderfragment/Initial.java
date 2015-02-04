@@ -12,13 +12,12 @@ import android.widget.ImageView;
 
 public class Initial extends Activity {
 
-    //Button btn;
     FragmentManager fragmentmanager;
     FragmentTransaction ft;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         // hides the status bar
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
@@ -44,6 +43,8 @@ public class Initial extends Activity {
             }
         });
     }
+
+
 
 
 }
