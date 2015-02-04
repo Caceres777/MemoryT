@@ -15,6 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.support.v4.widget.DrawerLayout;
+import android.view.WindowManager;
 
 import com.parse.ParseUser;
 
@@ -35,6 +36,9 @@ public class Home extends ActionBarActivity implements NavigationDrawerFragment.
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+        // hides the status bar
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         mNavigationDrawerFragment = (NavigationDrawerFragment)getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
         mTitle = getTitle();

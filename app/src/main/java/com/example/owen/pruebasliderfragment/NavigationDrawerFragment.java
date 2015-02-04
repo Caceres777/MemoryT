@@ -76,6 +76,8 @@ public class NavigationDrawerFragment extends Fragment {
     public NavigationDrawerFragment() {
     }
 
+
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -94,12 +96,18 @@ public class NavigationDrawerFragment extends Fragment {
         selectItem(mCurrentSelectedPosition);
     }
 
+
+
+
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         // Indicate that this fragment would like to influence the set of actions in the action bar.
         setHasOptionsMenu(true);
     }
+
+
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -130,9 +138,17 @@ public class NavigationDrawerFragment extends Fragment {
         return v;
     }
 
+
+
+
+
     public boolean isDrawerOpen() {
         return mDrawerLayout != null && mDrawerLayout.isDrawerOpen(mFragmentContainerView);
     }
+
+
+
+
 
     /**
      * Users of this fragment must call this method to set up the navigation drawer interactions.
@@ -208,6 +224,10 @@ public class NavigationDrawerFragment extends Fragment {
         mDrawerLayout.setDrawerListener(mDrawerToggle);
     }
 
+
+
+
+
     private void selectItem(int position) {
         mCurrentSelectedPosition = position;
         if (mDrawerListView != null) {
@@ -221,6 +241,9 @@ public class NavigationDrawerFragment extends Fragment {
         }
     }
 
+
+
+
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
@@ -231,11 +254,19 @@ public class NavigationDrawerFragment extends Fragment {
         }
     }
 
+
+
+
+
     @Override
     public void onDetach() {
         super.onDetach();
         mCallbacks = null;
     }
+
+
+
+
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
@@ -243,12 +274,19 @@ public class NavigationDrawerFragment extends Fragment {
         outState.putInt(STATE_SELECTED_POSITION, mCurrentSelectedPosition);
     }
 
+
+
+
+
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         // Forward the new configuration the drawer toggle component.
         mDrawerToggle.onConfigurationChanged(newConfig);
     }
+
+
+
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
@@ -261,6 +299,9 @@ public class NavigationDrawerFragment extends Fragment {
         super.onCreateOptionsMenu(menu, inflater);
     }
 
+
+
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (mDrawerToggle.onOptionsItemSelected(item)) {
@@ -269,6 +310,10 @@ public class NavigationDrawerFragment extends Fragment {
 
         return super.onOptionsItemSelected(item);
     }
+
+
+
+
 
     /**
      * Per the navigation drawer design guidelines, updates the action bar to show the global app
@@ -299,6 +344,9 @@ public class NavigationDrawerFragment extends Fragment {
     public void closeDrawer(){
         mDrawerLayout.closeDrawer(mFragmentContainerView);
     }
+
+
+
 
 
     public void setProfileImg(ImageView imageview){

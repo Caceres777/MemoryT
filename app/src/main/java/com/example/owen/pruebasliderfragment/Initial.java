@@ -32,16 +32,6 @@ public class Initial extends Activity {
         ft.setCustomAnimations(R.animator.slide_in_left, R.animator.slide_out_right);
         ft.add(R.id.background_start, startFrag);
         ft.commit();
-
-        ImageView logo = (ImageView)findViewById(R.id.logo);
-        logo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(v.getContext(),Home.class));
-                // makes an animation for the transition of the activities
-                overridePendingTransition(R.animator.left_in, R.animator.left_out);
-            }
-        });
     }
 
 
