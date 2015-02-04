@@ -2,6 +2,7 @@ package com.example.owen.pruebasliderfragment;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Typeface;
 import android.support.v7.app.ActionBarActivity;
 import android.app.Activity;
 import android.support.v7.app.ActionBar;
@@ -17,14 +18,12 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.parse.ParseException;
 import com.parse.ParseFile;
@@ -41,8 +40,8 @@ import java.util.List;
 public class NavigationDrawerFragment extends Fragment {
 
     private String[] menuTitles;
-    private Integer[] menuImages ={R.drawable.ic_action_vs,R.drawable.ic_action_vs,R.drawable.ic_action_vs
-            ,R.drawable.ic_action_search,R.drawable.ic_action_courses,R.drawable.ic_action_settings,R.drawable.ic_action_search};
+    private Integer[] menuImages ={R.drawable.ic_action_home,R.drawable.ic_action_courses,R.drawable.ic_action_profile
+            ,R.drawable.ic_action_vs,R.drawable.ic_action_search,R.drawable.ic_action_badge,R.drawable.ic_action_settings};
     ListView listView;
     List<RowItem> rowItems;
     /**
@@ -125,6 +124,8 @@ public class NavigationDrawerFragment extends Fragment {
         ImageView profile_img = (ImageView)v.findViewById(R.id.profile_pic);
         setProfileImg(profile_img);
         TextView user_name = (TextView)v.findViewById(R.id.profile_name);
+        //Typeface tf = Typeface.createFromAsset(getActivity().getAssets(),"fonts/exljbris - Anivers-Regular.otf");
+        //user_name.setTypeface(tf);
         user_name.setText(ParseUser.getCurrentUser().getUsername());
         return v;
     }
@@ -306,6 +307,7 @@ public class NavigationDrawerFragment extends Fragment {
             try {
                 byte[] img = data.getData();
                 Bitmap bitmap = BitmapFactory.decodeByteArray(img, 0, img.length);
+                bitmap = Bitmap.createScaledBitmap(bitmap, 180, 180, true);
                 imageview.setImageBitmap(new ImageHelper().getRoundedCornerBitmap(bitmap,90));
             } catch (ParseException e) {
                 e.printStackTrace();
