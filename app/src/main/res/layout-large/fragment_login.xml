@@ -1,0 +1,60 @@
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/fragment_login"
+    tools:context="com.example.owen.pruebasliderfragment.Login_frag">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <Button
+        style="@style/Initial_buttons"
+        android:background="@drawable/button_custom_initial"
+        android:text="Login"
+        android:id="@+id/buttonLogin"
+        android:layout_gravity="bottom|center_horizontal"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp" />
+
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_gravity="center"
+        android:gravity="center">
+
+        <EditText
+            style="@style/TextFields"
+            android:inputType="textEmailAddress"
+            android:background="@drawable/edit_text_top"
+            android:drawableLeft="@drawable/ic_action_email"
+            android:ems="10"
+            android:id="@+id/user_email"
+            android:layout_gravity="center_horizontal"
+            android:layout_below="@+id/imageView"
+            android:layout_centerHorizontal="true"
+            android:hint="User email"
+            android:selectAllOnFocus="false"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="50dp" />
+
+        <EditText
+            style="@style/TextFields"
+            android:inputType="textPassword"
+            android:background="@drawable/edit_text_bottom"
+            android:drawableLeft="@drawable/ic_action_password"
+            android:ems="10"
+            android:id="@+id/login_Pass"
+            android:layout_gravity="center_horizontal"
+            android:layout_below="@+id/editEmail"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="3dp"
+            android:hint="Password"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="50dp" />
+
+    </LinearLayout>
+</FrameLayout>
