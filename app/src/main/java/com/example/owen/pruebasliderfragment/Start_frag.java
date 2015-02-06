@@ -4,16 +4,10 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-
-import com.parse.LogInCallback;
-import com.parse.ParseException;
-import com.parse.ParseFacebookUtils;
-import com.parse.ParseUser;
 
 
 public class Start_frag extends Fragment {
@@ -48,7 +42,7 @@ public class Start_frag extends Fragment {
             public void onClick(View v) {
                 // creation of the new fragment, setting the animation and replacing the old fragment
                 Register_frag registerFrag = new Register_frag();
-                ft.setCustomAnimations(R.animator.slide_in_left, R.animator.slide_out_right,R.animator.slide_in_left, R.animator.slide_out_right);
+                ft.setCustomAnimations(R.animator.slide_in_left_frag, R.animator.slide_out_right_frag,R.animator.slide_in_left_frag, R.animator.slide_out_right_frag);
                 ft.replace(R.id.background_start, registerFrag);
                 ft.addToBackStack(null);
                 ft.commit();
@@ -62,7 +56,7 @@ public class Start_frag extends Fragment {
             public void onClick(View v) {
                 // creation of the new fragment, setting the animation and replacing the old fragment
                 Login_frag loginFrag = new Login_frag();
-                ft.setCustomAnimations(R.animator.slide_in_left, R.animator.slide_out_right,R.animator.slide_in_left, R.animator.slide_out_right);
+                ft.setCustomAnimations(R.animator.slide_in_left_frag, R.animator.slide_out_right_frag,R.animator.slide_in_left_frag, R.animator.slide_out_right_frag);
                 ft.replace(R.id.background_start, loginFrag);
                 ft.addToBackStack(null);
                 ft.commit();

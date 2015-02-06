@@ -59,6 +59,9 @@ public class Home extends ActionBarActivity implements NavigationDrawerFragment.
     }
 
     public void onSectionAttached(int number) {
+        android.app.FragmentManager fm = getFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
+
         switch (number) {
             case 1:
                 mTitle = getString(R.string.title_section1);
@@ -68,6 +71,9 @@ public class Home extends ActionBarActivity implements NavigationDrawerFragment.
                 break;
             case 3:
                 mTitle = getString(R.string.title_section3);
+                ft.setCustomAnimations(R.animator.slide_in_left_frag, R.animator.slide_out_right_frag);
+                ft.replace(R.id.container,new Profile_frag());
+                ft.commit();
                 break;
             case 4:
                 mTitle = getString(R.string.title_section4);
@@ -80,9 +86,7 @@ public class Home extends ActionBarActivity implements NavigationDrawerFragment.
                 break;
             case 7:
                 mTitle = getString(R.string.title_section7);
-                android.app.FragmentManager fm = getFragmentManager();
-                FragmentTransaction ft = fm.beginTransaction();
-                ft.setCustomAnimations(R.animator.slide_in_left, R.animator.slide_out_right);
+                ft.setCustomAnimations(R.animator.slide_in_left_frag, R.animator.slide_out_right_frag);
                 ft.replace(R.id.container,new Settings_frag());
                 ft.commit();
                 break;
@@ -138,7 +142,7 @@ public class Home extends ActionBarActivity implements NavigationDrawerFragment.
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_home, container, false);
+            View rootView = inflater.inflate(R.layout.fragment_home_frag, container, false);
             return rootView;
         }
 

@@ -3,11 +3,8 @@ package com.example.owen.pruebasliderfragment;
 import android.app.Activity;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.view.WindowManager;
-import android.widget.ImageView;
 
 
 public class Initial extends Activity {
@@ -29,7 +26,7 @@ public class Initial extends Activity {
         ft = fragmentmanager.beginTransaction();
 
         final Start_frag startFrag = new Start_frag();
-        ft.setCustomAnimations(R.animator.slide_in_left, R.animator.slide_out_right);
+        ft.setCustomAnimations(R.animator.slide_in_left_frag, R.animator.slide_out_right_frag);
         ft.add(R.id.background_start, startFrag);
         ft.commit();
     }

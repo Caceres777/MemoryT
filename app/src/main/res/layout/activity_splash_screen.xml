@@ -1,30 +1,49 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:background="@drawable/fondo_azul"
-    tools:context="com.example.owen.pruebasliderfragment.SplashScreen">
+    android:orientation="vertical"
+    tools:context="com.example.owen.pruebasliderfragment.SplashScreen"
+    android:gravity="center_vertical">
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/animation"
-        android:src="@drawable/logo_animation"
-        android:layout_marginTop="100dp"
-        android:layout_gravity="center_horizontal" />
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_gravity="center">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Charging..."
-        android:textColor="@color/White"
-        android:textSize="40dp"
-        android:id="@+id/textView"
-        android:layout_below="@+id/animation"
-        android:layout_centerHorizontal="true"
-        android:layout_gravity="center_horizontal|bottom"
-        android:layout_marginBottom="100dp" />
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
 
-</FrameLayout>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/logo0"
+            android:id="@+id/animation"
+            android:layout_gravity="center" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Charging..."
+            android:textColor="@color/White"
+            android:textSize="40dp"
+            android:id="@+id/textView"
+            android:layout_below="@+id/animation"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center"
+            android:layout_marginBottom="100dp"
+            android:layout_weight="1"/>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+    </LinearLayout>
+
+</LinearLayout>

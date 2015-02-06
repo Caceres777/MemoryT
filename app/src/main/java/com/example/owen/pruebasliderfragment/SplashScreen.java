@@ -1,5 +1,7 @@
 package com.example.owen.pruebasliderfragment;
 
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Typeface;
@@ -7,6 +9,8 @@ import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -30,10 +34,14 @@ public class SplashScreen extends Activity {
         // animates the logo
         setContentView(R.layout.activity_splash_screen);
 
+
+        ImageView logo = (ImageView)findViewById(R.id.animation);
+        Animation pulse = AnimationUtils.loadAnimation(this, R.anim.pulse_animation);
+        logo.startAnimation(pulse);
+
         TextView charging = (TextView)findViewById(R.id.textView);
         Typeface tf = Typeface.createFromAsset(getAssets(),"fonts/BrushScriptStd.otf");
         charging.setTypeface(tf);
-        animate_logo();
 
         TimerTask task = new TimerTask() {
             @Override
@@ -57,14 +65,5 @@ public class SplashScreen extends Activity {
         // Simulate a long loading process on application startup.
         Timer timer = new Timer();
         timer.schedule(task, SPLASH_SCREEN_DELAY);
-    }
-
-
-
-    private void animate_logo(){
-        ImageView animationLogo = (ImageView)findViewById(R.id.animation);
-        final AnimationDrawable ad = (AnimationDrawable)animationLogo.getDrawable();
-        ad.start();
-
     }
 }

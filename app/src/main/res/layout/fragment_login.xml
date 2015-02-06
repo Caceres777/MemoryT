@@ -10,7 +10,6 @@
 
     <Button
         style="@style/Initial_buttons"
-        android:background="@drawable/button_custom_initial"
         android:text="Login"
         android:id="@+id/buttonLogin"
         android:layout_gravity="bottom|center_horizontal"

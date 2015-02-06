@@ -26,10 +26,10 @@
         <Button
             android:drawableLeft="@drawable/logo_google_plus"
             android:background="#ffd34836"
-            android:textColor="#ffffffff"
+            android:textColor="@color/White"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Conect with Google +"
+            android:text="Connect with Google +"
             android:id="@+id/buttonGooglePlus"
             android:layout_gravity="center_horizontal"
             android:layout_marginLeft="5dp"
@@ -38,10 +38,10 @@
         <Button
             android:drawableLeft="@drawable/logo_facebook"
             android:background="#ff3b5998"
-            android:textColor="#ffffffff"
+            android:textColor="@color/White"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Conect with Facebook"
+            android:text="Connect with Facebook"
             android:id="@+id/buttonFacebook"
             android:layout_gravity="center_horizontal"
             android:layout_marginLeft="5dp"
@@ -51,9 +51,8 @@
 
         <Button
             style="@style/Initial_buttons"
-            android:background="@drawable/button_custom_initial"
             android:drawableLeft="@drawable/logo_arroba"
-            android:text="Sing up with e-mail"
+            android:text="Sign up with e-mail"
             android:id="@+id/buttonEMail"
             android:layout_gravity="center_horizontal" />
 
