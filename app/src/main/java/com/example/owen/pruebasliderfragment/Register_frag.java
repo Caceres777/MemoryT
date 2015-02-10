@@ -108,6 +108,8 @@ public class Register_frag extends Fragment {
                 newUser.setUsername(user_name);
                 newUser.setEmail(user_email);
                 newUser.setPassword(password1);
+                newUser.put("level", 0);
+                newUser.put("exp", 0);
                 Bitmap profile_img = BitmapFactory.decodeResource(getResources(), R.drawable.user_img);
                 // Convert it to byte
                 ByteArrayOutputStream stream = new ByteArrayOutputStream();

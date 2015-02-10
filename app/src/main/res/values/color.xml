@@ -3,6 +3,7 @@
     <color name="Light_blue">#58ACFA</color>
     <color name="Dark_blue">#3370a8</color>
     <color name="White">#FFFFFF</color>
+    <color name="Black">#000000</color>
     <color name="Hint_color">#848484</color>
     <color name="Light_orange"> #FE9A2E</color>
     <color name="Dark_orange">#c67720</color>

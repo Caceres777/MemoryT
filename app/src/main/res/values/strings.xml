@@ -22,6 +22,20 @@
         <item>Settings</item>
     </array>
 
+    <array name="Memoryt_profile_stats">
+        <item>stat1</item>
+        <item>stat2</item>
+        <item>stat3</item>
+        <item>stat4</item>
+        <item>stat5</item>
+        <item>stat6</item>
+        <item>stat7</item>
+        <item>stat8</item>
+        <item>stat9</item>
+        <item>stat10</item>
+        <item>stat11</item>
+    </array>
+
     <!-- opciones del menu drawer -->
     <string name="title_section1">Home</string>
     <string name="title_section2">My Courses</string>
