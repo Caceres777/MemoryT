@@ -36,8 +36,11 @@ public class SplashScreen extends Activity {
 
 
         ImageView logo = (ImageView)findViewById(R.id.animation);
+        //ImageView  wave = (ImageView)findViewById(R.id.animation2);
         Animation pulse = AnimationUtils.loadAnimation(this, R.anim.pulse_animation);
+        //Animation wave_move = AnimationUtils.loadAnimation(this, R.anim.grow_disappear_animation);
         logo.startAnimation(pulse);
+        //wave.startAnimation(wave_move);
 
         TextView charging = (TextView)findViewById(R.id.textView);
         Typeface tf = Typeface.createFromAsset(getAssets(),"fonts/BrushScriptStd.otf");

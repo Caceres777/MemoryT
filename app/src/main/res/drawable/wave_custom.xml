@@ -5,12 +5,14 @@
 
     <solid
         android:color="#FF59D7FF"/>
-
+    <!-- colors start #FF59D7FF end #0059D7FF -->
     <gradient
-        android:startColor="#FF59D7FF"
+        android:type="radial"
+        android:gradientRadius="80%"
+        android:startColor="#0059D7FF"
         android:centerColor="#9059D7FF"
-        android:endColor="0059D7FF"/>
+        android:endColor="#FF59D7FF"/>
     <size
-        android:width="5dp"
-        android:height="5dp"/>
+        android:width="100dp"
+        android:height="100dp"/>
 </shape>

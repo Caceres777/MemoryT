@@ -73,6 +73,7 @@ public class Home extends ActionBarActivity implements NavigationDrawerFragment.
                 mTitle = getString(R.string.title_section3);
                 ft.setCustomAnimations(R.animator.slide_in_left_frag, R.animator.slide_out_right_frag);
                 ft.replace(R.id.container,new Profile_frag());
+                ft.addToBackStack(null);
                 ft.commit();
                 break;
             case 4:
@@ -85,9 +86,10 @@ public class Home extends ActionBarActivity implements NavigationDrawerFragment.
                 mTitle = getString(R.string.title_section6);
                 break;
             case 7:
-                mTitle = getString(R.string.title_section7);
+                mTitle = getString(R.string.title_section7); // terminada
                 ft.setCustomAnimations(R.animator.slide_in_left_frag, R.animator.slide_out_right_frag);
                 ft.replace(R.id.container,new Settings_frag());
+                ft.addToBackStack(null);
                 ft.commit();
                 break;
         }

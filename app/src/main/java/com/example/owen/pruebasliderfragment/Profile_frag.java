@@ -23,9 +23,9 @@ import java.util.List;
 public class Profile_frag extends Fragment {
 
     private String[] statsTitles;
-    private Integer[] statsImages ={R.drawable.ic_action_home,R.drawable.ic_action_courses,R.drawable.ic_action_profile
-            ,R.drawable.ic_action_vs,R.drawable.ic_action_search,R.drawable.ic_action_badge,R.drawable.ic_action_settings,
-            R.drawable.ic_action_home,R.drawable.ic_action_courses,R.drawable.ic_action_profile ,R.drawable.ic_action_vs};
+    private Integer[] statsImages ={R.drawable.ic_action_user,R.drawable.ic_action_user,R.drawable.ic_action_user
+            ,R.drawable.ic_action_user,R.drawable.ic_action_user,R.drawable.ic_action_user,R.drawable.ic_action_user,
+            R.drawable.ic_action_user,R.drawable.ic_action_user,R.drawable.ic_action_user ,R.drawable.ic_action_user};
     private String[] statsAnswer = {"0","0","0","0","0","0","0","0","0","0","0"};
     List<RowItem> rowItems;
 
@@ -58,16 +58,19 @@ public class Profile_frag extends Fragment {
         ProgressBar level = (ProgressBar)v.findViewById(R.id.profile_progressBar);
         level.setProgress(ParseUser.getCurrentUser().getInt("exp"));
 
-        // creation of the list view and its items
-        ListView stats = (ListView) v.findViewById(R.id.listView_stats);
-        statsTitles = getResources().getStringArray(R.array.Memoryt_profile_stats);
-        rowItems = new ArrayList<RowItem>();
-        for (int i = 0; i < statsTitles.length; i++) {
-            RowItem item = new RowItem(statsImages[i], statsTitles[i], statsAnswer[i]);
-            rowItems.add(item);
-        }
-        StatsAdapter adapter = new StatsAdapter(stats.getContext(), R.layout.stats_item, rowItems);
-        stats.setAdapter(adapter);
+        // creation of the players stats
+
+
+        // creation of the edit profile button
+        ImageView edit_button = (ImageView)v.findViewById(R.id.profile_edit);
+        edit_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // we call the edit profile fragment
+            }
+        });
+
+
         return v;
     }
 

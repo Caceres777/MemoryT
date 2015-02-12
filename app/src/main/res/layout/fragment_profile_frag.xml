@@ -11,7 +11,8 @@
         android:orientation="horizontal"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:background="@color/Light_blue" >
+        android:background="@color/Light_blue"
+        android:layout_weight="1">
 
         <ImageView
             android:layout_width="wrap_content"
@@ -93,12 +94,224 @@
 
     </LinearLayout>
 
-    <ListView
-        android:layout_width="wrap_content"
+    <!-- Stats of the player -->
+
+    vb<ScrollView
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/listView_stats"
-        android:divider="@color/Initial_buttons"
-        android:dividerHeight="1dp"/>
+        android:id="@+id/scrollView"
+        android:layout_weight="3">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <!-- accuracy of the player -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="25dp"
+                android:background="@drawable/stast_contenedor_custom">
+
+                <!-- title -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Accuracy"
+                    android:textColor="@color/Hint_color"
+                    android:textSize="25dp"
+                    android:id="@+id/textView7"
+                    android:layout_weight="1"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="center_horizontal"/>
+                <!-- result -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="80 %"
+                    android:textColor="@color/Hint_color"
+                    android:textStyle="bold"
+                    android:textSize="30dp"
+                    android:id="@+id/textView8"
+                    android:layout_weight="1"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="center_horizontal"/>
+
+            </LinearLayout>
+
+            <!-- hits and miss of the player -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+
+                <!-- hits of the player  -->
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_weight="1"
+                    android:background="@drawable/stast_contenedor_custom"
+                    android:padding="10dp">
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Success"
+                        android:textColor="@color/Hint_color"
+                        android:textSize="25dp"
+                        android:id="@+id/textView9"
+                        android:layout_weight="1"
+                        android:layout_gravity="center_horizontal"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="150"
+                        android:textStyle="bold"
+                        android:textColor="@color/Hint_color"
+                        android:textSize="30dp"
+                        android:id="@+id/textView10"
+                        android:layout_weight="2"
+                        android:layout_gravity="center_horizontal"/>
+                </LinearLayout>
+
+                <!-- miss of the player -->
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_weight="1"
+                    android:background="@drawable/stast_contenedor_custom"
+                    android:padding="10dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Failures"
+                        android:textColor="@color/Hint_color"
+                        android:textSize="25dp"
+                        android:id="@+id/textView11"
+                        android:layout_weight="1"
+                        android:layout_gravity="center_horizontal"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="20"
+                        android:textStyle="bold"
+                        android:textColor="@color/Hint_color"
+                        android:textSize="30dp"
+                        android:id="@+id/textView12"
+                        android:layout_weight="2"
+                        android:layout_gravity="center_horizontal"/>
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- last badges of the player -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="20dp"
+                android:background="@drawable/stast_contenedor_custom">
+
+                <!-- title -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Badges"
+                    android:textColor="@color/Hint_color"
+                    android:textSize="25dp"
+                    android:id="@+id/textView13"
+                    android:layout_weight="1"
+                    android:layout_gravity="center_horizontal"
+                    android:gravity="center_horizontal"/>
+
+                <!-- last badges -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/imageView"
+                        android:src="@drawable/badgesilver"
+                        android:layout_weight="1"/>
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/imageView2"
+                        android:src="@drawable/badgegold"
+                        android:layout_weight="1"/>
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/imageView3"
+                        android:src="@drawable/badgesilver"
+                        android:layout_weight="1"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <!-- monster of the player -->
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="189dp">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/fondo_toon"
+                    android:layout_gravity="bottom"
+                    android:background="@drawable/stast_contenedor_custom"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:layout_gravity="center">
+
+                    <!-- title -->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Monster"
+                        android:textColor="@color/Hint_color"
+                        android:textSize="25dp"
+                        android:id="@+id/textView14"
+                        android:paddingTop="20dp"
+                        android:layout_weight="3"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="top"/>
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/toon"
+                        android:layout_marginTop="5dp"
+                        android:layout_weight="1"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center"
+                        android:padding="10dp" />
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+        </LinearLayout>
+    </ScrollView>
 
 
 </LinearLayout>

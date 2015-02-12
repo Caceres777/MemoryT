@@ -9,10 +9,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 import android.widget.Switch;
 
 
 public class Settings_frag extends Fragment {
+
+    String[] ajustes;
     Switch switchSonido;
     Switch switchVibracion;
     Switch switchNotificaciones;
@@ -26,7 +29,7 @@ public class Settings_frag extends Fragment {
 
 
     public Settings_frag() {
-// Required empty public constructor
+        // Required empty public constructor
     }
 
 
@@ -51,69 +54,59 @@ public class Settings_frag extends Fragment {
         editor=prefs.edit();
 
 
-
+        ajustes = getResources().getStringArray(R.array.Memoryt_settings);
         switchSonido=(Switch) v.findViewById(R.id.switch1);
         switchVibracion=(Switch) v.findViewById(R.id.switch2);
         switchNotificaciones=(Switch) v.findViewById(R.id.switch3);
         switchRecordatorios=(Switch) v.findViewById(R.id.switch4);
         switchSonidoTactil=(Switch) v.findViewById(R.id.switch5);
-        cargarConfiguracion();
 
-        switchSonido.setOnClickListener(new View.OnClickListener() {
+
+        switchSonido.setOnCheckedChangeListener( new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onClick(View v) {
-                boolean valor = switchSonido.isChecked();
-                editor.putBoolean("Sonido", valor).apply();
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                editor.putBoolean(ajustes[0], buttonView.isChecked()).apply();
             }
         });
-        switchVibracion.setOnClickListener(new View.OnClickListener() {
+
+        switchVibracion.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onClick(View v) {
-                boolean valor = switchVibracion.isChecked();
-                editor.putBoolean("Vibracion", switchVibracion.isChecked()).apply();
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                editor.putBoolean(ajustes[1], buttonView.isChecked()).apply();
             }
         });
-        switchNotificaciones.setOnClickListener(new View.OnClickListener() {
+
+        switchNotificaciones.setOnCheckedChangeListener( new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onClick(View v) {
-                boolean valor = switchNotificaciones.isChecked();
-                editor.putBoolean("Notificaciones", switchNotificaciones.isChecked()).apply();
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                editor.putBoolean(ajustes[2], buttonView.isChecked()).apply();
             }
         });
-        switchRecordatorios.setOnClickListener(new View.OnClickListener() {
+
+        switchRecordatorios.setOnCheckedChangeListener( new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onClick(View v) {
-                boolean valor = switchRecordatorios.isChecked();
-                editor.putBoolean("Recordatorios", switchRecordatorios.isChecked()).apply();
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                editor.putBoolean(ajustes[3], buttonView.isChecked()).apply();
             }
         });
-        switchSonidoTactil.setOnClickListener(new View.OnClickListener() {
+
+        switchSonidoTactil.setOnCheckedChangeListener( new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onClick(View v) {
-                boolean valor = switchSonidoTactil.isChecked();
-                editor.putBoolean("SonidoTactil", switchSonidoTactil.isChecked()).apply();
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                editor.putBoolean(ajustes[4], buttonView.isChecked()).apply();
             }
         });
+
         return v;
     }
 
 
     public void cargarConfiguracion(){
-        String valor = Boolean.toString(prefs.getBoolean("Sonido", true));
-        Log.d("Sonido", valor);
-        valor = Boolean.toString(prefs.getBoolean("Vibracion", true));
-        Log.d("Vibracion", valor);
-        valor = Boolean.toString(prefs.getBoolean("Notificaciones", true));
-        Log.d("Notificaciones", valor);
-        valor = Boolean.toString(prefs.getBoolean("Recordatorios", true));
-        Log.d("Recordatorios", valor);
-        valor = Boolean.toString(prefs.getBoolean("SonidoTactil", true));
-        Log.d("SonidoTactil", valor);
-        switchSonido.setChecked(prefs.getBoolean("Sonido", true));
-        switchVibracion.setChecked(prefs.getBoolean("Vibracion", true));
-        switchNotificaciones.setChecked(prefs.getBoolean("Notificaciones", true));
-        switchRecordatorios.setChecked(prefs.getBoolean("Recordatorios", true));
-        switchSonidoTactil.setChecked(prefs.getBoolean("SonidoTactil", true));
+        switchSonido.setChecked(prefs.getBoolean(ajustes[0], true));
+        switchVibracion.setChecked(prefs.getBoolean(ajustes[1], true));
+        switchNotificaciones.setChecked(prefs.getBoolean(ajustes[2], true));
+        switchRecordatorios.setChecked(prefs.getBoolean(ajustes[3], true));
+        switchSonidoTactil.setChecked(prefs.getBoolean(ajustes[4], true));
     }
 
 

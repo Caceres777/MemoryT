@@ -9,21 +9,23 @@
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:divider="?android:attr/listDivider"
+        android:dividerPadding="1dp"
+        android:showDividers="middle">
 
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/White"
-            android:layout_margin="5dp"
-            android:padding="10dp">
+            android:layout_margin="5dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:text="Sonido"
+                android:textColor="@color/Hint_color"
                 android:id="@+id/textView"
                 android:layout_gravity="left|center_vertical"
                 android:layout_weight="1"/>
@@ -40,15 +42,14 @@
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/White"
-            android:layout_margin="5dp"
-            android:padding="10dp">
+            android:layout_margin="5dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:text="Vibración"
+                android:textColor="@color/Hint_color"
                 android:id="@+id/textView2"
                 android:layout_gravity="left|center_vertical"
                 android:layout_weight="1"/>
@@ -65,15 +66,14 @@
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/White"
-            android:layout_margin="5dp"
-            android:padding="10dp">
+            android:layout_margin="5dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:text="Notificaciones"
+                android:textColor="@color/Hint_color"
                 android:id="@+id/textView3"
                 android:layout_gravity="left|center_vertical"
                 android:layout_weight="1"/>
@@ -90,15 +90,14 @@
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/White"
-            android:layout_margin="5dp"
-            android:padding="10dp">
+            android:layout_margin="5dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:text="Recordatorios"
+                android:textColor="@color/Hint_color"
                 android:id="@+id/textView4"
                 android:layout_gravity="left|center_vertical"
                 android:layout_weight="1"/>
@@ -116,15 +115,14 @@
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/White"
-            android:layout_margin="5dp"
-            android:padding="10dp">
+            android:layout_margin="5dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:text="Sonido táctil"
+                android:textColor="@color/Hint_color"
                 android:id="@+id/textView5"
                 android:layout_gravity="left|center_vertical"
                 android:layout_weight="1"/>
@@ -138,16 +136,34 @@
 
         </LinearLayout>
 
-        <TextView
+        <LinearLayout
+            android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Versión 0.1 2015/02/03"
-            android:id="@+id/textView6"
-            android:layout_gravity="center_vertical"
-            android:background="@color/White"
-            android:layout_margin="5dp"
-            android:padding="10dp" />
+            android:layout_margin="5dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Versión"
+                android:textColor="@color/Hint_color"
+                android:id="@+id/textView6"
+                android:layout_gravity="left|center_vertical"
+                android:layout_weight="1"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="0.1 (03/02/15)"
+                android:textColor="@color/Hint_color"
+                android:id="@+id/textView7"
+                android:layout_gravity="center_vertical|right"
+                android:gravity="right"
+                android:layout_weight="1"/>
+
+        </LinearLayout>
 
     </LinearLayout>
 
