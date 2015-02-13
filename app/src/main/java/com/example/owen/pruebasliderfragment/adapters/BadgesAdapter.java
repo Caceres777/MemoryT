@@ -1,4 +1,4 @@
-package com.example.owen.pruebasliderfragment;
+package com.example.owen.pruebasliderfragment.adapters;
 
 /**
  * Created by Owen on 12/02/2015.
@@ -13,6 +13,9 @@ import android.widget.CheckedTextView;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.owen.pruebasliderfragment.R;
+import com.example.owen.pruebasliderfragment.RowItemsBadges;
 
 import java.util.ArrayList;
 
@@ -59,9 +62,11 @@ public class BadgesAdapter extends BaseExpandableListAdapter {
         }
         RowItemsBadges grupo = (RowItemsBadges) getGroup(groupPosition);
         TextView text = (TextView) convertView.findViewById(R.id.badge_text);
+        TextView title = (TextView) convertView.findViewById(R.id.badge_title);
         ImageView image = (ImageView) convertView.findViewById(R.id.badge_image);
         text.setText(grupo.children.get(childPosition).getBadgeText());
         image.setImageResource(grupo.children.get(childPosition).getBadgeImage());
+        title.setText(grupo.children.get(childPosition).getBadgeTitle());
         return convertView;
     }
 

@@ -7,10 +7,12 @@ public class SubrowItemBadges {
 
     private int badgeImage;
     private String badgeText;
+    private String badgeTitle;
 
-    public SubrowItemBadges(int image, String text){
+    public SubrowItemBadges(int image, String text, String title){
         badgeImage = image;
         badgeText = text;
+        badgeTitle = title;
     }
 
     public void setBadgeText(String text){
@@ -21,6 +23,8 @@ public class SubrowItemBadges {
         badgeImage = image;
     }
 
+    public void setBadgeTitle(String title){ badgeTitle = title; }
+
     public String getBadgeText(){
         return badgeText;
     }
@@ -28,4 +32,6 @@ public class SubrowItemBadges {
     public int getBadgeImage(){
         return badgeImage;
     }
+
+    public String getBadgeTitle(){ return badgeTitle; }
 }

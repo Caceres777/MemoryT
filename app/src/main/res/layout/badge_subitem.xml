@@ -6,15 +6,39 @@
     android:layout_height="match_parent">
 
     <ImageView
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="match_parent"
         android:id="@+id/badge_image"
-        android:layout_gravity="left" />
+        android:layout_gravity="left"
+        android:padding="5dp"
+        android:layout_weight="1"/>
 
-    <TextView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:id="@+id/badge_text"
-        android:layout_gravity="right" />
+        android:orientation="vertical"
+        android:layout_weight="2">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:id="@+id/badge_title"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:textColor="@color/Hint_color"
+            android:layout_gravity="top"
+            android:gravity="center"
+            android:layout_weight="2"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:id="@+id/badge_text"
+            android:textSize="15dp"
+            android:textColor="@color/Hint_color"
+            android:layout_gravity="bottom"
+            android:layout_weight="1"/>
+
+    </LinearLayout>
 
 </LinearLayout>

@@ -2,15 +2,13 @@ package com.example.owen.pruebasliderfragment.fragments;
 
 import android.os.Bundle;
 import android.app.Fragment;
-import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ExpandableListView;
 
-import com.example.owen.pruebasliderfragment.BadgesAdapter;
+import com.example.owen.pruebasliderfragment.adapters.BadgesAdapter;
 import com.example.owen.pruebasliderfragment.R;
-import com.example.owen.pruebasliderfragment.RowItemMenu;
 import com.example.owen.pruebasliderfragment.RowItemsBadges;
 import com.example.owen.pruebasliderfragment.SubrowItemBadges;
 
@@ -39,8 +37,8 @@ public class Badges_frag extends Fragment {
 
         for (int i = 0; i < cursos.length; i++) {
             RowItemsBadges item = new RowItemsBadges(cursos_img[i], cursos[i]);
-            item.children.add(new SubrowItemBadges(R.drawable.badgegold, "esto es un badge yiha"));
-            item.children.add(new SubrowItemBadges(R.drawable.badgesilver, "esto es un badge menos guay yiha"));
+            item.children.add(new SubrowItemBadges(R.drawable.badgegold, "esto es un badge yiha", "Golden Badge"));
+            item.children.add(new SubrowItemBadges(R.drawable.badgesilver, "esto es un badge menos guay yiha", "Silver Badge"));
             grupos.add(item);
         }
 
