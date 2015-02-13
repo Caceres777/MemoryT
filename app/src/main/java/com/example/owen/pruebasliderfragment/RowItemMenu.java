@@ -3,11 +3,11 @@ package com.example.owen.pruebasliderfragment;
 /**
  * Created by Owen on 01/02/2015.
  */
-public class RowItem {
+public class RowItemMenu {
     private int imageId;
     private String title;
 
-    public RowItem(int imageId, String title) {
+    public RowItemMenu(int imageId, String title) {
         this.imageId = imageId;
         this.title = title;
     }

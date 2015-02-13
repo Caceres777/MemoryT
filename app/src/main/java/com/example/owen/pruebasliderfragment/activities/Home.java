@@ -1,4 +1,4 @@
-package com.example.owen.pruebasliderfragment;
+package com.example.owen.pruebasliderfragment.activities;
 
 import android.app.Activity;
 import android.app.FragmentTransaction;
@@ -17,6 +17,9 @@ import android.view.ViewGroup;
 import android.support.v4.widget.DrawerLayout;
 import android.view.WindowManager;
 
+import com.example.owen.pruebasliderfragment.fragments.NavigationDrawerFragment;
+import com.example.owen.pruebasliderfragment.R;
+import com.example.owen.pruebasliderfragment.fragments.*;
 import com.parse.ParseUser;
 
 
@@ -84,6 +87,10 @@ public class Home extends ActionBarActivity implements NavigationDrawerFragment.
                 break;
             case 6:
                 mTitle = getString(R.string.title_section6);
+                ft.setCustomAnimations(R.animator.slide_in_left_frag, R.animator.slide_out_right_frag);
+                ft.replace(R.id.container,new Badges_frag());
+                ft.addToBackStack(null);
+                ft.commit();
                 break;
             case 7:
                 mTitle = getString(R.string.title_section7); // terminada

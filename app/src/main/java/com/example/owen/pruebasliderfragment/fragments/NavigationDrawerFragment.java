@@ -1,8 +1,7 @@
-package com.example.owen.pruebasliderfragment;
+package com.example.owen.pruebasliderfragment.fragments;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Typeface;
 import android.support.v7.app.ActionBarActivity;
 import android.app.Activity;
 import android.support.v7.app.ActionBar;
@@ -25,6 +24,10 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.owen.pruebasliderfragment.ImageHelper;
+import com.example.owen.pruebasliderfragment.MenuAdapter;
+import com.example.owen.pruebasliderfragment.R;
+import com.example.owen.pruebasliderfragment.RowItemMenu;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseUser;
@@ -43,7 +46,7 @@ public class NavigationDrawerFragment extends Fragment {
     private Integer[] menuImages ={R.drawable.ic_action_home,R.drawable.ic_action_courses,R.drawable.ic_action_profile
             ,R.drawable.ic_action_vs,R.drawable.ic_action_search,R.drawable.ic_action_badge,R.drawable.ic_action_settings};
     ListView listView;
-    List<RowItem> rowItems;
+    List<RowItemMenu> rowItems;
     /**
      * Remember the position of the selected item.
      */
@@ -120,9 +123,9 @@ public class NavigationDrawerFragment extends Fragment {
         });
 
         menuTitles = getResources().getStringArray(R.array.Memoryt_menu_home);
-        rowItems = new ArrayList<RowItem>();
+        rowItems = new ArrayList<RowItemMenu>();
         for (int i = 0; i < menuTitles.length; i++) {
-            RowItem item = new RowItem(menuImages[i], menuTitles[i]);
+            RowItemMenu item = new RowItemMenu(menuImages[i], menuTitles[i]);
             rowItems.add(item);
         }
         MenuAdapter adapter = new MenuAdapter(mDrawerListView.getContext(), R.layout.menu_item, rowItems);

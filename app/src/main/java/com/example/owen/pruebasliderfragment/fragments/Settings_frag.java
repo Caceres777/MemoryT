@@ -1,4 +1,4 @@
-package com.example.owen.pruebasliderfragment;
+package com.example.owen.pruebasliderfragment.fragments;
 
 
 import android.content.SharedPreferences;
@@ -11,6 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.Switch;
+
+import com.example.owen.pruebasliderfragment.R;
 
 
 public class Settings_frag extends Fragment {

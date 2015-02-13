@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.example.owen.pruebasliderfragment.Profile_frag">
+    tools:context="com.example.owen.pruebasliderfragment.fragments.Profile_frag">
 
     <!-- contiene toda la informacion del usuario en la parte superior de la pantalla -->
     <LinearLayout

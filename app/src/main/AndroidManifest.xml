@@ -15,7 +15,7 @@
         android:theme="@style/AppTheme" >
 
         <activity
-            android:name=".Initial"
+            android:name=".activities.Initial"
             android:label="@string/app_name"
             android:noHistory="true"
             android:screenOrientation="portrait"
@@ -23,7 +23,7 @@
         </activity>
 
         <activity
-            android:name=".SplashScreen"
+            android:name=".activities.SplashScreen"
             android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -33,7 +33,7 @@
         </activity>
 
         <activity
-            android:name=".Home"
+            android:name=".activities.Home"
             android:label="@string/title_activity_home"
             android:theme="@style/Theme.MemorytActionBar"
             android:screenOrientation="portrait" >

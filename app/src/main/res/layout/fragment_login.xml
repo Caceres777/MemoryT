@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/fragment_login"
-    tools:context="com.example.owen.pruebasliderfragment.Login_frag">
+    tools:context="com.example.owen.pruebasliderfragment.fragments.Login_frag">
 
     <!-- TODO: Update blank fragment layout -->
 

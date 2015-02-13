@@ -1,10 +1,13 @@
-package com.example.owen.pruebasliderfragment;
+package com.example.owen.pruebasliderfragment.activities;
 
 import android.app.Activity;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.view.WindowManager;
+
+import com.example.owen.pruebasliderfragment.R;
+import com.example.owen.pruebasliderfragment.fragments.Start_frag;
 
 
 public class Initial extends Activity {

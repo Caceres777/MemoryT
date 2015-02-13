@@ -50,7 +50,7 @@
         android:divider="@color/Initial_buttons"
         android:dividerHeight="1dp"
         android:background="@color/Dark_blue"
-        tools:context="com.example.owen.pruebasliderfragment.NavigationDrawerFragment" />
+        tools:context="com.example.owen.pruebasliderfragment.fragments.NavigationDrawerFragment" />
 
 
 

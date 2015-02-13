@@ -16,10 +16,10 @@ import java.util.List;
  */
 
 
-public class MenuAdapter extends ArrayAdapter<RowItem> {
+public class MenuAdapter extends ArrayAdapter<RowItemMenu> {
     Context context;
 
-    public MenuAdapter(Context context, int resourceId, List<RowItem> items) {
+    public MenuAdapter(Context context, int resourceId, List<RowItemMenu> items) {
         super(context, resourceId, items);
         this.context = context;
     }
@@ -33,7 +33,7 @@ public class MenuAdapter extends ArrayAdapter<RowItem> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder holder = null;
-        RowItem rowItem = getItem(position);
+        RowItemMenu rowItemMenu = getItem(position);
         LayoutInflater mInflater = (LayoutInflater) context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
         if (convertView == null) {
             convertView = mInflater.inflate(R.layout.menu_item, null);
@@ -43,8 +43,8 @@ public class MenuAdapter extends ArrayAdapter<RowItem> {
             convertView.setTag(holder);
         } else
             holder = (ViewHolder) convertView.getTag();
-        holder.txtTitle.setText(rowItem.getTitle());
-        holder.imageView.setImageResource(rowItem.getImageId());
+        holder.txtTitle.setText(rowItemMenu.getTitle());
+        holder.imageView.setImageResource(rowItemMenu.getImageId());
         return convertView;
     }
 }

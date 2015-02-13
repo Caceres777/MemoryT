@@ -1,4 +1,4 @@
-package com.example.owen.pruebasliderfragment;
+package com.example.owen.pruebasliderfragment.fragments;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -8,15 +8,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.example.owen.pruebasliderfragment.ImageHelper;
+import com.example.owen.pruebasliderfragment.R;
+import com.example.owen.pruebasliderfragment.RowItemMenu;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseUser;
 
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -27,7 +28,7 @@ public class Profile_frag extends Fragment {
             ,R.drawable.ic_action_user,R.drawable.ic_action_user,R.drawable.ic_action_user,R.drawable.ic_action_user,
             R.drawable.ic_action_user,R.drawable.ic_action_user,R.drawable.ic_action_user ,R.drawable.ic_action_user};
     private String[] statsAnswer = {"0","0","0","0","0","0","0","0","0","0","0"};
-    List<RowItem> rowItems;
+    List<RowItemMenu> rowItems;
 
 
     public Profile_frag() {

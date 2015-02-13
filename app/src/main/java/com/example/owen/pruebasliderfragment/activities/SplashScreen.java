@@ -1,11 +1,8 @@
-package com.example.owen.pruebasliderfragment;
+package com.example.owen.pruebasliderfragment.activities;
 
-import android.animation.AnimatorSet;
-import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Typeface;
-import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.view.Window;
 import android.view.WindowManager;
@@ -14,6 +11,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.owen.pruebasliderfragment.R;
 import com.parse.ParseUser;
 import java.util.Timer;
 import java.util.TimerTask;
