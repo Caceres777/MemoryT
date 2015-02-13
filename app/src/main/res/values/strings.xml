@@ -8,6 +8,8 @@
     <string name="title_activity_home">Home</string>
     <string name="action_search">ic_settings</string>
     <string name="title_activity_prueba">prueba</string>
+    <string name="explicacion">Explicacionnnn</string>
+    <string name="empezarSeguir"> empezar curso / continuar curso</string>
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_splash_screen">SplashScreen</string>
     <string name="title_activity_memoryt_hom">Memoryt_hom</string>

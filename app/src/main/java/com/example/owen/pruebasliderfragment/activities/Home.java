@@ -3,23 +3,26 @@ package com.example.owen.pruebasliderfragment.activities;
 import android.app.Activity;
 import android.app.FragmentTransaction;
 import android.content.Intent;
-import android.support.v4.content.IntentCompat;
-import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.ActionBar;
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.os.Bundle;
+import android.support.v4.content.IntentCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.support.v4.widget.DrawerLayout;
 import android.view.WindowManager;
 
-import com.example.owen.pruebasliderfragment.fragments.NavigationDrawerFragment;
 import com.example.owen.pruebasliderfragment.R;
-import com.example.owen.pruebasliderfragment.fragments.*;
+import com.example.owen.pruebasliderfragment.fragments.SearchCourses_frag;
+import com.example.owen.pruebasliderfragment.fragments.Badges_frag;
+import com.example.owen.pruebasliderfragment.fragments.NavigationDrawerFragment;
+import com.example.owen.pruebasliderfragment.fragments.Profile_frag;
+import com.example.owen.pruebasliderfragment.fragments.Settings_frag;
 import com.parse.ParseUser;
 
 
@@ -84,6 +87,9 @@ public class Home extends ActionBarActivity implements NavigationDrawerFragment.
                 break;
             case 5:
                 mTitle = getString(R.string.title_section5);
+                ft.setCustomAnimations(R.animator.slide_in_left_frag, R.animator.slide_out_right_frag);
+                ft.replace(R.id.container,new SearchCourses_frag());
+                ft.commit();
                 break;
             case 6:
                 mTitle = getString(R.string.title_section6);
