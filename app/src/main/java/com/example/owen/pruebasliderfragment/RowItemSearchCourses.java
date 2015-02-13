@@ -6,16 +6,13 @@ package com.example.owen.pruebasliderfragment;
 public class RowItemSearchCourses {
     private int imageId;
     private String title;
-    private String answer;
-    public RowItemSearchCourses(int imageId, String title) {
-        this.imageId = imageId;
-        this.title = title;
-    }
+    SubrowItemSearchCourses child = null;
 
-    public RowItemSearchCourses(int imageId, String title, String answer) {
+
+    public RowItemSearchCourses(int imageId, String title, SubrowItemSearchCourses child) {
         this.imageId = imageId;
         this.title = title;
-        this.answer = answer;
+        this.child = child;
     }
 
     public int getImageId() {
@@ -30,8 +27,10 @@ public class RowItemSearchCourses {
     public void setTitle(String title) {
         this.title = title;
     }
-    public String getAnswer(){ return answer; }
-    public void setAnswer(String answer){ this.answer = answer; }
+    public SubrowItemSearchCourses getChild() {
+        return child;
+    }
+
     @Override
     public String toString() {
         return title;

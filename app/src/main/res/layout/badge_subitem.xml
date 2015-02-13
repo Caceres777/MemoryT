@@ -27,7 +27,8 @@
             android:textStyle="bold"
             android:textColor="@color/Hint_color"
             android:layout_gravity="top"
-            android:gravity="center"
+            android:layout_marginTop="5dp"
+            android:gravity="top"
             android:layout_weight="2"/>
 
         <TextView
@@ -37,6 +38,7 @@
             android:textSize="15dp"
             android:textColor="@color/Hint_color"
             android:layout_gravity="bottom"
+            android:gravity="top"
             android:layout_weight="1"/>
 
     </LinearLayout>

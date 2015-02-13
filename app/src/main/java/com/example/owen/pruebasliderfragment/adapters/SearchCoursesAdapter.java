@@ -1,4 +1,4 @@
-package com.example.owen.pruebasliderfragment;
+package com.example.owen.pruebasliderfragment.adapters;
 
 import android.app.Activity;
 import android.util.SparseArray;
@@ -7,18 +7,23 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.CheckedTextView;
+import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import com.example.owen.pruebasliderfragment.R;
+import com.example.owen.pruebasliderfragment.RowItemSearchCourses;
+
+import org.w3c.dom.Text;
 
 /**
  * Created by Carlos on 11/02/2015.
  */
 public class SearchCoursesAdapter extends BaseExpandableListAdapter {
-    private final SparseArray<GrupoDeItemsSearchCourses> grupos;
+    private final SparseArray<RowItemSearchCourses> grupos;
     public LayoutInflater inflater;
     public Activity activity;
     // Constructor
-    public SearchCoursesAdapter(Activity act, SparseArray<GrupoDeItemsSearchCourses> grupos) {
+    public SearchCoursesAdapter(Activity act, SparseArray<RowItemSearchCourses> grupos) {
         activity = act;
         this.grupos = grupos;
         inflater = act.getLayoutInflater();
@@ -27,7 +32,7 @@ public class SearchCoursesAdapter extends BaseExpandableListAdapter {
     // a la posición
     @Override
     public Object getChild(int groupPosition, int childPosition) {
-        return grupos.get(groupPosition).children.get(childPosition);
+        return null;
     }
     // Devuelve el id de un item o subitem en base a la
     // posición de item y subitem
@@ -37,26 +42,30 @@ public class SearchCoursesAdapter extends BaseExpandableListAdapter {
     }
     // En base a la posición del item y de subitem nos devuelve
     // el objeto view correspondiente y el layout para los subitems
+
+
+
     @Override
     public View getChildView(int groupPosition, final int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
-        final String children = (String) getChild(groupPosition, childPosition);
-        TextView textvw = null;
+        //final String children = (String) getChild(groupPosition, childPosition);
+        RowItemSearchCourses grupo = (RowItemSearchCourses) getGroup(groupPosition);
         if (convertView == null) {
-            convertView = inflater.inflate(R.layout.subitems_layout, null);
+            convertView = inflater.inflate(R.layout.searchCourses_subitem, null);
         }
-        textvw = (TextView) convertView.findViewById(R.id.textView1);
-        textvw.setText(children); convertView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(activity, children, Toast.LENGTH_SHORT).show();
-            }
-        });
+        TextView definition = (TextView)convertView.findViewById(R.id.course_definition);
+        TextView num_chapters = (TextView)convertView.findViewById(R.id.course_numberChapters);
+        definition.setText(grupo.getChild().getDefinition());
+        num_chapters.setText(grupo.getChild().getDefinition());
         return convertView;
     }
+
+
+
+
     // Nos devuelve la cantidad de subitems que tiene un ítem
     @Override
     public int getChildrenCount(int groupPosition) {
-        return grupos.get(groupPosition).children.size();
+        return 0;
     }
     //Los datos de un ítem especificado por groupPosition
     @Override
@@ -84,16 +93,30 @@ public class SearchCoursesAdapter extends BaseExpandableListAdapter {
         return 0;
     }
     //Obtenemos el layout para los ítems
+
+
+
+
     @Override
     public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
         if (convertView == null) {
-            convertView = inflater.inflate(R.layout.items_layout, null);
+            convertView = inflater.inflate(R.layout.searchCourses_item, null);
         }
-        GrupoDeItemsSearchCourses grupo = (GrupoDeItemsSearchCourses) getGroup(groupPosition);
-        ((CheckedTextView) convertView).setText(grupo.string);
-        ((CheckedTextView) convertView).setChecked(isExpanded);
+        RowItemSearchCourses grupo = (RowItemSearchCourses) getGroup(groupPosition);
+        TextView text = (TextView)convertView.findViewById(R.id.course_name);
+        ImageView image = (ImageView)convertView.findViewById(R.id.course_image);
+        CheckedTextView check = (CheckedTextView)convertView.findViewById(R.id.course_check);
+        text.setText(grupo.getTitle());
+        image.setImageResource(grupo.getImageId());
+        check.setChecked(isExpanded);
         return convertView;
     }
+
+
+
+
+
+
     @Override
     public boolean hasStableIds() {
         return false;
