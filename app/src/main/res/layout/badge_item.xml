@@ -41,17 +41,4 @@
 
     </LinearLayout>
 
-    <ProgressBar
-        style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:progressDrawable="@drawable/progress_bar_custom"
-        android:id="@+id/courses_progressBar"
-        android:layout_gravity="center_horizontal"
-        android:progress="20"
-        android:paddingBottom="5dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp" />
-
-
 </LinearLayout>

@@ -1,7 +1,6 @@
 package com.example.owen.pruebasliderfragment.adapters;
 
 import android.app.Activity;
-import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,27 +12,33 @@ import android.widget.TextView;
 import com.example.owen.pruebasliderfragment.R;
 import com.example.owen.pruebasliderfragment.RowItemSearchCourses;
 
-import org.w3c.dom.Text;
+import java.util.ArrayList;
 
 /**
  * Created by Carlos on 11/02/2015.
  */
 public class SearchCoursesAdapter extends BaseExpandableListAdapter {
-    private final SparseArray<RowItemSearchCourses> grupos;
+    private final ArrayList<RowItemSearchCourses> grupos;
     public LayoutInflater inflater;
     public Activity activity;
+
+
     // Constructor
-    public SearchCoursesAdapter(Activity act, SparseArray<RowItemSearchCourses> grupos) {
+    public SearchCoursesAdapter(Activity act, ArrayList<RowItemSearchCourses> grupos) {
         activity = act;
         this.grupos = grupos;
         inflater = act.getLayoutInflater();
     }
+
+
     // Nos devuelve los datos asociados a un subitem en base
     // a la posición
     @Override
     public Object getChild(int groupPosition, int childPosition) {
-        return null;
+        return grupos.get(groupPosition).getChild();
     }
+
+
     // Devuelve el id de un item o subitem en base a la
     // posición de item y subitem
     @Override
@@ -50,12 +55,12 @@ public class SearchCoursesAdapter extends BaseExpandableListAdapter {
         //final String children = (String) getChild(groupPosition, childPosition);
         RowItemSearchCourses grupo = (RowItemSearchCourses) getGroup(groupPosition);
         if (convertView == null) {
-            convertView = inflater.inflate(R.layout.searchCourses_subitem, null);
+            convertView = inflater.inflate(R.layout.searchcourses_subitem, null);
         }
         TextView definition = (TextView)convertView.findViewById(R.id.course_definition);
         TextView num_chapters = (TextView)convertView.findViewById(R.id.course_numberChapters);
         definition.setText(grupo.getChild().getDefinition());
-        num_chapters.setText(grupo.getChild().getDefinition());
+        num_chapters.setText("Chapters : "+Integer.toString(grupo.getChild().getNum_temas()));
         return convertView;
     }
 
@@ -65,7 +70,7 @@ public class SearchCoursesAdapter extends BaseExpandableListAdapter {
     // Nos devuelve la cantidad de subitems que tiene un ítem
     @Override
     public int getChildrenCount(int groupPosition) {
-        return 0;
+        return 1;
     }
     //Los datos de un ítem especificado por groupPosition
     @Override
@@ -100,7 +105,7 @@ public class SearchCoursesAdapter extends BaseExpandableListAdapter {
     @Override
     public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
         if (convertView == null) {
-            convertView = inflater.inflate(R.layout.searchCourses_item, null);
+            convertView = inflater.inflate(R.layout.searchcourses_item, null);
         }
         RowItemSearchCourses grupo = (RowItemSearchCourses) getGroup(groupPosition);
         TextView text = (TextView)convertView.findViewById(R.id.course_name);
