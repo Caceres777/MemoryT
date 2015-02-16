@@ -8,8 +8,8 @@ import android.view.ViewGroup;
 import android.widget.ExpandableListView;
 
 import com.example.owen.pruebasliderfragment.R;
-import com.example.owen.pruebasliderfragment.RowItemSearchCourses;
-import com.example.owen.pruebasliderfragment.SubrowItemSearchCourses;
+import com.example.owen.pruebasliderfragment.ListViewItems.RowItemSearchCourses;
+import com.example.owen.pruebasliderfragment.ListViewItems.SubrowItemSearchCourses;
 import com.example.owen.pruebasliderfragment.adapters.SearchCoursesAdapter;
 
 import java.util.ArrayList;

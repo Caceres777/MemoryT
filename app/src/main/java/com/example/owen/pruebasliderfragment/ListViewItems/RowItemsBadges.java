@@ -1,4 +1,4 @@
-package com.example.owen.pruebasliderfragment;
+package com.example.owen.pruebasliderfragment.ListViewItems;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.example.owen.pruebasliderfragment;
+package com.example.owen.pruebasliderfragment.ListViewItems;
 
 /**
  * Created by Owen on 01/02/2015.

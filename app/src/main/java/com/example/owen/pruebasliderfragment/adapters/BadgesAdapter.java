@@ -4,7 +4,6 @@ package com.example.owen.pruebasliderfragment.adapters;
  * Created by Owen on 12/02/2015.
  */
 import android.app.Activity;
-import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,10 +11,9 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.CheckedTextView;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.owen.pruebasliderfragment.R;
-import com.example.owen.pruebasliderfragment.RowItemsBadges;
+import com.example.owen.pruebasliderfragment.ListViewItems.RowItemsBadges;
 
 import java.util.ArrayList;
 

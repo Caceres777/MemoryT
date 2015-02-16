@@ -27,7 +27,7 @@ import android.widget.TextView;
 import com.example.owen.pruebasliderfragment.ImageHelper;
 import com.example.owen.pruebasliderfragment.adapters.MenuAdapter;
 import com.example.owen.pruebasliderfragment.R;
-import com.example.owen.pruebasliderfragment.RowItemMenu;
+import com.example.owen.pruebasliderfragment.ListViewItems.RowItemMenu;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseUser;

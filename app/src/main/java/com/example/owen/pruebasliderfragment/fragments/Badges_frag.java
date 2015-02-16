@@ -9,8 +9,8 @@ import android.widget.ExpandableListView;
 
 import com.example.owen.pruebasliderfragment.adapters.BadgesAdapter;
 import com.example.owen.pruebasliderfragment.R;
-import com.example.owen.pruebasliderfragment.RowItemsBadges;
-import com.example.owen.pruebasliderfragment.SubrowItemBadges;
+import com.example.owen.pruebasliderfragment.ListViewItems.RowItemsBadges;
+import com.example.owen.pruebasliderfragment.ListViewItems.SubrowItemBadges;
 
 import java.util.ArrayList;
 

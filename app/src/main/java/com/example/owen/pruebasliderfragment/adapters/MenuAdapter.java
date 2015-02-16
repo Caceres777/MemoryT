@@ -10,7 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.owen.pruebasliderfragment.R;
-import com.example.owen.pruebasliderfragment.RowItemMenu;
+import com.example.owen.pruebasliderfragment.ListViewItems.RowItemMenu;
 
 import java.util.List;
 
