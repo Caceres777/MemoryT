@@ -18,6 +18,7 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 
 import com.example.owen.pruebasliderfragment.R;
+import com.example.owen.pruebasliderfragment.fragments.MyCourses_frag;
 import com.example.owen.pruebasliderfragment.fragments.SearchCourses_frag;
 import com.example.owen.pruebasliderfragment.fragments.Badges_frag;
 import com.example.owen.pruebasliderfragment.fragments.NavigationDrawerFragment;
@@ -74,6 +75,10 @@ public class Home extends ActionBarActivity implements NavigationDrawerFragment.
                 break;
             case 2:
                 mTitle = getString(R.string.title_section2);
+                ft.setCustomAnimations(R.animator.slide_in_left_frag, R.animator.slide_out_right_frag);
+                ft.replace(R.id.container,new MyCourses_frag());
+                ft.addToBackStack(null);
+                ft.commit();
                 break;
             case 3:
                 mTitle = getString(R.string.title_section3);

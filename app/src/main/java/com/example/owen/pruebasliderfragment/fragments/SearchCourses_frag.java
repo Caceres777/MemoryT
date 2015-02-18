@@ -3,16 +3,24 @@ package com.example.owen.pruebasliderfragment.fragments;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.ExpandableListView;
+import android.widget.Spinner;
 
+import com.example.owen.pruebasliderfragment.ListViewItems.RowItemMenu;
 import com.example.owen.pruebasliderfragment.R;
 import com.example.owen.pruebasliderfragment.ListViewItems.RowItemSearchCourses;
 import com.example.owen.pruebasliderfragment.ListViewItems.SubrowItemSearchCourses;
+import com.example.owen.pruebasliderfragment.adapters.MenuAdapter;
 import com.example.owen.pruebasliderfragment.adapters.SearchCoursesAdapter;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class SearchCourses_frag extends Fragment{
 
@@ -20,13 +28,16 @@ public class SearchCourses_frag extends Fragment{
     String[] cursos = {"Veterinaria","Ingles","Capitales","embalsamar", "tocarte los huevos"};
     int[] cursos_img = {R.drawable.user_img, R.drawable.user_img, R.drawable.user_img, R.drawable.user_img, R.drawable.user_img};
 
+
     public SearchCourses_frag() {
         // Required empty public constructor
     }
 
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {  super.onCreate(savedInstanceState);   }
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
 
 
     @Override
