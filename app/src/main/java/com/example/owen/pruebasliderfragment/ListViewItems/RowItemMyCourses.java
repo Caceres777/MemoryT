@@ -36,8 +36,8 @@ public class RowItemMyCourses {
     public int getProgress() {
         return progress;
     }
-    public void setProgress(int avance) {
-        this.progress = avance;
+    public void setProgress(int progress) {
+        this.progress = progress;
     }
 
     @Override

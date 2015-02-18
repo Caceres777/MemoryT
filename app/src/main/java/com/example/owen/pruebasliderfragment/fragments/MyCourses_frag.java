@@ -36,6 +36,7 @@ public class MyCourses_frag extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v =  inflater.inflate(R.layout.fragment_my_courses_frag, container, false);
+
         for (int i = 0; i < cursos.length; i++) {
             String def = "Definicion del curso en cuestion, con el aprenderas un monton de cosas muchas mucha" +
                     "muchas cosas";
@@ -43,7 +44,7 @@ public class MyCourses_frag extends Fragment {
             grupos.add(item);
         }
 
-        ExpandableListView listView = (ExpandableListView) v.findViewById(R.id.listaBuscarCurso);
+        ExpandableListView listView = (ExpandableListView) v.findViewById(R.id.listaMyCurso);
         MyCoursesAdapter adapter = new MyCoursesAdapter(getActivity(), grupos);
         listView.setAdapter(adapter);
         return v;
