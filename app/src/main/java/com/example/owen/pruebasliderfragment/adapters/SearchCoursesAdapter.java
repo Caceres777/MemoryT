@@ -111,6 +111,7 @@ public class SearchCoursesAdapter extends BaseExpandableListAdapter {
         TextView text = (TextView)convertView.findViewById(R.id.course_name);
         ImageView image = (ImageView)convertView.findViewById(R.id.course_image);
         CheckedTextView check = (CheckedTextView)convertView.findViewById(R.id.course_check);
+
         text.setText(grupo.getTitle());
         image.setImageResource(grupo.getImageId());
         check.setChecked(isExpanded);

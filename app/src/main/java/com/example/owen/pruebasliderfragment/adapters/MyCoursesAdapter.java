@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.Button;
 import android.widget.CheckedTextView;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -114,6 +115,11 @@ public class MyCoursesAdapter extends BaseExpandableListAdapter {
         ImageView image = (ImageView)convertView.findViewById(R.id.course_image);
         ProgressBar progress = (ProgressBar)convertView.findViewById(R.id.courses_progressBar);
         CheckedTextView check = (CheckedTextView)convertView.findViewById(R.id.course_check);
+        Button continue_button = (Button) convertView.findViewById(R.id.continue_button);
+        Button review_button = (Button) convertView.findViewById(R.id.review_button);
+
+        continue_button.setFocusable(false);
+        review_button.setFocusable(false);
         text.setText(grupo.getTitle());
         progress.setProgress(grupo.getProgress());
         image.setImageResource(grupo.getImageId());

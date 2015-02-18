@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:minHeight="50dp"
-    android:id="@+id/item"
+    android:id="@+id/searchcourses_item"
     android:padding="5dp"
     android:background="@color/Light_blue"
     android:orientation="vertical">
