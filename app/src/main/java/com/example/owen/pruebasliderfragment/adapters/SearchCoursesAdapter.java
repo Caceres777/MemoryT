@@ -9,8 +9,8 @@ import android.widget.CheckedTextView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.owen.pruebasliderfragment.R;
 import com.example.owen.pruebasliderfragment.ListViewItems.RowItemSearchCourses;
+import com.example.owen.pruebasliderfragment.R;
 
 import java.util.ArrayList;
 
@@ -55,7 +55,7 @@ public class SearchCoursesAdapter extends BaseExpandableListAdapter {
         //final String children = (String) getChild(groupPosition, childPosition);
         RowItemSearchCourses grupo = (RowItemSearchCourses) getGroup(groupPosition);
         if (convertView == null) {
-            convertView = inflater.inflate(R.layout.searchcourses_subitem, null);
+            convertView = inflater.inflate(R.layout.mycourses_subitem, null);
         }
         TextView definition = (TextView)convertView.findViewById(R.id.course_definition);
         TextView num_chapters = (TextView)convertView.findViewById(R.id.course_numberChapters);
@@ -105,7 +105,7 @@ public class SearchCoursesAdapter extends BaseExpandableListAdapter {
     @Override
     public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
         if (convertView == null) {
-            convertView = inflater.inflate(R.layout.searchcourses_item, null);
+            convertView = inflater.inflate(R.layout.mycourses_item, null);
         }
         RowItemSearchCourses grupo = (RowItemSearchCourses) getGroup(groupPosition);
         TextView text = (TextView)convertView.findViewById(R.id.course_name);
