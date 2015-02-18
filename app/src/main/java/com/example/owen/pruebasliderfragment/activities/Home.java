@@ -18,12 +18,7 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 
 import com.example.owen.pruebasliderfragment.R;
-import com.example.owen.pruebasliderfragment.fragments.MyCourses_frag;
-import com.example.owen.pruebasliderfragment.fragments.SearchCourses_frag;
-import com.example.owen.pruebasliderfragment.fragments.Badges_frag;
-import com.example.owen.pruebasliderfragment.fragments.NavigationDrawerFragment;
-import com.example.owen.pruebasliderfragment.fragments.Profile_frag;
-import com.example.owen.pruebasliderfragment.fragments.Settings_frag;
+import com.example.owen.pruebasliderfragment.fragments.*;
 import com.parse.ParseUser;
 
 

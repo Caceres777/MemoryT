@@ -43,7 +43,7 @@ public class MyCourses_frag extends Fragment {
             grupos.add(item);
         }
 
-        ExpandableListView listView = (ExpandableListView) v.findViewById(R.id.listaBuscarCurso);
+        ExpandableListView listView = (ExpandableListView) v.findViewById(R.id.listaMyCurso);
         MyCoursesAdapter adapter = new MyCoursesAdapter(getActivity(), grupos);
         listView.setAdapter(adapter);
         return v;
