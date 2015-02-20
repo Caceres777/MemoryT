@@ -1,0 +1,14 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.owen.pruebasliderfragment.fragments.Versus_frag">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Versus Mode: Coming soon"
+        android:id="@+id/comingSoon"
+        android:layout_gravity="center"
+        style="@style/Base.TextAppearance.AppCompat.Headline" />
+</LinearLayout>

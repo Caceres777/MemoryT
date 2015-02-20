@@ -13,10 +13,8 @@ public class AppMemoryt extends Application{
     public void onCreate() {
         super.onCreate();
 
-
         Parse.enableLocalDatastore(this);
         Parse.initialize(this, "eUm1h1r7STn62J6CMZpISBQCtM7izmp8b001Udab", "g3qvGnhMjsVrMGn03ZkcdmIGBvUPEDIoTJUMyrxP");
-
 
         //ParseUser.enableAutomaticUser();
         //ParseACL defaultACL = new ParseACL();

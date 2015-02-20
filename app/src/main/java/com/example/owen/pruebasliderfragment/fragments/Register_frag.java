@@ -37,28 +37,15 @@ public class Register_frag extends Fragment {
     Toast toastCamposVacios, toastMensajeError, toastMensajeCorreto, toastContr;
     private static final String TAG="activity_register";
 
-
-
-
-
     public Register_frag() {
         // Required empty public constructor
     }
-
-
-
-
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
     }
-
-
-
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -87,12 +74,6 @@ public class Register_frag extends Fragment {
         });
         return v;
     }
-
-
-
-
-
-
 
     // method in charge of the users register
     public void register(){
