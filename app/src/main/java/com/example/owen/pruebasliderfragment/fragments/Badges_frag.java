@@ -3,6 +3,8 @@ package com.example.owen.pruebasliderfragment.fragments;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ExpandableListView;
@@ -48,4 +50,5 @@ public class Badges_frag extends Fragment {
 
         return v;
     }
+
 }

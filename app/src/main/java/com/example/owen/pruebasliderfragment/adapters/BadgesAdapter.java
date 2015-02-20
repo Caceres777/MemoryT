@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.CheckedTextView;
+import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -120,6 +121,7 @@ public class BadgesAdapter extends BaseExpandableListAdapter {
         ImageView image = (ImageView)convertView.findViewById(R.id.course_image);
         TextView text = (TextView)convertView.findViewById(R.id.course_name);
         CheckedTextView check = (CheckedTextView)convertView.findViewById(R.id.course_check);
+
         image.setImageResource(grupo.title_img);
         text.setText(grupo.title);
         check.setChecked(isExpanded);

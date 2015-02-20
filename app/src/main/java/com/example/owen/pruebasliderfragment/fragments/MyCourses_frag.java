@@ -2,10 +2,10 @@ package com.example.owen.pruebasliderfragment.fragments;
 
 import android.os.Bundle;
 import android.app.Fragment;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ExpandableListView;
 
 import com.example.owen.pruebasliderfragment.ListViewItems.RowItemMyCourses;
@@ -44,6 +44,9 @@ public class MyCourses_frag extends Fragment {
         }
 
         ExpandableListView listView = (ExpandableListView) v.findViewById(R.id.listaMyCurso);
+        Display newDisplay = getActivity().getWindowManager().getDefaultDisplay();
+        int width = newDisplay.getWidth();
+        listView.setIndicatorBounds(width-50,width);
         MyCoursesAdapter adapter = new MyCoursesAdapter(getActivity(), grupos);
         listView.setAdapter(adapter);
         return v;
