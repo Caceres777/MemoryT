@@ -18,24 +18,26 @@ public class Ayudante extends SQLiteOpenHelper {
     static final int DATABASE_VERSION = 1;
     private static final String TAG = "";
 
-    static final String CREATE_TABLE_CONTACT_USUARIOS =
-            "CREATE TABLE " + Contact.UsuariosEntry.TABLE_NAME + "( " +
-                    Contact.UsuariosEntry.COLUMN_ID_USER + " INTEGER PRIMARY KEY AUTOINCREMENT ," +
-                    Contact.UsuariosEntry.COLUMN_NAME + " TEXT NOT NULL," +
-                    Contact.UsuariosEntry.COLUMN_EXP + " ," +
-                    Contact.UsuariosEntry.COLUMN_AVATAR + " ," +
-                    Contact.UsuariosEntry.COLUMN_MAIL + " NOT NULL," +
-                    Contact.UsuariosEntry.COLUMN_PASSWORD + " NOT NULL);";
+//    static final String CREATE_TABLE_CONTACT_USUARIOS =
+//            "CREATE TABLE " + Contact.UsuariosEntry.TABLE_NAME + "( " +
+//                    Contact.UsuariosEntry.COLUMN_ID_USER + " INTEGER PRIMARY KEY AUTOINCREMENT ," +
+//                    Contact.UsuariosEntry.COLUMN_NAME + " TEXT NOT NULL," +
+//                    Contact.UsuariosEntry.COLUMN_EXP + " ," +
+//                    Contact.UsuariosEntry.COLUMN_AVATAR + " ," +
+//                    Contact.UsuariosEntry.COLUMN_MAIL + " NOT NULL," +
+//                    Contact.UsuariosEntry.COLUMN_PASSWORD + " NOT NULL);";
 
     static final String CREATE_TABLE_CONTACT_CURSOS =
             "CREATE TABLE " + Contact.CursosEntry.TABLE_NAME + "( " +
                     Contact.CursosEntry.COLUMN_ID_CURSO + " INTEGER PRIMARY KEY AUTOINCREMENT ," +
+                    Contact.CursosEntry.ACCURACY +
                     Contact.CursosEntry.COLUMN_NOMBRE + " NOT NULL);";
 
     static final String CREATE_TABLE_CONTACT_TEMAS =
             "CREATE TABLE " + Contact.TemasEntry.TABLE_NAME + "( " +
                     Contact.TemasEntry.COLUMN_ID_TEMA + " INTEGER PRIMARY KEY AUTOINCREMENT ," +
                     Contact.TemasEntry.COLUMN_ID_CURSO + " INTEGER ," +
+                    Contact.TemasEntry.ACCURACY +
                     "FOREIGN KEY("+Contact.TemasEntry.COLUMN_ID_CURSO+") REFERENCES "+Contact.CursosEntry.TABLE_NAME+"("+Contact.CursosEntry.COLUMN_ID_CURSO+")"+
                     Contact.TemasEntry.COLUMN_NOMBRE + " NOT NULL);";
 
@@ -58,7 +60,7 @@ public class Ayudante extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         try {
-            db.execSQL(CREATE_TABLE_CONTACT_USUARIOS);
+//            db.execSQL(CREATE_TABLE_CONTACT_USUARIOS);
             db.execSQL(CREATE_TABLE_CONTACT_CURSOS);
             db.execSQL(CREATE_TABLE_CONTACT_TEMAS);
             db.execSQL(CREATE_TABLE_CONTACT_PREGUNTAS);
@@ -74,7 +76,7 @@ public class Ayudante extends SQLiteOpenHelper {
             //-example
         } else {
 //                db.createTable(db, CREATE_TABLE_CONTACT_USUARIOS);
-            db.execSQL("DROP TABLE IF EXISTS " + CREATE_TABLE_CONTACT_USUARIOS);
+//            db.execSQL("DROP TABLE IF EXISTS " + CREATE_TABLE_CONTACT_USUARIOS);
             db.execSQL("DROP TABLE IF EXISTS " + CREATE_TABLE_CONTACT_CURSOS);
             db.execSQL("DROP TABLE IF EXISTS " + CREATE_TABLE_CONTACT_TEMAS);
             db.execSQL("DROP TABLE IF EXISTS " + CREATE_TABLE_CONTACT_PREGUNTAS);

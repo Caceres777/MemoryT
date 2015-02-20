@@ -3,9 +3,6 @@ package com.example.owen.pruebasliderfragment.data;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
-import android.provider.BaseColumns;
-
-import java.sql.Blob;
 
 /**
  * Created by CHUFASCHIN on 29/01/2015.
@@ -31,24 +28,24 @@ public class DataSource {
         database.close();
     }
 
-    public boolean insertContactUsuarios(int idUser, String name, int exp, Blob avatar, String email, String pass) {
-        DataSource dataSource = null;
-        SQLiteDatabase database = dataSource.openWriteable();
-        database.beginTransaction();
-        ContentValues args = new ContentValues();
-
-        args.put(ContactBean.UsuariosEntry.getColumnIdUser(), idUser);
-        args.put(ContactBean.UsuariosEntry.getColumnName(), name);
-        args.put(ContactBean.UsuariosEntry.getColumnExp(), exp);
-        args.put(ContactBean.UsuariosEntry.getColumnAvatar(), String.valueOf(avatar));
-        args.put(ContactBean.UsuariosEntry.getColumnMail(), email);
-        args.put(ContactBean.UsuariosEntry.getColumnPassword(), pass);
-        database.insert(ContactBean.UsuariosEntry.getTableName(), null, args);
-        database.setTransactionSuccessful();
-        database.endTransaction();
-        database.close();
-        return insertado=true;
-    }
+//    public boolean insertContactUsuarios(int idUser, String name, int exp, Blob avatar, String email, String pass) {
+//        DataSource dataSource = null;
+//        SQLiteDatabase database = dataSource.openWriteable();
+//        database.beginTransaction();
+//        ContentValues args = new ContentValues();
+//
+//        args.put(ContactBean.UsuariosEntry.getColumnIdUser(), idUser);
+//        args.put(ContactBean.UsuariosEntry.getColumnName(), name);
+//        args.put(ContactBean.UsuariosEntry.getColumnExp(), exp);
+//        args.put(ContactBean.UsuariosEntry.getColumnAvatar(), String.valueOf(avatar));
+//        args.put(ContactBean.UsuariosEntry.getColumnMail(), email);
+//        args.put(ContactBean.UsuariosEntry.getColumnPassword(), pass);
+//        database.insert(ContactBean.UsuariosEntry.getTableName(), null, args);
+//        database.setTransactionSuccessful();
+//        database.endTransaction();
+//        database.close();
+//        return insertado=true;
+//    }
     public boolean insertContactCursos(int idCurso, String name) {
         DataSource dataSource = null;
         SQLiteDatabase database = dataSource.openWriteable();
@@ -113,17 +110,17 @@ public class DataSource {
 
     }
 
-    public boolean borrarContactoUsuario(long rowId) {
-        DataSource dataSource = null;
-        SQLiteDatabase database = dataSource.openWriteable();
-        database.beginTransaction();
-        database.delete(ContactBean.UsuariosEntry.getTableName(),
-                String.format("%s=%d", BaseColumns._ID, rowId),
-                null);
-        database.setTransactionSuccessful();
-        database.endTransaction();
-        database.close();
-        return actualizado=true;
-    }
+//    public boolean borrarContactoUsuario(long rowId) {
+//        DataSource dataSource = null;
+//        SQLiteDatabase database = dataSource.openWriteable();
+//        database.beginTransaction();
+//        database.delete(ContactBean.UsuariosEntry.getTableName(),
+//                String.format("%s=%d", BaseColumns._ID, rowId),
+//                null);
+//        database.setTransactionSuccessful();
+//        database.endTransaction();
+//        database.close();
+//        return actualizado=true;
+//    }
 
 }
