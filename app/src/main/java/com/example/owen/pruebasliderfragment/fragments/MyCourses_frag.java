@@ -1,17 +1,25 @@
 package com.example.owen.pruebasliderfragment.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.support.v4.content.IntentCompat;
 import android.view.Display;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ExpandableListView;
+import android.widget.Toast;
 
 import com.example.owen.pruebasliderfragment.ListViewItems.RowItemMyCourses;
 import com.example.owen.pruebasliderfragment.ListViewItems.SubrowItemMyCourses;
 import com.example.owen.pruebasliderfragment.R;
+import com.example.owen.pruebasliderfragment.activities.Initial;
 import com.example.owen.pruebasliderfragment.adapters.MyCoursesAdapter;
+import com.parse.ParseUser;
 
 import java.util.ArrayList;
 
@@ -19,7 +27,7 @@ import java.util.ArrayList;
 public class MyCourses_frag extends Fragment {
 
     ArrayList<RowItemMyCourses> grupos = new ArrayList<RowItemMyCourses>();
-    String[] cursos = {"Veterinaria","Ingles","Capitales","embalsamar", "tocarte los huevos"};
+    String[] cursos = {"Veterinaria","Ingles","Capitales","estudiar", "tocarte los huevos"};
     int[] cursos_img = {R.drawable.user_img, R.drawable.user_img, R.drawable.user_img, R.drawable.user_img, R.drawable.user_img};
 
     public MyCourses_frag() {
@@ -29,6 +37,7 @@ public class MyCourses_frag extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
     }
 
     @Override
@@ -52,4 +61,28 @@ public class MyCourses_frag extends Fragment {
         return v;
     }
 
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        menu.clear();
+        inflater.inflate(R.menu.mycourses , menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public void onPrepareOptionsMenu(Menu menu) {
+        super.onPrepareOptionsMenu(menu);
+        getActivity().invalidateOptionsMenu();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.search:
+                Toast t = Toast.makeText(getActivity(), "Busqueda", Toast.LENGTH_LONG);
+                t.show();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
 }
