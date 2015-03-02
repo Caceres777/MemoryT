@@ -27,7 +27,8 @@ public class Contact{
 //        public static final String COLUMN_ID = BaseColumns._ID;
         public static final String COLUMN_ID_CURSO = "id_curso";
         public static final String COLUMN_NOMBRE = "nombre";
-        public static final String ACCURACY="accuracy";
+        public static final int ACCURACY=0;
+        public static final boolean ACABADO=false;
         public static final String TABLE_NAME = "CURSOS";
 
     }
@@ -38,7 +39,8 @@ public class Contact{
         public static final String COLUMN_NOMBRE = "nombre";
         public static final String COLUMN_ID_TEMA = "id_tema";
         public static final String COLUMN_ID_CURSO = "id_curso";
-        public static final String ACCURACY="accuracy";
+        public static final int ACCURACY=0;
+        public static final boolean ACABADO=false;
         public static final String TABLE_NAME = "TEMAS";
     }
 

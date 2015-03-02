@@ -15,6 +15,24 @@ public class ContactBean implements Serializable{
         private static String TABLE_NAME = "CURSOS";
         private static String COLUMN_ID_CURSO = "id_curso";
         private static String COLUMN_NOMBRE = "nombre";
+        private static int ACCURACY=0;
+        private static boolean APROBADO=false;
+
+        public static boolean isAPROBADO() {
+            return APROBADO;
+        }
+
+        public static void setAPROBADO(boolean APROBADO) {
+            CursosEntry.APROBADO = APROBADO;
+        }
+
+        public static int getACCURACY() {
+            return ACCURACY;
+        }
+
+        public static void setACCURACY(int ACCURACY) {
+            CursosEntry.ACCURACY = ACCURACY;
+        }
 
         @Override
         public String toString() {
@@ -22,6 +40,8 @@ public class ContactBean implements Serializable{
                     "TABLE_NAME='" + TABLE_NAME + '\'' +
                     ", COLUMN_ID_CURSO='" + COLUMN_ID_CURSO + '\'' +
                     ", COLUMN_NOMBRE='" + COLUMN_NOMBRE + '\'' +
+                    ", ACCURACY='" + ACCURACY + '\'' +
+                    ", APROBADO='" + APROBADO + '\'' +
                     '}';
         }
 
@@ -56,7 +76,25 @@ public class ContactBean implements Serializable{
         private static String COLUMN_NOMBRE = "nombre";
         private static String COLUMN_ID_TEMA = "id_tema";
         private static String COLUMN_ID_CURSO = "id_curso";
+        private static int ACCURACY=0;
+        private static boolean APROBADO=false;
         private static String TABLE_NAME = "TEMAS";
+
+        public static int getACCURACY() {
+            return ACCURACY;
+        }
+
+        public static void setACCURACY(int ACCURACY) {
+            TemasEntry.ACCURACY = ACCURACY;
+        }
+
+        public static boolean isAPROBADO() {
+            return APROBADO;
+        }
+
+        public static void setAPROBADO(boolean APROBADO) {
+            TemasEntry.APROBADO = APROBADO;
+        }
 
         @Override
         public String toString() {
@@ -64,6 +102,8 @@ public class ContactBean implements Serializable{
                     "COLUMN_NOMBRE='" + COLUMN_NOMBRE + '\'' +
                     ", COLUMN_ID_TEMA='" + COLUMN_ID_TEMA + '\'' +
                     ", COLUMN_ID_CURSO='" + COLUMN_ID_CURSO + '\'' +
+                    ", ACCURACY='" + ACCURACY + '\'' +
+                    ", APROBADO='" + APROBADO + '\'' +
                     ", TABLE_NAME='" + TABLE_NAME + '\'' +
                     '}';
         }

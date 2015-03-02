@@ -30,14 +30,16 @@ public class Ayudante extends SQLiteOpenHelper {
     static final String CREATE_TABLE_CONTACT_CURSOS =
             "CREATE TABLE " + Contact.CursosEntry.TABLE_NAME + "( " +
                     Contact.CursosEntry.COLUMN_ID_CURSO + " INTEGER PRIMARY KEY AUTOINCREMENT ," +
-                    Contact.CursosEntry.ACCURACY +
+                    Contact.CursosEntry.ACCURACY +"INTEGER"+
+                    Contact.CursosEntry.ACABADO +"BOOLEAN"+
                     Contact.CursosEntry.COLUMN_NOMBRE + " NOT NULL);";
 
     static final String CREATE_TABLE_CONTACT_TEMAS =
             "CREATE TABLE " + Contact.TemasEntry.TABLE_NAME + "( " +
                     Contact.TemasEntry.COLUMN_ID_TEMA + " INTEGER PRIMARY KEY AUTOINCREMENT ," +
                     Contact.TemasEntry.COLUMN_ID_CURSO + " INTEGER ," +
-                    Contact.TemasEntry.ACCURACY +
+                    Contact.TemasEntry.ACCURACY +"INTEGER"+
+                    Contact.TemasEntry.ACABADO +"BOOLEAN"+
                     "FOREIGN KEY("+Contact.TemasEntry.COLUMN_ID_CURSO+") REFERENCES "+Contact.CursosEntry.TABLE_NAME+"("+Contact.CursosEntry.COLUMN_ID_CURSO+")"+
                     Contact.TemasEntry.COLUMN_NOMBRE + " NOT NULL);";
 
