@@ -46,7 +46,7 @@ public class DataSource {
 //        database.close();
 //        return insertado=true;
 //    }
-    public boolean insertContactCursos(int idCurso, String name) {
+    public boolean insertContactCursos(int idCurso, String name, int accuracy) {
         DataSource dataSource = null;
         SQLiteDatabase database = dataSource.openWriteable();
         database.beginTransaction();
@@ -54,6 +54,7 @@ public class DataSource {
 
         args.put(ContactBean.CursosEntry.getColumnIdCurso(), idCurso);
         args.put(ContactBean.CursosEntry.getColumnNombre(), name);
+//        args.put(ContactBean.CursosEntry.getACCURACY(), accuracy);
         database.insert(ContactBean.CursosEntry.getTableName(), null, args);
         database.setTransactionSuccessful();
         database.endTransaction();

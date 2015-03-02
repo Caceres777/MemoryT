@@ -28,8 +28,9 @@ public class Contact{
         public static final String COLUMN_ID_CURSO = "id_curso";
         public static final String COLUMN_NOMBRE = "nombre";
         public static final int ACCURACY=0;
-        public static final boolean ACABADO=false;
+//        public static final boolean ACABADO=false;
         public static final String TABLE_NAME = "CURSOS";
+//        public static Bitmap IMG="";
 
     }
 
