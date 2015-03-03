@@ -1,16 +1,26 @@
 package com.example.owen.pruebasliderfragment.adapters;
 
 import android.app.Activity;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.Button;
 import android.widget.CheckedTextView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.owen.pruebasliderfragment.ImageHelper;
 import com.example.owen.pruebasliderfragment.ListViewItems.RowItemSearchCourses;
 import com.example.owen.pruebasliderfragment.R;
+import com.example.owen.pruebasliderfragment.fragments.SearchCourses_frag;
+import com.parse.ParseException;
+import com.parse.ParseFile;
+import com.parse.ParseObject;
+import com.parse.ParseUser;
 
 import java.util.ArrayList;
 
@@ -51,7 +61,7 @@ public class SearchCoursesAdapter extends BaseExpandableListAdapter {
 
 
     @Override
-    public View getChildView(int groupPosition, final int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
+    public View getChildView(final int groupPosition, final int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
         //final String children = (String) getChild(groupPosition, childPosition);
         RowItemSearchCourses grupo = (RowItemSearchCourses) getGroup(groupPosition);
         if (convertView == null) {
@@ -59,6 +69,16 @@ public class SearchCoursesAdapter extends BaseExpandableListAdapter {
         }
         TextView definition = (TextView)convertView.findViewById(R.id.course_definition);
         TextView num_chapters = (TextView)convertView.findViewById(R.id.course_numberChapters);
+        Button btnLearn = (Button)convertView.findViewById(R.id.buttonLearn);
+        btnLearn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ArrayList<ParseObject> myCourses = (ArrayList<ParseObject>) ParseUser.getCurrentUser().get("Courses");
+                if(myCourses != null){
+
+                }
+            }
+        });
         definition.setText(grupo.getChild().getDefinition());
         num_chapters.setText("Chapters : "+Integer.toString(grupo.getChild().getNum_temas()));
         return convertView;
@@ -113,11 +133,10 @@ public class SearchCoursesAdapter extends BaseExpandableListAdapter {
         CheckedTextView check = (CheckedTextView)convertView.findViewById(R.id.course_check);
 
         text.setText(grupo.getTitle());
-        image.setImageResource(grupo.getImageId());
+        image.setImageBitmap(new ImageHelper().getRoundedCornerBitmap(grupo.getImageId(), 0));
         check.setChecked(isExpanded);
         return convertView;
     }
-
 
 
 

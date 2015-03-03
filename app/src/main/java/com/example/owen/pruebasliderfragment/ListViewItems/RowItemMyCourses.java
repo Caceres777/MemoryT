@@ -1,16 +1,18 @@
 package com.example.owen.pruebasliderfragment.ListViewItems;
 
+import android.graphics.Bitmap;
+
 /**
  * Created by Owen on 18/02/2015.
  */
 public class RowItemMyCourses {
-    private int imageId;
+    private Bitmap imageId;
     private String title;
     private int progress;
     SubrowItemMyCourses child = null;
 
 
-    public RowItemMyCourses(int imageId, String title, SubrowItemMyCourses child, int progress) {
+    public RowItemMyCourses(Bitmap imageId, String title, SubrowItemMyCourses child, int progress) {
         this.imageId = imageId;
         this.title = title;
         this.child = child;
@@ -18,10 +20,10 @@ public class RowItemMyCourses {
 
     }
 
-    public int getImageId() {
+    public Bitmap getImageId() {
         return imageId;
     }
-    public void setImageId(int imageId) {
+    public void setImageId(Bitmap imageId) {
         this.imageId = imageId;
     }
     public String getTitle() {

@@ -1,24 +1,26 @@
 package com.example.owen.pruebasliderfragment.ListViewItems;
 
+import android.graphics.Bitmap;
+
 /**
  * Created by Owen on 01/02/2015.
  */
 public class RowItemSearchCourses {
-    private int imageId;
+    private Bitmap imageId;
     private String title;
     SubrowItemSearchCourses child = null;
 
 
-    public RowItemSearchCourses(int imageId, String title, SubrowItemSearchCourses child) {
+    public RowItemSearchCourses(Bitmap imageId, String title, SubrowItemSearchCourses child) {
         this.imageId = imageId;
         this.title = title;
         this.child = child;
     }
 
-    public int getImageId() {
+    public Bitmap getImageId() {
         return imageId;
     }
-    public void setImageId(int imageId) {
+    public void setImageId(Bitmap imageId) {
         this.imageId = imageId;
     }
     public String getTitle() {

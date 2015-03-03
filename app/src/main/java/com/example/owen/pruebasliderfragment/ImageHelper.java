@@ -12,6 +12,8 @@ import android.graphics.RectF;
  * Created by Owen on 04/02/2015.
  */
 public class ImageHelper {
+
+
     public Bitmap getRoundedCornerBitmap(Bitmap bitmap, int pixels) {
         Bitmap output = Bitmap.createBitmap(bitmap.getWidth(), bitmap
                 .getHeight(), Bitmap.Config.ARGB_8888);
@@ -33,4 +35,5 @@ public class ImageHelper {
 
         return output;
     }
+
 }

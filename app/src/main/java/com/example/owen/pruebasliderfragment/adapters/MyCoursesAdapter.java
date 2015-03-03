@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.example.owen.pruebasliderfragment.ImageHelper;
 import com.example.owen.pruebasliderfragment.ListViewItems.RowItemMyCourses;
 import com.example.owen.pruebasliderfragment.R;
 
@@ -122,7 +123,7 @@ public class MyCoursesAdapter extends BaseExpandableListAdapter {
         review_button.setFocusable(false);
         text.setText(grupo.getTitle());
         progress.setProgress(grupo.getProgress());
-        image.setImageResource(grupo.getImageId());
+        image.setImageBitmap(new ImageHelper().getRoundedCornerBitmap(grupo.getImageId(), 0));
         check.setChecked(isExpanded);
         return convertView;
     }
