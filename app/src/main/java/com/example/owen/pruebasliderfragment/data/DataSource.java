@@ -28,6 +28,7 @@ public class DataSource {
         database.close();
     }
 
+
     public boolean insertContactCursos(CursosEntry curso1) {
         CursosEntry curso=curso1;
         DataSource dataSource = null;
