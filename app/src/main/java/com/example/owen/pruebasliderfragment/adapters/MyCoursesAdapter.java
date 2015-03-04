@@ -1,6 +1,9 @@
 package com.example.owen.pruebasliderfragment.adapters;
 
 import android.app.Activity;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
+import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +17,10 @@ import android.widget.TextView;
 import com.example.owen.pruebasliderfragment.ImageHelper;
 import com.example.owen.pruebasliderfragment.ListViewItems.RowItemMyCourses;
 import com.example.owen.pruebasliderfragment.R;
+import com.example.owen.pruebasliderfragment.fragments.Chapters_frag;
+import com.example.owen.pruebasliderfragment.fragments.SearchCourses_frag;
+import com.parse.ParseObject;
+import com.parse.ParseUser;
 
 import java.util.ArrayList;
 
@@ -25,6 +32,8 @@ public class MyCoursesAdapter extends BaseExpandableListAdapter {
     private final ArrayList<RowItemMyCourses> grupos;
     public LayoutInflater inflater;
     public Activity activity;
+    private FragmentManager fm;
+    private FragmentTransaction ft;
 
 
     // constructor
@@ -55,7 +64,7 @@ public class MyCoursesAdapter extends BaseExpandableListAdapter {
 
 
     @Override
-    public View getChildView(int groupPosition, final int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
+    public View getChildView(final int groupPosition, final int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
         //final String children = (String) getChild(groupPosition, childPosition);
         RowItemMyCourses grupo = (RowItemMyCourses) getGroup(groupPosition);
         if (convertView == null) {
@@ -63,11 +72,25 @@ public class MyCoursesAdapter extends BaseExpandableListAdapter {
         }
         TextView definition = (TextView)convertView.findViewById(R.id.course_definition);
         TextView num_chapters = (TextView)convertView.findViewById(R.id.course_numberChapters);
+        Button btnEnter = (Button) convertView.findViewById(R.id.Mycourses_button);
+
+        btnEnter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ArrayList<ParseObject> ob = (ArrayList<ParseObject>) ParseUser.getCurrentUser().get("Courses");
+                fm = activity.getFragmentManager();
+                ft = fm.beginTransaction();
+                ft.setCustomAnimations(R.animator.slide_in_left_frag, R.animator.slide_out_right_frag);
+                Chapters_frag chapters = new Chapters_frag();
+                chapters.setCourse(ob.get(groupPosition));
+                ft.replace(R.id.container, chapters);
+                ft.commit();
+            }
+        });
         definition.setText(grupo.getChild().getDefinition());
         num_chapters.setText("Chapters : "+Integer.toString(grupo.getChild().getNum_temas_completados())+"/"+Integer.toString(grupo.getChild().getNum_temas()));
         return convertView;
     }
-
 
 
 

@@ -27,7 +27,7 @@ import java.util.List;
 public class AppMemoryt extends Application{
 
     ArrayList<RowItemSearchCourses> grupos;
-    List<ParseObject> ob;
+    List<ParseObject> ob = null;
 
 
     @Override
@@ -36,6 +36,7 @@ public class AppMemoryt extends Application{
 
         Parse.enableLocalDatastore(this);
         Parse.initialize(this, "eUm1h1r7STn62J6CMZpISBQCtM7izmp8b001Udab", "g3qvGnhMjsVrMGn03ZkcdmIGBvUPEDIoTJUMyrxP");
+        new RemoteDataTask().execute();
     }
 
     /**
@@ -74,6 +75,11 @@ public class AppMemoryt extends Application{
 
     public ParseObject getCourseByID(int index){
         return ob.get(index);
+    }
+
+
+    public List<ParseObject> getCourses(){
+        return ob;
     }
 
 }

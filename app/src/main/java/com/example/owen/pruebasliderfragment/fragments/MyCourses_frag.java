@@ -32,15 +32,11 @@ import java.util.List;
 
 
 public class MyCourses_frag extends Fragment {
-/*
-    ArrayList<RowItemMyCourses> grupos = new ArrayList<RowItemMyCourses>();
-    String[] cursos = {"Veterinaria","Ingles","Capitales","embalsamar", "tocarte los huevos"};
-    int[] cursos_img = {R.drawable.user_img, R.drawable.user_img, R.drawable.user_img, R.drawable.user_img, R.drawable.user_img};
-*/
+
     ArrayList<RowItemMyCourses> grupos;
-    List<ParseObject> ob;
-    ProgressDialog mProgressDialog;
-    MyCoursesAdapter adapter;
+    ArrayList<ParseObject> ob;
+    //ProgressDialog mProgressDialog;
+    //MyCoursesAdapter adapter;
 
 
     public MyCourses_frag() {
@@ -50,18 +46,18 @@ public class MyCourses_frag extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        new RemoteDataTask().execute();
+        //new RemoteDataTask().execute();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v =  inflater.inflate(R.layout.fragment_my_courses_frag, container, false);
-        /*
-        for (int i = 0; i < cursos.length; i++) {
-            String def = "Definicion del curso en cuestion, con el aprenderas un monton de cosas muchas mucha" +
-                    "muchas cosas";
-            RowItemMyCourses item = new RowItemMyCourses(cursos_img[i], cursos[i], new SubrowItemMyCourses(def, 5, 2), 40);
+        ob = (ArrayList<ParseObject>) ParseUser.getCurrentUser().get("Courses");
+        grupos = new ArrayList<RowItemMyCourses>();
+        for (int i = 0; i < ob.size(); i++) {
+            ParseFile image = (ParseFile) ob.get(i).get("Image");
+            RowItemMyCourses item = new RowItemMyCourses(setCourseImg(image),ob.get(i).getString("Name") , new SubrowItemMyCourses(ob.get(i).getString("Definition"), 5, 2), 40);
             grupos.add(item);
         }
 
@@ -71,12 +67,12 @@ public class MyCourses_frag extends Fragment {
         listView.setIndicatorBounds(width-50,width);
         MyCoursesAdapter adapter = new MyCoursesAdapter(getActivity(), grupos);
         listView.setAdapter(adapter);
-        */
+
         return v;
     }
 
 
-
+/*
     // RemoteDataTask AsyncTask
     class RemoteDataTask extends AsyncTask<Void, Void, Void> {
         @Override
@@ -96,6 +92,7 @@ public class MyCourses_frag extends Fragment {
         @Override
         protected Void doInBackground(Void... params) {
             // Create the array
+
             grupos = new ArrayList<RowItemMyCourses>();
             try {
                 //String userID = ParseUser.getCurrentUser().getObjectId();
@@ -132,22 +129,21 @@ public class MyCourses_frag extends Fragment {
             // Close the progressdialog
             mProgressDialog.dismiss();
         }
+    }
+    */
 
-
-        public Bitmap setCourseImg(ParseFile data){
-            Bitmap bitmap = null;
-            if(data != null) {
-                try {
-                    byte[] img = data.getData();
-                    bitmap = BitmapFactory.decodeByteArray(img, 0, img.length);
-                    bitmap = Bitmap.createScaledBitmap(bitmap, 180, 180, true);
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
+    public Bitmap setCourseImg(ParseFile data){
+        Bitmap bitmap = null;
+        if(data != null) {
+            try {
+                byte[] img = data.getData();
+                bitmap = BitmapFactory.decodeByteArray(img, 0, img.length);
+                bitmap = Bitmap.createScaledBitmap(bitmap, 180, 180, true);
+            } catch (ParseException e) {
+                e.printStackTrace();
             }
-            return bitmap;
         }
-
+        return bitmap;
     }
 
 }

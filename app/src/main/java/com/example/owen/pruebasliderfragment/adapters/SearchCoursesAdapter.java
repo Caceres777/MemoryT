@@ -12,7 +12,9 @@ import android.widget.Button;
 import android.widget.CheckedTextView;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.owen.pruebasliderfragment.AppMemoryt;
 import com.example.owen.pruebasliderfragment.ImageHelper;
 import com.example.owen.pruebasliderfragment.ListViewItems.RowItemSearchCourses;
 import com.example.owen.pruebasliderfragment.R;
@@ -23,6 +25,7 @@ import com.parse.ParseObject;
 import com.parse.ParseUser;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Carlos on 11/02/2015.
@@ -31,12 +34,14 @@ public class SearchCoursesAdapter extends BaseExpandableListAdapter {
     private final ArrayList<RowItemSearchCourses> grupos;
     public LayoutInflater inflater;
     public Activity activity;
+    private List<ParseObject> courses;
 
 
     // Constructor
-    public SearchCoursesAdapter(Activity act, ArrayList<RowItemSearchCourses> grupos) {
+    public SearchCoursesAdapter(Activity act, ArrayList<RowItemSearchCourses> grupos, List<ParseObject> courses) {
         activity = act;
         this.grupos = grupos;
+        this.courses = courses;
         inflater = act.getLayoutInflater();
     }
 
@@ -75,8 +80,18 @@ public class SearchCoursesAdapter extends BaseExpandableListAdapter {
             public void onClick(View v) {
                 ArrayList<ParseObject> myCourses = (ArrayList<ParseObject>) ParseUser.getCurrentUser().get("Courses");
                 if(myCourses != null){
+                    myCourses.add(courses.get(groupPosition));
+
+                }else{
+                    myCourses = new ArrayList<ParseObject>();
+                    myCourses.add(courses.get(groupPosition));
 
                 }
+                Toast.makeText(activity,"Apuntado", Toast.LENGTH_LONG).show();
+                ParseUser user = ParseUser.getCurrentUser();
+                user.put("Courses", myCourses);
+                user.saveInBackground();
+                Log.d("DATOSs", courses.get(groupPosition).getString("Name"));
             }
         });
         definition.setText(grupo.getChild().getDefinition());

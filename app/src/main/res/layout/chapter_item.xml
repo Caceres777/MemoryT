@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/mycourses_item"
+    android:orientation="vertical"
+    android:paddingRight="5dp"
+    android:paddingLeft="5dp">
+
+    <!-- used as a divider between items avoiding divider to appear in child item -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="15dp"
+        android:background="@android:color/transparent"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/Light_blue"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_weight="1">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:id="@+id/chapter_name"
+                    android:textColor="@color/White"
+                    android:layout_gravity="center|left"
+                    android:textStyle="bold"
+                    android:textSize="20dp"
+                    android:gravity="center"
+                    android:layout_weight="1"/>
+
+                <CheckedTextView xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:id="@+id/course_check"
+                    android:layout_width="wrap_content"
+                    android:layout_height="?android:attr/listPreferredItemHeight"
+                    android:gravity="center_vertical"
+                    android:layout_gravity="center_vertical"/>
+
+            </LinearLayout>
+
+            <ProgressBar
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:background="@color/White"
+                android:paddingBottom="2dp"
+                android:paddingTop="2dp"
+                android:progressDrawable="@drawable/progress_bar_custom_course"
+                android:id="@+id/chapter_progressBar"
+                android:layout_gravity="center_horizontal|bottom" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="@android:color/darker_gray">
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:textColor="@color/White"
+                android:background="@color/Light_orange"
+                android:layout_gravity="center_vertical|right"
+                android:text="Start"
+                android:id="@+id/start_button"
+                android:layout_weight="1"
+                android:layout_marginLeft="2dp" />
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

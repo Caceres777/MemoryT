@@ -25,6 +25,7 @@ import com.example.owen.pruebasliderfragment.fragments.Profile_frag;
 import com.example.owen.pruebasliderfragment.fragments.SearchCourses_frag;
 import com.example.owen.pruebasliderfragment.fragments.Settings_frag;
 import com.example.owen.pruebasliderfragment.fragments.Versus_frag;
+import com.parse.ParseObject;
 import com.parse.ParseUser;
 
 
@@ -205,6 +206,11 @@ public class Home extends ActionBarActivity implements NavigationDrawerFragment.
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+
+    public void setCourse(ParseObject course){
+
     }
 
 }
