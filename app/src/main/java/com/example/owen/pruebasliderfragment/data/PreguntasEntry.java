@@ -13,58 +13,51 @@ public class PreguntasEntry implements Serializable{
     public static final String ID_QUESTION = "id_question";
     public static final String FK_ID_THEME = "fk_id_theme";
     public static final String TEXT = "text";
-    public static final boolean DONE=true;
-    public static int RIGHT=0;
-    public static int WRONG=0;
+    public static final String DONE="done";
+    public static final String RIGHT="correct";
+    public static final String WRONG="wrong";
 
-        @Override
-        public String toString() {
-            return "PreguntasEntry{" +
-                    "QUESTIONS='" + TABLE_NAME + '\'' +
-                    ", ID_QUESTION='" + ID_QUESTION + '\'' +
-                    ", FK_ID_THEME='" + FK_ID_THEME + '\'' +
-                    ", TEXT='" + TEXT + '\'' +
-                    ", DONE='" + DONE + '\'' +
-                    ", RIGHT='" + RIGHT + '\'' +
-                    ", WRONG='" + WRONG + '\'' +
-                    '}';
-        }
-
-        public String getTableName() {
-            return TABLE_NAME;
-        }
-
-        public String getIdQuestion() {
-            return ID_QUESTION;
-        }
-
-        public String getIdTheme() {
-            return FK_ID_THEME;
-        }
-
-        public String getText() {
-            return TEXT;
-        }
-
-        public boolean isDone() {
-            return DONE;
-        }
-
-        public int getRIGHT() {
-            return RIGHT;
-        }
-
-        public void setRIGHT(int RIGHT) {
-            PreguntasEntry.RIGHT = RIGHT;
-        }
-
-        public int getWRONG() {
-            return WRONG;
-        }
-
-        public void setWRONG(int WRONG) {
-            PreguntasEntry.WRONG = WRONG;
-        }
+    @Override
+    public String toString() {
+        return "PreguntasEntry{" +
+                "QUESTIONS='" + TABLE_NAME + '\'' +
+                ", ID_QUESTION='" + ID_QUESTION + '\'' +
+                ", FK_ID_THEME='" + FK_ID_THEME + '\'' +
+                ", TEXT='" + TEXT + '\'' +
+                ", DONE='" + DONE + '\'' +
+                ", RIGHT='" + RIGHT + '\'' +
+                ", WRONG='" + WRONG + '\'' +
+                '}';
     }
+
+    public String getTableName() {
+        return TABLE_NAME;
+    }
+
+    public String getIdQuestion() {
+        return ID_QUESTION;
+    }
+
+    public String getIdTheme() {
+        return FK_ID_THEME;
+    }
+
+    public String getText() {
+        return TEXT;
+    }
+
+    public static String getDone() {
+        return DONE;
+    }
+
+    public static String getRight() {
+        return RIGHT;
+    }
+
+    public static String getWrong() {
+        return WRONG;
+    }
+
+}
 
 

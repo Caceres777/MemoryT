@@ -39,7 +39,6 @@ public class DataSource {
         args.put(CursosEntry.DEFINITION, curso.getDEFINITION());
         args.put(CursosEntry.NAME, curso.getNAME());
         args.put(String.valueOf(CursosEntry.ACCURACY), curso.getACCURACY());
-//        args.put(CursosEntry.IMAGE, curso.getIMAGE());
 
         database.insert(curso.getTABLE_NAME(), null, args);
         database.setTransactionSuccessful();
@@ -47,6 +46,7 @@ public class DataSource {
         database.close();
         return insertado=true;
     }
+
     public boolean insertContactTemas(TemasEntry tema) {
         DataSource dataSource = null;
         SQLiteDatabase database = dataSource.openWriteable();
@@ -64,6 +64,7 @@ public class DataSource {
         database.close();
         return insertado=true;
     }
+
     public boolean insertContactPreguntas(PreguntasEntry pregunta) {
         DataSource dataSource = null;
         SQLiteDatabase database = dataSource.openWriteable();
@@ -73,15 +74,16 @@ public class DataSource {
         args.put(PreguntasEntry.ID_QUESTION, pregunta.getIdQuestion());
         args.put(PreguntasEntry.FK_ID_THEME, pregunta.getIdTheme());
         args.put(PreguntasEntry.TEXT, pregunta.getText());
-        args.put(String.valueOf(PreguntasEntry.DONE), String.valueOf(pregunta.isDone()));
-        args.put(String.valueOf(PreguntasEntry.RIGHT), String.valueOf(pregunta.getRIGHT()));
-        args.put(String.valueOf(PreguntasEntry.WRONG), String.valueOf(pregunta.getWRONG()));
+        args.put(String.valueOf(PreguntasEntry.DONE), String.valueOf(pregunta.getDone()));
+        args.put(String.valueOf(PreguntasEntry.RIGHT), String.valueOf(pregunta.getRight()));
+        args.put(String.valueOf(PreguntasEntry.WRONG), String.valueOf(pregunta.getWrong()));
         database.insert(pregunta.getTableName(), null, args);
         database.setTransactionSuccessful();
         database.endTransaction();
         database.close();
         return insertado=true;
     }
+
     public boolean insertContactRespuestas(RespuestasEntry respuesta) {
         DataSource dataSource = null;
         SQLiteDatabase database = dataSource.openWriteable();

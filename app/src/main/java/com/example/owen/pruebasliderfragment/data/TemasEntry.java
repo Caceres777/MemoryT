@@ -11,7 +11,7 @@ public class TemasEntry implements Serializable {
     public static String ID_THEME = "id_theme";
     public static String FK_ID_COURSE = "fk_id_course";
     public static String NAME = "name";
-    public static int ACCURACY=0;
+    public static String ACCURACY="accuracy";
 
     @Override
     public String toString() {
@@ -40,7 +40,7 @@ public class TemasEntry implements Serializable {
         return NAME;
     }
 
-    public int getAccuracy() {
+    public static String getAccuracy() {
         return ACCURACY;
     }
 }

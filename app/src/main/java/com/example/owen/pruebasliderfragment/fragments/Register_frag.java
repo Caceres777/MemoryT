@@ -1,10 +1,12 @@
 package com.example.owen.pruebasliderfragment.fragments;
 
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +16,8 @@ import android.widget.Toast;
 
 import com.example.owen.pruebasliderfragment.activities.Home;
 import com.example.owen.pruebasliderfragment.R;
+import com.example.owen.pruebasliderfragment.data.Ayudante;
+import com.example.owen.pruebasliderfragment.data.DataSource;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseUser;
@@ -109,6 +113,8 @@ public class Register_frag extends Fragment {
                                 if (e == null) {
                                     // sing up was successful
                                     toastMensajeCorreto.show();
+                                    Ayudante SQLHelper = new Ayudante(getActivity());
+                                    Log.d("SQL", "DATABASE CREATED");
                                     startActivity(new Intent(getActivity(), Home.class));
                                     getActivity().overridePendingTransition(R.animator.left_in, R.animator.left_out);
                                 } else {

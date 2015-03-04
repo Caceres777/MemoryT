@@ -18,6 +18,7 @@ import com.example.owen.pruebasliderfragment.AppMemoryt;
 import com.example.owen.pruebasliderfragment.ImageHelper;
 import com.example.owen.pruebasliderfragment.ListViewItems.RowItemSearchCourses;
 import com.example.owen.pruebasliderfragment.R;
+import com.example.owen.pruebasliderfragment.data.Ayudante;
 import com.example.owen.pruebasliderfragment.fragments.SearchCourses_frag;
 import com.parse.ParseException;
 import com.parse.ParseFile;
@@ -93,7 +94,7 @@ public class SearchCoursesAdapter extends BaseExpandableListAdapter {
                 user.put("Courses", myCourses);
                 user.saveInBackground();
                 // guardar en base de datos local tambien
-
+                Ayudante SQLHelper = new Ayudante(activity);
 
                 Log.d("DATOSs", courses.get(groupPosition).getString("Name"));
             }

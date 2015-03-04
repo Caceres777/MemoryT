@@ -1,9 +1,12 @@
 package com.example.owen.pruebasliderfragment.data;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+
+import java.util.ArrayList;
 
 /**
  * Created by CHUFASCHIN on 29/01/2015.
@@ -19,55 +22,61 @@ public class Ayudante extends SQLiteOpenHelper {
     private static final String TAG = "";
 
     static final String CREATE_TABLE_CONTACT_CURSOS =
-            "CREATE TABLE " + CursosEntry.TABLE_NAME + "( " +
+            "CREATE TABLE "+ CursosEntry.TABLE_NAME +"( " +
                     CursosEntry.ID_COURSE + " INTEGER PRIMARY KEY AUTOINCREMENT ," +
-                    CursosEntry.DEFINITION + "VARCHAR"+
-                    CursosEntry.ACCURACY +"INTEGER"+
-                    CursosEntry.IMAGE +"BITMAP"+
-                    CursosEntry.NAME + "VARCHAR NOT NULL);";
+                    CursosEntry.NAME + " VARCHAR NOT NULL,"+
+                    CursosEntry.DEFINITION + " VARCHAR,"+
+                    CursosEntry.ACCURACY +" INTEGER,"+
+                    CursosEntry.IMAGE +" BLOB);";
+
 
     static final String CREATE_TABLE_CONTACT_TEMAS =
-            "CREATE TABLE " + TemasEntry.TABLE_NAME + "( " +
+            "CREATE TABLE "+ TemasEntry.TABLE_NAME +"( " +
                     TemasEntry.ID_THEME + " INTEGER PRIMARY KEY AUTOINCREMENT ," +
-                    TemasEntry.FK_ID_COURSE + " INTEGER ," +
-                    TemasEntry.ACCURACY +"INTEGER"+
-                    TemasEntry.NAME +"VARCHAR"+
-                    "FOREIGN KEY("+Contact.TemasEntry.FK_ID_COURSE+") REFERENCES "+Contact.CursosEntry.TABLE_NAME+"("+Contact.CursosEntry.ID_COURSE+")";
-//                    TemasEntry.NAME + "VARCHAR NOT NULL);";
+                    TemasEntry.NAME +" VARCHAR," +
+                    TemasEntry.ACCURACY +" INTEGER,"+
+                    TemasEntry.FK_ID_COURSE + " INTEGER ,"+
+                    "FOREIGN KEY("+TemasEntry.FK_ID_COURSE+") REFERENCES "+CursosEntry.TABLE_NAME+"("+CursosEntry.ID_COURSE+"));";
 
     static final String CREATE_TABLE_CONTACT_BADGES =
-            "CREATE TABLE " + BadgesEntry.TABLE_NAME + "( " +
+            "CREATE TABLE "+ BadgesEntry.TABLE_NAME +"( " +
                     BadgesEntry.ID_BADGE + " INTEGER PRIMARY KEY AUTOINCREMENT ," +
                     BadgesEntry.FK_ID_COURSE + " INTEGER ," +
-                    BadgesEntry.IMAGE +"INTEGER"+
-                    BadgesEntry.TITLE +"VARCHAR"+
-                    BadgesEntry.TEXT +"VARCHAR"+
-                    "FOREIGN KEY("+BadgesEntry.FK_ID_COURSE+") REFERENCES "+Contact.CursosEntry.TABLE_NAME+"("+Contact.CursosEntry.ID_COURSE+")";
-//                    BadgesEntry.NAME + " NOT NULL);";
+                    BadgesEntry.IMAGE +" BLOB,"+
+                    BadgesEntry.TITLE +" VARCHAR,"+
+                    BadgesEntry.TEXT +" VARCHAR,"+
+                    "FOREIGN KEY("+BadgesEntry.FK_ID_COURSE+") REFERENCES "+CursosEntry.TABLE_NAME+"("+CursosEntry.ID_COURSE+"));";
 
     static final String CREATE_TABLE_CONTACT_PREGUNTAS =
-            "CREATE TABLE " + PreguntasEntry.TABLE_NAME + "( " +
+            "CREATE TABLE "+ PreguntasEntry.TABLE_NAME +"( " +
                     PreguntasEntry.ID_QUESTION + " INTEGER PRIMARY KEY AUTOINCREMENT ," +
                     PreguntasEntry.FK_ID_THEME + " INTEGER," +
-                    PreguntasEntry.TEXT +"VARCHAR"+
-                    PreguntasEntry.DONE +"BOOLEAN"+
-                    PreguntasEntry.RIGHT +"BOOLEAN"+
-                    PreguntasEntry.WRONG +"BOOLEAN"+
-                    "FOREIGN KEY("+PreguntasEntry.FK_ID_THEME+") REFERENCES "+Contact.TemasEntry.TABLE_NAME+"("+Contact.TemasEntry.ID_THEME+")";
+                    PreguntasEntry.TEXT +" VARCHAR,"+
+                    PreguntasEntry.DONE +" BOOLEAN,"+
+                    PreguntasEntry.RIGHT +" BOOLEAN,"+
+                    PreguntasEntry.WRONG +" BOOLEAN,"+
+                    "FOREIGN KEY("+PreguntasEntry.FK_ID_THEME+") REFERENCES "+TemasEntry.TABLE_NAME+"("+TemasEntry.ID_THEME+"));";
 
     static final String CREATE_TABLE_CONTACT_RESPUESTAS =
-            "CREATE TABLE " + RespuestasEntry.TABLE_NAME + "( " +
+            "CREATE TABLE "+ RespuestasEntry.TABLE_NAME +"( " +
                     RespuestasEntry.ID_ANSWER + " INTEGER PRIMARY KEY AUTOINCREMENT ," +
                     RespuestasEntry.FK_ID_QUESTION + " INTEGER," +
                     RespuestasEntry.FK_ID_THEME + " INTEGER," +
-                    RespuestasEntry.TEXT +"VARCHAR"+
-                    "FOREIGN KEY("+RespuestasEntry.FK_ID_THEME+") REFERENCES "+Contact.TemasEntry.TABLE_NAME+"("+Contact.TemasEntry.ID_THEME+")"+
-                    "FOREIGN KEY("+RespuestasEntry.FK_ID_QUESTION+") REFERENCES "+Contact.PreguntasEntry.TABLE_NAME+"("+Contact.PreguntasEntry.ID_QUESTION+")";
+                    RespuestasEntry.TEXT +" VARCHAR,"+
+                    "FOREIGN KEY("+RespuestasEntry.FK_ID_THEME+") REFERENCES "+TemasEntry.TABLE_NAME+"("+TemasEntry.ID_THEME+"),"+
+                    "FOREIGN KEY("+RespuestasEntry.FK_ID_QUESTION+") REFERENCES "+PreguntasEntry.TABLE_NAME+"("+PreguntasEntry.ID_QUESTION+"));";
+
+
+    /**
+     * Consultas a la base de datos
+     */
+    static final String CONSULTA_SELECTALL_CURSOS = "SELECT * FROM "+CursosEntry.TABLE_NAME;
+
+
 
     @Override
     public void onCreate(SQLiteDatabase db) {
         try {
-//            db.execSQL(CREATE_TABLE_CONTACT_USUARIOS);
             db.execSQL(CREATE_TABLE_CONTACT_CURSOS);
             db.execSQL(CREATE_TABLE_CONTACT_TEMAS);
             db.execSQL(CREATE_TABLE_CONTACT_BADGES);
@@ -93,7 +102,23 @@ public class Ayudante extends SQLiteOpenHelper {
             onCreate(db);
         }
     }
+
+    public ArrayList<CursosEntry> getCursos(Context context){
+        ArrayList<CursosEntry> cursos = null;
+        DataSource ds = new DataSource(context);
+        SQLiteDatabase db = ds.openReadable();
+        Cursor c = db.rawQuery(CONSULTA_SELECTALL_CURSOS, null);
+        for(int i = 0; i < c.getCount(); i++)
+            Log.d("SQLDATA", c.getString(2));
+        return cursos;
+    }
+
+
+    public void insertIntoCursos(){
+
+    }
 }
+
 
 //    static final String CREATE_TABLE_CONTACT_USUARIOS =
 //            "CREATE TABLE " + Contact.UsuariosEntry.TABLE_NAME + "( " +

@@ -7,7 +7,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.util.Log;
-import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -18,12 +17,10 @@ import android.widget.ExpandableListView;
 import android.widget.Toast;
 
 import com.example.owen.pruebasliderfragment.ListViewItems.RowItemMyCourses;
-import com.example.owen.pruebasliderfragment.ListViewItems.RowItemSearchCourses;
 import com.example.owen.pruebasliderfragment.ListViewItems.SubrowItemMyCourses;
-import com.example.owen.pruebasliderfragment.ListViewItems.SubrowItemSearchCourses;
 import com.example.owen.pruebasliderfragment.R;
 import com.example.owen.pruebasliderfragment.adapters.MyCoursesAdapter;
-import com.example.owen.pruebasliderfragment.adapters.SearchCoursesAdapter;
+import com.example.owen.pruebasliderfragment.data.Ayudante;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseObject;
@@ -57,14 +54,8 @@ public class MyCourses_frag extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v =  inflater.inflate(R.layout.fragment_my_courses_frag, container, false);
-        ob = (ArrayList<ParseObject>) ParseUser.getCurrentUser().get("Courses");
-        grupos = new ArrayList<RowItemMyCourses>();
-        for (int i = 0; i < ob.size(); i++) {
-            Log.d("PARSE", (String) ob.get(i).get("Name"));
-            ParseFile image = (ParseFile) ob.get(i).get("Image");
-            RowItemMyCourses item = new RowItemMyCourses(setCourseImg(image),ob.get(i).getString("Name") , new SubrowItemMyCourses(ob.get(i).getString("Definition"), 5, 2), 40);
-            grupos.add(item);
-        }
+        setAdapterFromLocal();
+        setAdapterFromParse();
 
         ExpandableListView listView = (ExpandableListView) v.findViewById(R.id.listaMyCurso);
         MyCoursesAdapter adapter = new MyCoursesAdapter(getActivity(), grupos);
@@ -161,6 +152,24 @@ public class MyCourses_frag extends Fragment {
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
+        }
+    }
+
+
+    public void setAdapterFromLocal(){
+        Ayudante SQLhelper = new Ayudante(getActivity());
+        SQLhelper.getCursos(getActivity());
+    }
+
+
+    public void setAdapterFromParse(){
+        ob = (ArrayList<ParseObject>) ParseUser.getCurrentUser().get("Courses");
+        grupos = new ArrayList<RowItemMyCourses>();
+        for (int i = 0; i < ob.size(); i++) {
+            Log.d("PARSE", (String) ob.get(i).get("Name"));
+            ParseFile image = (ParseFile) ob.get(i).get("Image");
+            RowItemMyCourses item = new RowItemMyCourses(setCourseImg(image),ob.get(i).getString("Name") , new SubrowItemMyCourses(ob.get(i).getString("Definition"), 5, 2), 40);
+            grupos.add(item);
         }
     }
 
