@@ -18,44 +18,51 @@ public class Ayudante extends SQLiteOpenHelper {
     static final int DATABASE_VERSION = 1;
     private static final String TAG = "";
 
-//    static final String CREATE_TABLE_CONTACT_USUARIOS =
-//            "CREATE TABLE " + Contact.UsuariosEntry.TABLE_NAME + "( " +
-//                    Contact.UsuariosEntry.COLUMN_ID_USER + " INTEGER PRIMARY KEY AUTOINCREMENT ," +
-//                    Contact.UsuariosEntry.COLUMN_NAME + " TEXT NOT NULL," +
-//                    Contact.UsuariosEntry.COLUMN_EXP + " ," +
-//                    Contact.UsuariosEntry.COLUMN_AVATAR + " ," +
-//                    Contact.UsuariosEntry.COLUMN_MAIL + " NOT NULL," +
-//                    Contact.UsuariosEntry.COLUMN_PASSWORD + " NOT NULL);";
-
     static final String CREATE_TABLE_CONTACT_CURSOS =
-            "CREATE TABLE " + Contact.CursosEntry.TABLE_NAME + "( " +
-                    Contact.CursosEntry.COLUMN_ID_CURSO + " INTEGER PRIMARY KEY AUTOINCREMENT ," +
-                    Contact.CursosEntry.ACCURACY +
-                    Contact.CursosEntry.COLUMN_NOMBRE + " NOT NULL);";
+            "CREATE TABLE " + CursosEntry.TABLE_NAME + "( " +
+                    CursosEntry.ID_COURSE + " INTEGER PRIMARY KEY AUTOINCREMENT ," +
+                    CursosEntry.DEFINITION + "VARCHAR"+
+                    CursosEntry.ACCURACY +"INTEGER"+
+                    CursosEntry.IMAGE +"BITMAP"+
+                    CursosEntry.NAME + "VARCHAR NOT NULL);";
 
     static final String CREATE_TABLE_CONTACT_TEMAS =
-            "CREATE TABLE " + Contact.TemasEntry.TABLE_NAME + "( " +
-                    Contact.TemasEntry.COLUMN_ID_TEMA + " INTEGER PRIMARY KEY AUTOINCREMENT ," +
-                    Contact.TemasEntry.COLUMN_ID_CURSO + " INTEGER ," +
-                    Contact.TemasEntry.ACCURACY +
-                    "FOREIGN KEY("+Contact.TemasEntry.COLUMN_ID_CURSO+") REFERENCES "+Contact.CursosEntry.TABLE_NAME+"("+Contact.CursosEntry.COLUMN_ID_CURSO+")"+
-                    Contact.TemasEntry.COLUMN_NOMBRE + " NOT NULL);";
+            "CREATE TABLE " + TemasEntry.TABLE_NAME + "( " +
+                    TemasEntry.ID_THEME + " INTEGER PRIMARY KEY AUTOINCREMENT ," +
+                    TemasEntry.FK_ID_COURSE + " INTEGER ," +
+                    TemasEntry.ACCURACY +"INTEGER"+
+                    TemasEntry.NAME +"VARCHAR"+
+                    "FOREIGN KEY("+Contact.TemasEntry.FK_ID_COURSE+") REFERENCES "+Contact.CursosEntry.TABLE_NAME+"("+Contact.CursosEntry.ID_COURSE+")";
+//                    TemasEntry.NAME + "VARCHAR NOT NULL);";
+
+    static final String CREATE_TABLE_CONTACT_BADGES =
+            "CREATE TABLE " + BadgesEntry.TABLE_NAME + "( " +
+                    BadgesEntry.ID_BADGE + " INTEGER PRIMARY KEY AUTOINCREMENT ," +
+                    BadgesEntry.FK_ID_COURSE + " INTEGER ," +
+                    BadgesEntry.IMAGE +"INTEGER"+
+                    BadgesEntry.TITLE +"VARCHAR"+
+                    BadgesEntry.TEXT +"VARCHAR"+
+                    "FOREIGN KEY("+BadgesEntry.FK_ID_COURSE+") REFERENCES "+Contact.CursosEntry.TABLE_NAME+"("+Contact.CursosEntry.ID_COURSE+")";
+//                    BadgesEntry.NAME + " NOT NULL);";
 
     static final String CREATE_TABLE_CONTACT_PREGUNTAS =
-            "CREATE TABLE " + Contact.PreguntasEntry.TABLE_NAME + "( " +
-                    Contact.PreguntasEntry.COLUMN_ID_PREGUNTA + " INTEGER PRIMARY KEY AUTOINCREMENT ," +
-                    Contact.PreguntasEntry.COLUMN_ID_TEMA + " INTEGER," +
-                    "FOREIGN KEY("+Contact.PreguntasEntry.COLUMN_ID_TEMA+") REFERENCES "+Contact.TemasEntry.TABLE_NAME+"("+Contact.TemasEntry.COLUMN_ID_TEMA+")"+
-                    Contact.PreguntasEntry.COLUMN_NOMBRE + " NOT NULL);";
+            "CREATE TABLE " + PreguntasEntry.TABLE_NAME + "( " +
+                    PreguntasEntry.ID_QUESTION + " INTEGER PRIMARY KEY AUTOINCREMENT ," +
+                    PreguntasEntry.FK_ID_THEME + " INTEGER," +
+                    PreguntasEntry.TEXT +"VARCHAR"+
+                    PreguntasEntry.DONE +"BOOLEAN"+
+                    PreguntasEntry.RIGHT +"BOOLEAN"+
+                    PreguntasEntry.WRONG +"BOOLEAN"+
+                    "FOREIGN KEY("+PreguntasEntry.FK_ID_THEME+") REFERENCES "+Contact.TemasEntry.TABLE_NAME+"("+Contact.TemasEntry.ID_THEME+")";
 
     static final String CREATE_TABLE_CONTACT_RESPUESTAS =
-            "CREATE TABLE " + Contact.RespuestasEntry.TABLE_NAME + "( " +
-                    Contact.RespuestasEntry.COLUMN_ID_RESPUESTA + " INTEGER PRIMARY KEY AUTOINCREMENT ," +
-                    Contact.RespuestasEntry.COLUMN_ID_PREGUNTA + " INTEGER," +
-                    Contact.RespuestasEntry.COLUMN_ID_TEMA + " INTEGER," +
-                    "FOREIGN KEY("+Contact.RespuestasEntry.COLUMN_ID_TEMA+") REFERENCES "+Contact.TemasEntry.TABLE_NAME+"("+Contact.TemasEntry.COLUMN_ID_TEMA+")"+
-                    "FOREIGN KEY("+Contact.RespuestasEntry.COLUMN_ID_PREGUNTA+") REFERENCES "+Contact.PreguntasEntry.TABLE_NAME+"("+Contact.PreguntasEntry.COLUMN_ID_PREGUNTA+")"+
-                    Contact.RespuestasEntry.COLUMN_NOMBRE + " NOT NULL);";
+            "CREATE TABLE " + RespuestasEntry.TABLE_NAME + "( " +
+                    RespuestasEntry.ID_ANSWER + " INTEGER PRIMARY KEY AUTOINCREMENT ," +
+                    RespuestasEntry.FK_ID_QUESTION + " INTEGER," +
+                    RespuestasEntry.FK_ID_THEME + " INTEGER," +
+                    RespuestasEntry.TEXT +"VARCHAR"+
+                    "FOREIGN KEY("+RespuestasEntry.FK_ID_THEME+") REFERENCES "+Contact.TemasEntry.TABLE_NAME+"("+Contact.TemasEntry.ID_THEME+")"+
+                    "FOREIGN KEY("+RespuestasEntry.FK_ID_QUESTION+") REFERENCES "+Contact.PreguntasEntry.TABLE_NAME+"("+Contact.PreguntasEntry.ID_QUESTION+")";
 
     @Override
     public void onCreate(SQLiteDatabase db) {
@@ -63,6 +70,7 @@ public class Ayudante extends SQLiteOpenHelper {
 //            db.execSQL(CREATE_TABLE_CONTACT_USUARIOS);
             db.execSQL(CREATE_TABLE_CONTACT_CURSOS);
             db.execSQL(CREATE_TABLE_CONTACT_TEMAS);
+            db.execSQL(CREATE_TABLE_CONTACT_BADGES);
             db.execSQL(CREATE_TABLE_CONTACT_PREGUNTAS);
             db.execSQL(CREATE_TABLE_CONTACT_RESPUESTAS);
         } catch (Exception e) {
@@ -79,9 +87,19 @@ public class Ayudante extends SQLiteOpenHelper {
 //            db.execSQL("DROP TABLE IF EXISTS " + CREATE_TABLE_CONTACT_USUARIOS);
             db.execSQL("DROP TABLE IF EXISTS " + CREATE_TABLE_CONTACT_CURSOS);
             db.execSQL("DROP TABLE IF EXISTS " + CREATE_TABLE_CONTACT_TEMAS);
+            db.execSQL("DROP TABLE IF EXISTS " + CREATE_TABLE_CONTACT_BADGES);
             db.execSQL("DROP TABLE IF EXISTS " + CREATE_TABLE_CONTACT_PREGUNTAS);
             db.execSQL("DROP TABLE IF EXISTS " + CREATE_TABLE_CONTACT_RESPUESTAS);
             onCreate(db);
         }
     }
 }
+
+//    static final String CREATE_TABLE_CONTACT_USUARIOS =
+//            "CREATE TABLE " + Contact.UsuariosEntry.TABLE_NAME + "( " +
+//                    Contact.UsuariosEntry.COLUMN_ID_USER + " INTEGER PRIMARY KEY AUTOINCREMENT ," +
+//                    Contact.UsuariosEntry.COLUMN_NAME + " TEXT NOT NULL," +
+//                    Contact.UsuariosEntry.COLUMN_EXP + " ," +
+//                    Contact.UsuariosEntry.COLUMN_AVATAR + " ," +
+//                    Contact.UsuariosEntry.COLUMN_MAIL + " NOT NULL," +
+//                    Contact.UsuariosEntry.COLUMN_PASSWORD + " NOT NULL);";

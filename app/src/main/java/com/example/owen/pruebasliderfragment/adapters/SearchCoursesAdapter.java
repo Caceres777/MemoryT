@@ -88,9 +88,13 @@ public class SearchCoursesAdapter extends BaseExpandableListAdapter {
 
                 }
                 Toast.makeText(activity,"Apuntado", Toast.LENGTH_LONG).show();
+                // guardamos en parse
                 ParseUser user = ParseUser.getCurrentUser();
                 user.put("Courses", myCourses);
                 user.saveInBackground();
+                // guardar en base de datos local tambien
+
+
                 Log.d("DATOSs", courses.get(groupPosition).getString("Name"));
             }
         });

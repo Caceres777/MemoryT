@@ -9,6 +9,9 @@ import android.app.Fragment;
 import android.util.Log;
 import android.view.Display;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ExpandableListView;
@@ -34,9 +37,9 @@ import java.util.List;
 public class MyCourses_frag extends Fragment {
 
     ArrayList<RowItemMyCourses> grupos;
-    ArrayList<ParseObject> ob;
-    //ProgressDialog mProgressDialog;
-    //MyCoursesAdapter adapter;
+    List<ParseObject> ob;
+    ProgressDialog mProgressDialog;
+    MyCoursesAdapter adapter;
 
 
     public MyCourses_frag() {
@@ -46,6 +49,7 @@ public class MyCourses_frag extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
         //new RemoteDataTask().execute();
     }
 
@@ -56,15 +60,13 @@ public class MyCourses_frag extends Fragment {
         ob = (ArrayList<ParseObject>) ParseUser.getCurrentUser().get("Courses");
         grupos = new ArrayList<RowItemMyCourses>();
         for (int i = 0; i < ob.size(); i++) {
+            Log.d("PARSE", (String) ob.get(i).get("Name"));
             ParseFile image = (ParseFile) ob.get(i).get("Image");
             RowItemMyCourses item = new RowItemMyCourses(setCourseImg(image),ob.get(i).getString("Name") , new SubrowItemMyCourses(ob.get(i).getString("Definition"), 5, 2), 40);
             grupos.add(item);
         }
 
         ExpandableListView listView = (ExpandableListView) v.findViewById(R.id.listaMyCurso);
-        Display newDisplay = getActivity().getWindowManager().getDefaultDisplay();
-        int width = newDisplay.getWidth();
-        listView.setIndicatorBounds(width-50,width);
         MyCoursesAdapter adapter = new MyCoursesAdapter(getActivity(), grupos);
         listView.setAdapter(adapter);
 
@@ -72,7 +74,7 @@ public class MyCourses_frag extends Fragment {
     }
 
 
-/*
+
     // RemoteDataTask AsyncTask
     class RemoteDataTask extends AsyncTask<Void, Void, Void> {
         @Override
@@ -100,20 +102,14 @@ public class MyCourses_frag extends Fragment {
                 query.whereEqualTo("UserID",ParseUser.getCurrentUser());
                 ob = query.find();
                 for (ParseObject course : ob) {
-                    String courseID = course.getString("CourseID");
-                    Log.d("CourseID", "El id es : "+courseID);
-                    ParseQuery<ParseObject> queryCourse = new ParseQuery<ParseObject>("Course");
-                                       queryCourse.whereEqualTo("objectId",courseID );
-                    ParseObject mycourse =  queryCourse.find().get(0);
-
-                    Log.d("NOMBRE", (String) mycourse.get("Name"));
-                    ParseFile image = (ParseFile) mycourse.get("Image");
-                    RowItemMyCourses item = new RowItemMyCourses(setCourseImg(image),(String) mycourse.get("Name"),new SubrowItemMyCourses((String) mycourse.get("Definition"), 2, 5),course.getInt("Progress"));
-                    grupos.add(item);
+                    // introducimos los datos en la base de datos local
+                    // buscamos que el curso no exista en la base de datos local
+                    // en caso de no existir hacemos un insert
                 }
             } catch (ParseException e) {
                 Log.e("Error", e.getMessage());
                 e.printStackTrace();
+                Toast.makeText(getActivity(),"Connection Error",Toast.LENGTH_LONG).show();
             }
             return null;
         }
@@ -130,7 +126,7 @@ public class MyCourses_frag extends Fragment {
             mProgressDialog.dismiss();
         }
     }
-    */
+
 
     public Bitmap setCourseImg(ParseFile data){
         Bitmap bitmap = null;
@@ -144,6 +140,28 @@ public class MyCourses_frag extends Fragment {
             }
         }
         return bitmap;
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        menu.clear();
+        inflater.inflate(R.menu.mycourses , menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+    @Override
+    public void onPrepareOptionsMenu(Menu menu) {
+        super.onPrepareOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.refresh:
+                new RemoteDataTask().execute();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
 }

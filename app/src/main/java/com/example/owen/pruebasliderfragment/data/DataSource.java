@@ -28,6 +28,80 @@ public class DataSource {
         database.close();
     }
 
+    public boolean insertContactCursos(CursosEntry curso1) {
+        CursosEntry curso=curso1;
+        DataSource dataSource = null;
+        SQLiteDatabase database = dataSource.openWriteable();
+        database.beginTransaction();
+        ContentValues args = new ContentValues();
+
+        args.put(CursosEntry.ID_COURSE, curso.getID_COURSE());
+        args.put(CursosEntry.DEFINITION, curso.getDEFINITION());
+        args.put(CursosEntry.NAME, curso.getNAME());
+        args.put(String.valueOf(CursosEntry.ACCURACY), curso.getACCURACY());
+//        args.put(CursosEntry.IMAGE, curso.getIMAGE());
+
+        database.insert(curso.getTABLE_NAME(), null, args);
+        database.setTransactionSuccessful();
+        database.endTransaction();
+        database.close();
+        return insertado=true;
+    }
+    public boolean insertContactTemas(TemasEntry tema) {
+        DataSource dataSource = null;
+        SQLiteDatabase database = dataSource.openWriteable();
+        database.beginTransaction();
+        ContentValues args = new ContentValues();
+
+        args.put(TemasEntry.ID_THEME, tema.getIdTema());
+        args.put(TemasEntry.NAME, tema.getName());
+        args.put(TemasEntry.FK_ID_COURSE, tema.getFkIdCourse());
+        args.put(TemasEntry.NAME, tema.getName());
+        args.put(String.valueOf(TemasEntry.ACCURACY), tema.getAccuracy());
+        database.insert(tema.getTableName(), null, args);
+        database.setTransactionSuccessful();
+        database.endTransaction();
+        database.close();
+        return insertado=true;
+    }
+    public boolean insertContactPreguntas(PreguntasEntry pregunta) {
+        DataSource dataSource = null;
+        SQLiteDatabase database = dataSource.openWriteable();
+        database.beginTransaction();
+        ContentValues args = new ContentValues();
+
+        args.put(PreguntasEntry.ID_QUESTION, pregunta.getIdQuestion());
+        args.put(PreguntasEntry.FK_ID_THEME, pregunta.getIdTheme());
+        args.put(PreguntasEntry.TEXT, pregunta.getText());
+        args.put(String.valueOf(PreguntasEntry.DONE), String.valueOf(pregunta.isDone()));
+        args.put(String.valueOf(PreguntasEntry.RIGHT), String.valueOf(pregunta.getRIGHT()));
+        args.put(String.valueOf(PreguntasEntry.WRONG), String.valueOf(pregunta.getWRONG()));
+        database.insert(pregunta.getTableName(), null, args);
+        database.setTransactionSuccessful();
+        database.endTransaction();
+        database.close();
+        return insertado=true;
+    }
+    public boolean insertContactRespuestas(RespuestasEntry respuesta) {
+        DataSource dataSource = null;
+        SQLiteDatabase database = dataSource.openWriteable();
+        database.beginTransaction();
+        ContentValues args = new ContentValues();
+
+        long insercion;
+
+        args.put(RespuestasEntry.ID_ANSWER, respuesta.getIdAnswer());
+        args.put(RespuestasEntry.FK_ID_QUESTION, respuesta.getFkIdQuestion());
+        args.put(RespuestasEntry.FK_ID_THEME, respuesta.getFkIdTheme());
+        args.put(RespuestasEntry.TEXT, respuesta.getText());
+        database.insert(respuesta.getTableName(), null, args);
+        database.setTransactionSuccessful();
+        database.endTransaction();
+        database.close();
+        return insertado=true;
+
+    }
+
 //    public boolean insertContactUsuarios(int idUser, String name, int exp, Blob avatar, String email, String pass) {
 //        DataSource dataSource = null;
 //        SQLiteDatabase database = dataSource.openWriteable();
@@ -46,69 +120,6 @@ public class DataSource {
 //        database.close();
 //        return insertado=true;
 //    }
-    public boolean insertContactCursos(int idCurso, String name) {
-        DataSource dataSource = null;
-        SQLiteDatabase database = dataSource.openWriteable();
-        database.beginTransaction();
-        ContentValues args = new ContentValues();
-
-        args.put(ContactBean.CursosEntry.getColumnIdCurso(), idCurso);
-        args.put(ContactBean.CursosEntry.getColumnNombre(), name);
-        database.insert(ContactBean.CursosEntry.getTableName(), null, args);
-        database.setTransactionSuccessful();
-        database.endTransaction();
-        database.close();
-        return insertado=true;
-    }
-    public boolean insertContactTemas(int idTema, String name, int fk_idCurso) {
-        DataSource dataSource = null;
-        SQLiteDatabase database = dataSource.openWriteable();
-        database.beginTransaction();
-        ContentValues args = new ContentValues();
-
-        args.put(ContactBean.TemasEntry.getColumnIdTema(), idTema);
-        args.put(ContactBean.TemasEntry.getColumnNombre(), name);
-        args.put(ContactBean.TemasEntry.getColumnIdCurso(), fk_idCurso);
-        database.insert(ContactBean.TemasEntry.getTableName(), null, args);
-        database.setTransactionSuccessful();
-        database.endTransaction();
-        database.close();
-        return insertado=true;
-    }
-    public boolean insertContactPreguntas(int idPregunta, String name, int fk_idTema) {
-        DataSource dataSource = null;
-        SQLiteDatabase database = dataSource.openWriteable();
-        database.beginTransaction();
-        ContentValues args = new ContentValues();
-
-        args.put(ContactBean.PreguntasEntry.getColumnIdPregunta(), idPregunta);
-        args.put(ContactBean.PreguntasEntry.getColumnNombre(), name);
-        args.put(ContactBean.PreguntasEntry.getColumnIdTema(), fk_idTema);
-        database.insert(ContactBean.PreguntasEntry.getTableName(), null, args);
-        database.setTransactionSuccessful();
-        database.endTransaction();
-        database.close();
-        return insertado=true;
-    }
-    public boolean insertContactRespuestas(int idRespuesta, String name, int fk_idPregunta, int fk_idTema) {
-        DataSource dataSource = null;
-        SQLiteDatabase database = dataSource.openWriteable();
-        database.beginTransaction();
-        ContentValues args = new ContentValues();
-
-        long insercion;
-
-        args.put(ContactBean.RespuestasEntry.getColumnIdRespuesta(), idRespuesta);
-        args.put(ContactBean.RespuestasEntry.getColumnNombre(), name);
-        args.put(ContactBean.RespuestasEntry.getColumnIdPregunta(), fk_idPregunta);
-        args.put(ContactBean.RespuestasEntry.getColumnIdTema(), fk_idTema);
-        database.insert(ContactBean.RespuestasEntry.getTableName(), null, args);
-        database.setTransactionSuccessful();
-        database.endTransaction();
-        database.close();
-        return insertado=true;
-
-    }
 
 //    public boolean borrarContactoUsuario(long rowId) {
 //        DataSource dataSource = null;
