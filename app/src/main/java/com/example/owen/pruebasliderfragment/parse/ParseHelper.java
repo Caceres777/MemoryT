@@ -130,13 +130,13 @@ public class ParseHelper {
     }
 
 
-    public List<BeanCursos> getChaptersByCourse(ParseObject pointerCourse){
+    public List<BeanCursos> getCoursesByUser(ParseObject pointerUser){
         Progreso_cursosEntry tabla = new Progreso_cursosEntry();
         CourseEntry tabla2 = new CourseEntry();
         List<ParseObject> ob = null;
         List<BeanCursos> cursos = null;
         ParseQuery<ParseObject> query = new ParseQuery<ParseObject>(tabla.getTableName());
-            query.whereEqualTo(tabla.getCourseID(), pointerCourse);
+            query.whereEqualTo(tabla.getUserID(), pointerUser);
         try {
             ob = query.find();
             for(ParseObject mycurso : ob){

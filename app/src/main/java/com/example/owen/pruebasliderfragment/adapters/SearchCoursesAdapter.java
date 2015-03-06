@@ -95,7 +95,7 @@ public class SearchCoursesAdapter extends BaseExpandableListAdapter {
 
                 // guardar en base de datos local tambien
                 DataSource dataSource = new DataSource(activity);
-                List<BeanCursos> ob = parseHelper.getChaptersByCourse(course);
+                List<BeanCursos> ob = parseHelper.getCoursesByUser(ParseUser.getCurrentUser());
                 for(BeanCursos aux : ob)
                     dataSource.insertContactCursos(aux);
                 //dataSource.insertContactCursos(new BeanCursos(curso.getObjectId(), curso.getString("Definition"), curso.getString("Name"), curso.getInt(""), ));
