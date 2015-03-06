@@ -4,6 +4,12 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.example.owen.pruebasliderfragment.JavaBean.BeanCursos;
+import com.example.owen.pruebasliderfragment.data.DataEntry.CursosEntry;
+import com.example.owen.pruebasliderfragment.data.DataEntry.PreguntasEntry;
+import com.example.owen.pruebasliderfragment.data.DataEntry.RespuestasEntry;
+import com.example.owen.pruebasliderfragment.data.DataEntry.TemasEntry;
+
 /**
  * Created by CHUFASCHIN on 29/01/2015.
  */
@@ -29,8 +35,7 @@ public class DataSource {
     }
 
 
-    public boolean insertContactCursos(CursosEntry curso1) {
-        CursosEntry curso=curso1;
+    public boolean insertContactCursos(BeanCursos curso) {
         DataSource dataSource = null;
         SQLiteDatabase database = dataSource.openWriteable();
         database.beginTransaction();
@@ -41,7 +46,7 @@ public class DataSource {
         args.put(CursosEntry.NAME, curso.getNAME());
         args.put(String.valueOf(CursosEntry.ACCURACY), curso.getACCURACY());
 
-        database.insert(curso.getTABLE_NAME(), null, args);
+        database.insert(new CursosEntry().getTABLE_NAME(), null, args);
         database.setTransactionSuccessful();
         database.endTransaction();
         database.close();

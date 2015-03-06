@@ -2,10 +2,12 @@ package com.example.owen.pruebasliderfragment.ListViewItems;
 
 import android.graphics.Bitmap;
 
+import java.io.Serializable;
+
 /**
  * Created by Owen on 18/02/2015.
  */
-public class RowItemMyCourses {
+public class RowItemMyCourses implements Serializable {
     private Bitmap imageId;
     private String title;
     private int progress;

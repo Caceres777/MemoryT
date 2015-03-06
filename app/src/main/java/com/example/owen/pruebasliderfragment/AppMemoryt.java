@@ -36,40 +36,6 @@ public class AppMemoryt extends Application{
 
         Parse.enableLocalDatastore(this);
         Parse.initialize(this, "eUm1h1r7STn62J6CMZpISBQCtM7izmp8b001Udab", "g3qvGnhMjsVrMGn03ZkcdmIGBvUPEDIoTJUMyrxP");
-        new RemoteDataTask().execute();
-    }
-
-    /**
-     * Clase encargada de buscar los datos de los cursos desde parse
-     */
-    // RemoteDataTask AsyncTask
-    class RemoteDataTask extends AsyncTask<Void, Void, Void> {
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-        }
-
-        @Override
-        protected Void doInBackground(Void... params) {
-            // Create the array
-            grupos = new ArrayList<RowItemSearchCourses>();
-            try {
-                // Locate the class table named "Country" in Parse.com
-                ParseQuery<ParseObject> query = new ParseQuery<ParseObject>("Course");
-                ob = query.find();
-
-            } catch (ParseException e) {
-                Log.e("Error", e.getMessage());
-                e.printStackTrace();
-            }
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void result) {
-
-        }
-
     }
 
 

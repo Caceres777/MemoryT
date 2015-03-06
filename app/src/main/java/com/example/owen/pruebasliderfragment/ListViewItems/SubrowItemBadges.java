@@ -1,9 +1,11 @@
 package com.example.owen.pruebasliderfragment.ListViewItems;
 
+import java.io.Serializable;
+
 /**
  * Created by Owen on 12/02/2015.
  */
-public class SubrowItemBadges {
+public class SubrowItemBadges implements Serializable {
 
     private int badgeImage;
     private String badgeText;

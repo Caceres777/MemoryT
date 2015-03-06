@@ -2,10 +2,12 @@ package com.example.owen.pruebasliderfragment.ListViewItems;
 
 import android.graphics.Bitmap;
 
+import java.io.Serializable;
+
 /**
  * Created by Owen on 01/02/2015.
  */
-public class RowItemSearchCourses {
+public class RowItemSearchCourses implements Serializable {
     private Bitmap imageId;
     private String title;
     SubrowItemSearchCourses child = null;

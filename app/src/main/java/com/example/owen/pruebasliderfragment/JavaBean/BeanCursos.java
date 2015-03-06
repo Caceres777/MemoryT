@@ -13,6 +13,14 @@ public class BeanCursos implements Serializable {
     private int ACCURACY;
     private Blob IMAGE;
 
+    public BeanCursos(String ID_COURSE, String DEFINITION, String NAME, int ACCURACY, Blob IMAGE){
+        this.ACCURACY = ACCURACY;
+        this.ID_COURSE = ID_COURSE;
+        this.DEFINITION = DEFINITION;
+        this.NAME=NAME;
+        this.IMAGE=IMAGE;
+    }
+
     public void setIMAGE(Blob IMAGE) {
         this.IMAGE = IMAGE;
     }

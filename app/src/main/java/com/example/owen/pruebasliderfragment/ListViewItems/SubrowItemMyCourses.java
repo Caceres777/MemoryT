@@ -1,9 +1,11 @@
 package com.example.owen.pruebasliderfragment.ListViewItems;
 
+import java.io.Serializable;
+
 /**
  * Created by Owen on 18/02/2015.
  */
-public class SubrowItemMyCourses {
+public class SubrowItemMyCourses implements Serializable {
     private String definition;
     private int num_temas;
     private int num_temas_completados;

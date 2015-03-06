@@ -2,10 +2,12 @@ package com.example.owen.pruebasliderfragment.ListViewItems;
 
 import android.graphics.Bitmap;
 
+import java.io.Serializable;
+
 /**
  * Created by Owen on 03/03/2015.
  */
-public class RowItemChapter {
+public class RowItemChapter implements Serializable {
     private String title;
     private int progress;
     private SubrowItemChapter child = null;

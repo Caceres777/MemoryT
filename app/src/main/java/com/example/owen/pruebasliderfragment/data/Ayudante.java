@@ -6,6 +6,12 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import com.example.owen.pruebasliderfragment.data.DataEntry.BadgesEntry;
+import com.example.owen.pruebasliderfragment.data.DataEntry.CursosEntry;
+import com.example.owen.pruebasliderfragment.data.DataEntry.PreguntasEntry;
+import com.example.owen.pruebasliderfragment.data.DataEntry.RespuestasEntry;
+import com.example.owen.pruebasliderfragment.data.DataEntry.TemasEntry;
+
 import java.util.ArrayList;
 
 /**
@@ -24,8 +30,8 @@ public class Ayudante extends SQLiteOpenHelper {
     static final String CREATE_TABLE_CONTACT_CURSOS =
             "CREATE TABLE "+ CursosEntry.TABLE_NAME +"( " +
                     CursosEntry.ID_COURSE + " INTEGER PRIMARY KEY AUTOINCREMENT ," +
-                    CursosEntry.NAME + " VARCHAR NOT NULL,"+
-                    CursosEntry.DEFINITION + " VARCHAR,"+
+                    CursosEntry.NAME + " TEXT NOT NULL,"+
+                    CursosEntry.DEFINITION + " TEXT,"+
                     CursosEntry.ACCURACY +" INTEGER,"+
                     CursosEntry.IMAGE +" BLOB);";
 
@@ -33,7 +39,7 @@ public class Ayudante extends SQLiteOpenHelper {
     static final String CREATE_TABLE_CONTACT_TEMAS =
             "CREATE TABLE "+ TemasEntry.TABLE_NAME +"( " +
                     TemasEntry.ID_THEME + " INTEGER PRIMARY KEY AUTOINCREMENT ," +
-                    TemasEntry.NAME +" VARCHAR," +
+                    TemasEntry.NAME +" TEXT," +
                     TemasEntry.ACCURACY +" INTEGER,"+
                     TemasEntry.FK_ID_COURSE + " INTEGER ,"+
                     "FOREIGN KEY("+TemasEntry.FK_ID_COURSE+") REFERENCES "+CursosEntry.TABLE_NAME+"("+CursosEntry.ID_COURSE+"));";
@@ -43,18 +49,18 @@ public class Ayudante extends SQLiteOpenHelper {
                     BadgesEntry.ID_BADGE + " INTEGER PRIMARY KEY AUTOINCREMENT ," +
                     BadgesEntry.FK_ID_COURSE + " INTEGER ," +
                     BadgesEntry.IMAGE +" BLOB,"+
-                    BadgesEntry.TITLE +" VARCHAR,"+
-                    BadgesEntry.TEXT +" VARCHAR,"+
+                    BadgesEntry.TITLE +" TEXT,"+
+                    BadgesEntry.TEXT +" TEXT,"+
                     "FOREIGN KEY("+BadgesEntry.FK_ID_COURSE+") REFERENCES "+CursosEntry.TABLE_NAME+"("+CursosEntry.ID_COURSE+"));";
 
     static final String CREATE_TABLE_CONTACT_PREGUNTAS =
             "CREATE TABLE "+ PreguntasEntry.TABLE_NAME +"( " +
                     PreguntasEntry.ID_QUESTION + " INTEGER PRIMARY KEY AUTOINCREMENT ," +
                     PreguntasEntry.FK_ID_THEME + " INTEGER," +
-                    PreguntasEntry.TEXT +" VARCHAR,"+
+                    PreguntasEntry.TEXT +" TEXT,"+
                     PreguntasEntry.DONE +" BOOLEAN,"+
-                    PreguntasEntry.RIGHT +" BOOLEAN,"+
-                    PreguntasEntry.WRONG +" BOOLEAN,"+
+                    PreguntasEntry.RIGHT +" INTEGER,"+
+                    PreguntasEntry.WRONG +" INTEGER,"+
                     "FOREIGN KEY("+PreguntasEntry.FK_ID_THEME+") REFERENCES "+TemasEntry.TABLE_NAME+"("+TemasEntry.ID_THEME+"));";
 
     static final String CREATE_TABLE_CONTACT_RESPUESTAS =
@@ -62,7 +68,7 @@ public class Ayudante extends SQLiteOpenHelper {
                     RespuestasEntry.ID_ANSWER + " INTEGER PRIMARY KEY AUTOINCREMENT ," +
                     RespuestasEntry.FK_ID_QUESTION + " INTEGER," +
                     RespuestasEntry.FK_ID_THEME + " INTEGER," +
-                    RespuestasEntry.TEXT +" VARCHAR,"+
+                    RespuestasEntry.TEXT +" TEXT,"+
                     "FOREIGN KEY("+RespuestasEntry.FK_ID_THEME+") REFERENCES "+TemasEntry.TABLE_NAME+"("+TemasEntry.ID_THEME+"),"+
                     "FOREIGN KEY("+RespuestasEntry.FK_ID_QUESTION+") REFERENCES "+PreguntasEntry.TABLE_NAME+"("+PreguntasEntry.ID_QUESTION+"));";
 

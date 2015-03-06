@@ -1,9 +1,11 @@
 package com.example.owen.pruebasliderfragment.ListViewItems;
 
+import java.io.Serializable;
+
 /**
  * Created by Owen on 03/03/2015.
  */
-public class SubrowItemChapter {
+public class SubrowItemChapter implements Serializable {
 
     private int num_palabras;
     private int num_palabras_aprendidas;

@@ -1,9 +1,11 @@
 package com.example.owen.pruebasliderfragment.ListViewItems;
 
+import java.io.Serializable;
+
 /**
  * Created by Owen on 01/02/2015.
  */
-public class RowItemMenu {
+public class RowItemMenu implements Serializable {
     private int imageId;
     private String title;
 

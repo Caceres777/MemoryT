@@ -16,11 +16,16 @@ import android.view.ViewGroup;
 import android.widget.ExpandableListView;
 import android.widget.Toast;
 
+import com.example.owen.pruebasliderfragment.ImageHelper;
 import com.example.owen.pruebasliderfragment.ListViewItems.RowItemMyCourses;
 import com.example.owen.pruebasliderfragment.ListViewItems.SubrowItemMyCourses;
 import com.example.owen.pruebasliderfragment.R;
 import com.example.owen.pruebasliderfragment.adapters.MyCoursesAdapter;
 import com.example.owen.pruebasliderfragment.data.Ayudante;
+import com.example.owen.pruebasliderfragment.data.DataEntry.CursosEntry;
+import com.example.owen.pruebasliderfragment.parse.DataEntry.CourseEntry;
+import com.example.owen.pruebasliderfragment.parse.DataEntry.Progreso_cursosEntry;
+import com.example.owen.pruebasliderfragment.parse.ParseHelper;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseObject;
@@ -47,15 +52,15 @@ public class MyCourses_frag extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
-        //new RemoteDataTask().execute();
+        new RemoteDataTask().execute();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v =  inflater.inflate(R.layout.fragment_my_courses_frag, container, false);
-        setAdapterFromLocal();
-        setAdapterFromParse();
+        //setAdapterFromLocal();
+        //setAdapterFromParse();
 
         ExpandableListView listView = (ExpandableListView) v.findViewById(R.id.listaMyCurso);
         MyCoursesAdapter adapter = new MyCoursesAdapter(getActivity(), grupos);
@@ -87,20 +92,20 @@ public class MyCourses_frag extends Fragment {
             // Create the array
 
             grupos = new ArrayList<RowItemMyCourses>();
-            try {
-                //String userID = ParseUser.getCurrentUser().getObjectId();
-                ParseQuery<ParseObject> query = new ParseQuery<ParseObject>("Progreso_Cursos");
-                query.whereEqualTo("UserID",ParseUser.getCurrentUser());
-                ob = query.find();
-                for (ParseObject course : ob) {
-                    // introducimos los datos en la base de datos local
-                    // buscamos que el curso no exista en la base de datos local
-                    // en caso de no existir hacemos un insert
+            CourseEntry tabla = new CourseEntry();
+            ParseHelper parseHelper = new ParseHelper();
+            ob = parseHelper.getAllMyCourses();
+            if(ob != null) {
+                // fallo en coger los datos de la tabla
+                for (ParseObject myCourse : ob) {
+                    ParseObject curso = (ParseObject) myCourse.get(new Progreso_cursosEntry().getCourseID());
+                    ParseFile image = (ParseFile) curso.get(tabla.getImage());
+                    // comprobar el tipo de dato introducidos en RowItemCourses
+                    RowItemMyCourses item = new RowItemMyCourses(new ImageHelper().parseFiletoBitmap(image), curso.getString(tabla.getName()), new SubrowItemMyCourses(curso.getString(tabla.getDefinition()), 5, 2), (Integer) myCourse.get(new Progreso_cursosEntry().getProgress()));
+                    grupos.add(item);
                 }
-            } catch (ParseException e) {
-                Log.e("Error", e.getMessage());
-                e.printStackTrace();
-                Toast.makeText(getActivity(),"Connection Error",Toast.LENGTH_LONG).show();
+            }else{
+                Toast.makeText(getActivity(),"No courses",Toast.LENGTH_LONG);
             }
             return null;
         }
@@ -118,20 +123,6 @@ public class MyCourses_frag extends Fragment {
         }
     }
 
-
-    public Bitmap setCourseImg(ParseFile data){
-        Bitmap bitmap = null;
-        if(data != null) {
-            try {
-                byte[] img = data.getData();
-                bitmap = BitmapFactory.decodeByteArray(img, 0, img.length);
-                bitmap = Bitmap.createScaledBitmap(bitmap, 180, 180, true);
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-        }
-        return bitmap;
-    }
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
@@ -163,13 +154,22 @@ public class MyCourses_frag extends Fragment {
 
 
     public void setAdapterFromParse(){
-        ob = (ArrayList<ParseObject>) ParseUser.getCurrentUser().get("Courses");
+        CourseEntry tabla = new CourseEntry();
+        ParseHelper parseHelper = new ParseHelper();
+        ob = parseHelper.getAllMyCourses();
         grupos = new ArrayList<RowItemMyCourses>();
-        for (int i = 0; i < ob.size(); i++) {
-            Log.d("PARSE", (String) ob.get(i).get("Name"));
-            ParseFile image = (ParseFile) ob.get(i).get("Image");
-            RowItemMyCourses item = new RowItemMyCourses(setCourseImg(image),ob.get(i).getString("Name") , new SubrowItemMyCourses(ob.get(i).getString("Definition"), 5, 2), 40);
-            grupos.add(item);
+        if(ob != null) {
+            // fallo en coger los datos de la tabla
+            for (ParseObject myCourse : ob) {
+                //Log.d("PARSECURSO", myCourse.getString(new Progreso_cursosEntry().getFinished()));
+                ParseObject curso = (ParseObject) myCourse.get(new Progreso_cursosEntry().getCourseID());
+                Toast.makeText(getActivity(),"Mensaje: "+curso.getObjectId(), Toast.LENGTH_LONG);
+                ParseFile image = curso.getParseFile(tabla.getImage());
+                RowItemMyCourses item = new RowItemMyCourses(new ImageHelper().parseFiletoBitmap(image), curso.getString(tabla.getName()), new SubrowItemMyCourses(curso.getString(tabla.getDefinition()), 5, 2), myCourse.getInt(new Progreso_cursosEntry().getProgress()));
+                grupos.add(item);
+            }
+        }else{
+            Toast.makeText(getActivity(),"No courses",Toast.LENGTH_LONG);
         }
     }
 

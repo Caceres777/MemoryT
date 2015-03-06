@@ -25,6 +25,7 @@ import com.example.owen.pruebasliderfragment.R;
 import com.example.owen.pruebasliderfragment.ListViewItems.RowItemSearchCourses;
 import com.example.owen.pruebasliderfragment.ListViewItems.SubrowItemSearchCourses;
 import com.example.owen.pruebasliderfragment.adapters.SearchCoursesAdapter;
+import com.example.owen.pruebasliderfragment.parse.ParseHelper;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseFile;
@@ -86,23 +87,13 @@ public class SearchCourses_frag extends Fragment{
         protected Void doInBackground(Void... params) {
             // Create the array
             grupos = new ArrayList<RowItemSearchCourses>();
-            try {
-                AppMemoryt appState = ((AppMemoryt)getActivity().getApplication());
-                ob = appState.getCourses();
-                if(ob == null) {
-                    // Locate the class table named "Country" in Parse.com
-                    ParseQuery<ParseObject> query = new ParseQuery<ParseObject>("Course");
-                    ob = query.find();
-                }
-                for (ParseObject course : ob) {
-                    // Locate images in flag column
-                    ParseFile image = (ParseFile) course.get("Image");
-                    RowItemSearchCourses item = new RowItemSearchCourses(setCourseImg(image),(String) course.get("Name"),new SubrowItemSearchCourses((String) course.get("Definition"), 5));
-                    grupos.add(item);
-                }
-            } catch (ParseException e) {
-                Log.e("Error", e.getMessage());
-                e.printStackTrace();
+            ParseHelper parseHelper = new ParseHelper();
+            ob = parseHelper.getAllCourses();
+            for (ParseObject course : ob) {
+                // Locate images in flag column
+                ParseFile image = (ParseFile) course.get("Image");
+                RowItemSearchCourses item = new RowItemSearchCourses(setCourseImg(image),(String) course.get("Name"),new SubrowItemSearchCourses((String) course.get("Definition"), 5));
+                grupos.add(item);
             }
             return null;
         }
@@ -134,17 +125,6 @@ public class SearchCourses_frag extends Fragment{
             return bitmap;
         }
 
-    }
-
-    /**
-     * Ya que alamacenamos los cursos de parse dentro del fragmento, hacemos uso de este
-     * metodo para que el listener tenga acceso a el sin necesidad de volver a hacer otra
-     * consulta
-     * @param index
-     * @return
-     */
-    public ParseObject getCourseByID(int index){
-        return ob.get(index);
     }
 
 

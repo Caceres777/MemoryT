@@ -1,4 +1,4 @@
-package com.example.owen.pruebasliderfragment.data;
+package com.example.owen.pruebasliderfragment.data.DataEntry;
 
 import android.graphics.Bitmap;
 

@@ -16,10 +16,13 @@ import android.widget.Toast;
 
 import com.example.owen.pruebasliderfragment.AppMemoryt;
 import com.example.owen.pruebasliderfragment.ImageHelper;
+import com.example.owen.pruebasliderfragment.JavaBean.BeanCursos;
 import com.example.owen.pruebasliderfragment.ListViewItems.RowItemSearchCourses;
 import com.example.owen.pruebasliderfragment.R;
 import com.example.owen.pruebasliderfragment.data.Ayudante;
+import com.example.owen.pruebasliderfragment.data.DataSource;
 import com.example.owen.pruebasliderfragment.fragments.SearchCourses_frag;
+import com.example.owen.pruebasliderfragment.parse.ParseHelper;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseObject;
@@ -79,24 +82,21 @@ public class SearchCoursesAdapter extends BaseExpandableListAdapter {
         btnLearn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ArrayList<ParseObject> myCourses = (ArrayList<ParseObject>) ParseUser.getCurrentUser().get("Courses");
-                if(myCourses != null){
-                    myCourses.add(courses.get(groupPosition));
 
-                }else{
-                    myCourses = new ArrayList<ParseObject>();
-                    myCourses.add(courses.get(groupPosition));
-
-                }
+                // cogemos los punteros para la tabla
+                ParseObject user = ParseUser.getCurrentUser();
+                ParseObject course = courses.get(groupPosition);
+                // cramos el parseHelper
+                ParseHelper parseHelper = new ParseHelper();
+                parseHelper.setNewMyCourse(user, course);
+                // avisamos que el curso a sido guardado
                 Toast.makeText(activity,"Apuntado", Toast.LENGTH_LONG).show();
-                // guardamos en parse
-                ParseUser user = ParseUser.getCurrentUser();
-                user.put("Courses", myCourses);
-                user.saveInBackground();
-                // guardar en base de datos local tambien
-                Ayudante SQLHelper = new Ayudante(activity);
 
-                Log.d("DATOSs", courses.get(groupPosition).getString("Name"));
+
+                // guardar en base de datos local tambien
+                DataSource dataSource = new DataSource(activity);
+                ParseObject curso = courses.get(groupPosition);
+                //dataSource.insertContactCursos(new BeanCursos(curso.getObjectId(), curso.getString("Definition"), curso.getString("Name"), curso.getInt(""), ));
             }
         });
         definition.setText(grupo.getChild().getDefinition());

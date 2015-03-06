@@ -17,12 +17,19 @@ import android.widget.ExpandableListView;
 
 import com.example.owen.pruebasliderfragment.AppMemoryt;
 import com.example.owen.pruebasliderfragment.ListViewItems.RowItemChapter;
+import com.example.owen.pruebasliderfragment.ListViewItems.RowItemMyCourses;
 import com.example.owen.pruebasliderfragment.ListViewItems.RowItemSearchCourses;
 import com.example.owen.pruebasliderfragment.ListViewItems.SubrowItemChapter;
+import com.example.owen.pruebasliderfragment.ListViewItems.SubrowItemMyCourses;
 import com.example.owen.pruebasliderfragment.ListViewItems.SubrowItemSearchCourses;
 import com.example.owen.pruebasliderfragment.R;
 import com.example.owen.pruebasliderfragment.adapters.ChaptersAdapter;
 import com.example.owen.pruebasliderfragment.adapters.SearchCoursesAdapter;
+import com.example.owen.pruebasliderfragment.parse.DataEntry.ChaptersEntry;
+import com.example.owen.pruebasliderfragment.parse.DataEntry.CourseEntry;
+import com.example.owen.pruebasliderfragment.parse.DataEntry.Progreso_ChaptersEntry;
+import com.example.owen.pruebasliderfragment.parse.DataEntry.Progreso_cursosEntry;
+import com.example.owen.pruebasliderfragment.parse.ParseHelper;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseObject;
@@ -86,22 +93,7 @@ public class Chapters_frag extends Fragment {
         protected Void doInBackground(Void... params) {
             // Create the array
             grupos = new ArrayList<RowItemChapter>();
-            try {
-
-                // Locate the class table named "Country" in Parse.com
-                ParseQuery<ParseObject> query = new ParseQuery<ParseObject>("Chapters");
-                query.whereEqualTo("Curso", course);
-                query.orderByAscending("position");
-                ob = query.find();
-                for (ParseObject chapter : ob) {
-                    // Locate images in flag column
-                    RowItemChapter item = new RowItemChapter((String) chapter.get("name"), new SubrowItemChapter(10 , 5, 80), 80);
-                    grupos.add(item);
-                }
-            } catch (ParseException e) {
-                Log.e("Error", e.getMessage());
-                e.printStackTrace();
-            }
+            setAdapterFromParse();
             return null;
         }
 
@@ -115,6 +107,21 @@ public class Chapters_frag extends Fragment {
             listView.setAdapter(adapter);
             // Close the progressdialog
             mProgressDialog.dismiss();
+        }
+    }
+
+
+    public void setAdapterFromParse(){
+        Progreso_ChaptersEntry tabla2 = new Progreso_ChaptersEntry();
+        ParseHelper parseHelper = new ParseHelper();
+        ob = parseHelper.getAllChapter(course);
+        grupos = new ArrayList<RowItemChapter>();
+        for (int i = 0; i < ob.size(); i++) {
+            ChaptersEntry tabla = new ChaptersEntry();
+            ParseObject chapter = (ParseObject) ob.get(i).get(tabla2.getChapterID());
+            Log.d("PARSE", (String) chapter.get(tabla.getName()));
+            RowItemChapter item = new RowItemChapter((String) chapter.get(tabla.getName()), new SubrowItemChapter(10 , 5, ob.get(i).getInt(tabla2.getAccuracy())), ob.get(i).getInt(tabla2.getProgress()));
+            grupos.add(item);
         }
     }
 
