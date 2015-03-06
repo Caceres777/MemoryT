@@ -7,14 +7,14 @@ import java.sql.Blob;
  * Created by Owen on 04/03/2015.
  */
 public class BeanCursos implements Serializable {
-    private String ID_COURSE;
+    private int ID_COURSE;
     private String ID_PARSE;
     private String DEFINITION;
     private String NAME;
     private int ACCURACY;
     private byte[] IMAGE;
 
-    public BeanCursos(String ID_COURSE, String ID_PARSE, String DEFINITION, String NAME, int ACCURACY, byte[] IMAGE){
+    public BeanCursos(int ID_COURSE, String ID_PARSE, String DEFINITION, String NAME, int ACCURACY, byte[] IMAGE){
         this.ID_COURSE = ID_COURSE;
         this.ACCURACY = ACCURACY;
         this.ID_PARSE = ID_PARSE;
@@ -35,7 +35,7 @@ public class BeanCursos implements Serializable {
         this.DEFINITION = DEFINITION;
     }
 
-    public void setID_COURSE(String ID_COURSE) {
+    public void setID_COURSE(int ID_COURSE) {
         this.ID_COURSE = ID_COURSE;
     }
 
@@ -59,7 +59,7 @@ public class BeanCursos implements Serializable {
         return DEFINITION;
     }
 
-    public String getID_COURSE() {
+    public int getID_COURSE() {
         return ID_COURSE;
     }
 

@@ -15,6 +15,7 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -134,14 +135,14 @@ public class ParseHelper {
         Progreso_cursosEntry tabla = new Progreso_cursosEntry();
         CourseEntry tabla2 = new CourseEntry();
         List<ParseObject> ob = null;
-        List<BeanCursos> cursos = null;
+        ArrayList<BeanCursos> cursos = new ArrayList<BeanCursos>();
         ParseQuery<ParseObject> query = new ParseQuery<ParseObject>(tabla.getTableName());
             query.whereEqualTo(tabla.getUserID(), pointerUser);
         try {
             ob = query.find();
             for(ParseObject mycurso : ob){
                 ParseObject curso = (ParseObject) mycurso.get(tabla.getCourseID());
-                cursos.add(new BeanCursos(null, mycurso.getObjectId(), curso.getString(tabla2.getDefinition()), curso.getString(tabla2.getName()), mycurso.getInt(tabla.getAccuracy()), curso.getParseFile(tabla2.getImage()).getData()));
+                cursos.add(new BeanCursos(0, mycurso.getObjectId(), curso.getString(tabla2.getDefinition()), curso.getString(tabla2.getName()), mycurso.getInt(tabla.getAccuracy()), curso.getParseFile(tabla2.getImage()).getData()));
             }
         } catch (ParseException e) {
             e.printStackTrace();

@@ -36,12 +36,12 @@ public class DataSource {
 
 
     public boolean insertContactCursos(BeanCursos curso) {
-        DataSource dataSource = null;
+        DataSource dataSource = new DataSource(mContext);
         SQLiteDatabase database = dataSource.openWriteable();
         database.beginTransaction();
         ContentValues args = new ContentValues();
 
-        args.put(CursosEntry.ID_COURSE, curso.getID_COURSE());
+        args.put(CursosEntry.ID_PARSE, curso.getID_PARSE());
         args.put(CursosEntry.DEFINITION, curso.getDEFINITION());
         args.put(CursosEntry.NAME, curso.getNAME());
         args.put(String.valueOf(CursosEntry.ACCURACY), curso.getACCURACY());

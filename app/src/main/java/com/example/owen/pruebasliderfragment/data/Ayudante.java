@@ -117,7 +117,7 @@ public class Ayudante extends SQLiteOpenHelper {
         SQLiteDatabase db = ds.openReadable();
         Cursor c = db.rawQuery(CONSULTA_SELECTALL_CURSOS, null);
         for(int i = 0; i < c.getCount(); i++) {
-            cursos.add(new BeanCursos(c.getString(0), c.getString(2), c.getString(1), c.getInt(3), c.getBlob(4)));
+            cursos.add(new BeanCursos(c.getInt(0), c.getString(1), c.getString(3), c.getString(2), c.getInt(4), c.getBlob(5)));
         }
             Log.d("SQLDATA", c.getString(2));
         return cursos;
