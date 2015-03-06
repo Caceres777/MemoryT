@@ -8,20 +8,22 @@ import java.sql.Blob;
  */
 public class BeanCursos implements Serializable {
     private String ID_COURSE;
+    private String ID_PARSE;
     private String DEFINITION;
     private String NAME;
     private int ACCURACY;
-    private Blob IMAGE;
+    private byte[] IMAGE;
 
-    public BeanCursos(String ID_COURSE, String DEFINITION, String NAME, int ACCURACY, Blob IMAGE){
-        this.ACCURACY = ACCURACY;
+    public BeanCursos(String ID_COURSE, String ID_PARSE, String DEFINITION, String NAME, int ACCURACY, byte[] IMAGE){
         this.ID_COURSE = ID_COURSE;
+        this.ACCURACY = ACCURACY;
+        this.ID_PARSE = ID_PARSE;
         this.DEFINITION = DEFINITION;
         this.NAME=NAME;
         this.IMAGE=IMAGE;
     }
 
-    public void setIMAGE(Blob IMAGE) {
+    public void setIMAGE(byte[] IMAGE) {
         this.IMAGE = IMAGE;
     }
 
@@ -41,8 +43,12 @@ public class BeanCursos implements Serializable {
         this.NAME = NAME;
     }
 
-    public Blob getIMAGE() {
+    public byte[] getIMAGE() {
         return IMAGE;
+    }
+
+    public void setID_PARSE(String ID_PARSE) {
+        this.ID_PARSE = ID_PARSE;
     }
 
     public int getACCURACY() {
@@ -59,5 +65,9 @@ public class BeanCursos implements Serializable {
 
     public String getNAME() {
         return NAME;
+    }
+
+    public String getID_PARSE() {
+        return ID_PARSE;
     }
 }

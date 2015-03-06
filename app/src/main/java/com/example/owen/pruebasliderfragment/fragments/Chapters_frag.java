@@ -34,6 +34,7 @@ import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
+import com.parse.ParseUser;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -114,7 +115,7 @@ public class Chapters_frag extends Fragment {
     public void setAdapterFromParse(){
         Progreso_ChaptersEntry tabla2 = new Progreso_ChaptersEntry();
         ParseHelper parseHelper = new ParseHelper();
-        ob = parseHelper.getAllChapter(course);
+        ob = parseHelper.getAllChapter(ParseUser.getCurrentUser(), course);
         grupos = new ArrayList<RowItemChapter>();
         for (int i = 0; i < ob.size(); i++) {
             ChaptersEntry tabla = new ChaptersEntry();

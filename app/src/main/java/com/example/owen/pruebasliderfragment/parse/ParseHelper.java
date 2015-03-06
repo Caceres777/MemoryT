@@ -2,6 +2,7 @@ package com.example.owen.pruebasliderfragment.parse;
 
 import android.util.Log;
 
+import com.example.owen.pruebasliderfragment.JavaBean.BeanCursos;
 import com.example.owen.pruebasliderfragment.parse.DataEntry.ChaptersEntry;
 import com.example.owen.pruebasliderfragment.parse.DataEntry.CourseEntry;
 import com.example.owen.pruebasliderfragment.parse.DataEntry.Progreso_ChaptersEntry;
@@ -126,6 +127,27 @@ public class ParseHelper {
             e.printStackTrace();
         }
         return ob;
+    }
+
+
+    public List<BeanCursos> getChaptersByCourse(ParseObject pointerCourse){
+        Progreso_cursosEntry tabla = new Progreso_cursosEntry();
+        CourseEntry tabla2 = new CourseEntry();
+        List<ParseObject> ob = null;
+        List<BeanCursos> cursos = null;
+        ParseQuery<ParseObject> query = new ParseQuery<ParseObject>(tabla.getTableName());
+            query.whereEqualTo(tabla.getCourseID(), pointerCourse);
+        try {
+            ob = query.find();
+            for(ParseObject mycurso : ob){
+                ParseObject curso = (ParseObject) mycurso.get(tabla.getCourseID());
+                cursos.add(new BeanCursos(null, mycurso.getObjectId(), curso.getString(tabla2.getDefinition()), curso.getString(tabla2.getName()), mycurso.getInt(tabla.getAccuracy()), curso.getParseFile(tabla2.getImage()).getData()));
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        return cursos;
     }
 
 

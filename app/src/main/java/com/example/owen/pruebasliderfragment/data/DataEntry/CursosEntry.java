@@ -10,6 +10,7 @@ import java.io.Serializable;
 public class CursosEntry implements Serializable {
     public static final String TABLE_NAME = "CURSOS";
     public static final String ID_COURSE = "id_course";
+    public static final String ID_PARSE = "id_parse";
     public static final String DEFINITION="definition";
     public static final String NAME = "name";
     public static final String ACCURACY="accuracy";
@@ -39,11 +40,11 @@ public class CursosEntry implements Serializable {
         return NAME;
     }
 
-    public static String getACCURACY() {
+    public String getACCURACY() {
         return ACCURACY;
     }
 
-    public static String getIMAGE() {
+    public String getIMAGE() {
         return IMAGE;
     }
 

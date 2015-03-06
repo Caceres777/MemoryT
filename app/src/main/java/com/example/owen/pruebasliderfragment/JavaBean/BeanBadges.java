@@ -9,15 +9,23 @@ import java.sql.Blob;
 public class BeanBadges implements Serializable {
     private String ID_BADGE;
     private String FK_ID_COURSE;
-    private Blob IMAGE;
+    private byte[] IMAGE;
     private String TITLE;
     private String TEXT;
+
+    public BeanBadges(String ID_BADGE, String FK_ID_COURSE, byte[] IMAGE, String TITLE, String TEXT){
+        this.ID_BADGE = ID_BADGE;
+        this.FK_ID_COURSE = FK_ID_COURSE;
+        this.IMAGE = IMAGE;
+        this.TITLE = TITLE;
+        this.TEXT = TEXT;
+    }
 
     public String getFK_ID_COURSE() {
         return FK_ID_COURSE;
     }
 
-    public Blob getIMAGE() {
+    public byte[] getIMAGE() {
         return IMAGE;
     }
 
@@ -41,7 +49,7 @@ public class BeanBadges implements Serializable {
         this.ID_BADGE = ID_BADGE;
     }
 
-    public void setIMAGE(Blob IMAGE) {
+    public void setIMAGE(byte[] IMAGE) {
         this.IMAGE = IMAGE;
     }
 

@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * Created by CHUFASCHIN on 04/03/2015.
  */
-public abstract class RespuestasEntry implements Serializable {
+public class RespuestasEntry implements Serializable {
     //        public static final String COLUMN_ID = BaseColumns._ID;
     public static final String TABLE_NAME = "RESPUESTAS";
     public static final String ID_ANSWER= "id_answer";

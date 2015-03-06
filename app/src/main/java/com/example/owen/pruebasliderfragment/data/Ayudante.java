@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import com.example.owen.pruebasliderfragment.JavaBean.BeanCursos;
 import com.example.owen.pruebasliderfragment.data.DataEntry.BadgesEntry;
 import com.example.owen.pruebasliderfragment.data.DataEntry.CursosEntry;
 import com.example.owen.pruebasliderfragment.data.DataEntry.PreguntasEntry;
@@ -30,6 +31,7 @@ public class Ayudante extends SQLiteOpenHelper {
     static final String CREATE_TABLE_CONTACT_CURSOS =
             "CREATE TABLE "+ CursosEntry.TABLE_NAME +"( " +
                     CursosEntry.ID_COURSE + " INTEGER PRIMARY KEY AUTOINCREMENT ," +
+                    CursosEntry.ID_PARSE+ " TEXT NOT NULL,"+
                     CursosEntry.NAME + " TEXT NOT NULL,"+
                     CursosEntry.DEFINITION + " TEXT,"+
                     CursosEntry.ACCURACY +" INTEGER,"+
@@ -109,12 +111,14 @@ public class Ayudante extends SQLiteOpenHelper {
         }
     }
 
-    public ArrayList<CursosEntry> getCursos(Context context){
-        ArrayList<CursosEntry> cursos = null;
+    public ArrayList<BeanCursos> getCursos(Context context){
+        ArrayList<BeanCursos> cursos = null;
         DataSource ds = new DataSource(context);
         SQLiteDatabase db = ds.openReadable();
         Cursor c = db.rawQuery(CONSULTA_SELECTALL_CURSOS, null);
-        for(int i = 0; i < c.getCount(); i++)
+        for(int i = 0; i < c.getCount(); i++) {
+            cursos.add(new BeanCursos(c.getString(0), c.getString(2), c.getString(1), c.getInt(3), c.getBlob(4)));
+        }
             Log.d("SQLDATA", c.getString(2));
         return cursos;
     }
