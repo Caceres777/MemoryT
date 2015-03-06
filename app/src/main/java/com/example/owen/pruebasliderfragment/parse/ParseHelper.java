@@ -101,16 +101,13 @@ public class ParseHelper {
     }
 
 
-    public List<ParseObject> getAllMyCourses(){
+    public List<ParseObject> getAllMyCourses(ParseObject pointerUser){
         Progreso_cursosEntry tabla = new Progreso_cursosEntry();
         List<ParseObject> ob = null;
         ParseQuery<ParseObject> query = new ParseQuery<ParseObject>(tabla.getTableName());
-            query.whereEqualTo(tabla.getUserID(), ParseUser.getCurrentUser());
+            query.whereEqualTo(tabla.getUserID(), pointerUser);
         try {
             ob = query.find();
-            ParseObject aux = (ParseObject) ob.get(0).get("CourseID");
-            Log.d("PARSEMYCOURSE", "NAME : "+aux.getString("Name"));
-            Log.d("PARSEMYCOURSE", "DEFINITION: "+aux.getString("Definition"));
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -118,11 +115,11 @@ public class ParseHelper {
     }
 
 
-    public List<ParseObject> getAllChapter(ParseObject pointerCourse){
+    public List<ParseObject> getAllChapter(ParseObject pointerUser, ParseObject pointerCourse){
         Progreso_ChaptersEntry tabla = new Progreso_ChaptersEntry();
         List<ParseObject> ob = null;
         ParseQuery<ParseObject> query = new ParseQuery<ParseObject>(tabla.getTableName());
-            query.whereEqualTo(tabla.getUserID(), ParseUser.getCurrentUser());
+            query.whereEqualTo(tabla.getUserID(), pointerUser);
         try {
             ob = query.find();
         } catch (ParseException e) {

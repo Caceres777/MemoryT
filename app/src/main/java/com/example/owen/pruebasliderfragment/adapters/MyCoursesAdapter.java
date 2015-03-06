@@ -23,6 +23,7 @@ import com.parse.ParseObject;
 import com.parse.ParseUser;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Owen on 18/02/2015.
@@ -30,6 +31,7 @@ import java.util.ArrayList;
 public class MyCoursesAdapter extends BaseExpandableListAdapter {
 
     private final ArrayList<RowItemMyCourses> grupos;
+    private List<ParseObject> ob;
     public LayoutInflater inflater;
     public Activity activity;
     private FragmentManager fm;
@@ -37,7 +39,8 @@ public class MyCoursesAdapter extends BaseExpandableListAdapter {
 
 
     // constructor
-    public MyCoursesAdapter(Activity act, ArrayList<RowItemMyCourses> grupos){
+    public MyCoursesAdapter(Activity act, ArrayList<RowItemMyCourses> grupos, List<ParseObject> ob){
+        this.ob = ob;
         activity = act;
         this.grupos = grupos;
         inflater = act.getLayoutInflater();
@@ -77,7 +80,6 @@ public class MyCoursesAdapter extends BaseExpandableListAdapter {
         btnEnter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ArrayList<ParseObject> ob = (ArrayList<ParseObject>) ParseUser.getCurrentUser().get("Courses");
                 fm = activity.getFragmentManager();
                 ft = fm.beginTransaction();
                 ft.setCustomAnimations(R.animator.slide_in_left_frag, R.animator.slide_out_right_frag);

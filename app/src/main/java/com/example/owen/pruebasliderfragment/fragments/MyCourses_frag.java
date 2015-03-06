@@ -1,12 +1,9 @@
 package com.example.owen.pruebasliderfragment.fragments;
 
 import android.app.ProgressDialog;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -22,14 +19,11 @@ import com.example.owen.pruebasliderfragment.ListViewItems.SubrowItemMyCourses;
 import com.example.owen.pruebasliderfragment.R;
 import com.example.owen.pruebasliderfragment.adapters.MyCoursesAdapter;
 import com.example.owen.pruebasliderfragment.data.Ayudante;
-import com.example.owen.pruebasliderfragment.data.DataEntry.CursosEntry;
 import com.example.owen.pruebasliderfragment.parse.DataEntry.CourseEntry;
 import com.example.owen.pruebasliderfragment.parse.DataEntry.Progreso_cursosEntry;
 import com.example.owen.pruebasliderfragment.parse.ParseHelper;
-import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseObject;
-import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
 import java.util.ArrayList;
@@ -62,9 +56,9 @@ public class MyCourses_frag extends Fragment {
         //setAdapterFromLocal();
         //setAdapterFromParse();
 
-        ExpandableListView listView = (ExpandableListView) v.findViewById(R.id.listaMyCurso);
-        MyCoursesAdapter adapter = new MyCoursesAdapter(getActivity(), grupos);
-        listView.setAdapter(adapter);
+        //ExpandableListView listView = (ExpandableListView) v.findViewById(R.id.listaMyCurso);
+        //MyCoursesAdapter adapter = new MyCoursesAdapter(getActivity(), grupos, ob);
+        //listView.setAdapter(adapter);
 
         return v;
     }
@@ -94,7 +88,7 @@ public class MyCourses_frag extends Fragment {
             grupos = new ArrayList<RowItemMyCourses>();
             CourseEntry tabla = new CourseEntry();
             ParseHelper parseHelper = new ParseHelper();
-            ob = parseHelper.getAllMyCourses();
+            ob = parseHelper.getAllMyCourses(ParseUser.getCurrentUser());
             if(ob != null) {
                 // fallo en coger los datos de la tabla
                 for (ParseObject myCourse : ob) {
@@ -115,7 +109,7 @@ public class MyCourses_frag extends Fragment {
             // Locate the listview in listview_main.xml
             ExpandableListView listView = (ExpandableListView) getActivity().findViewById(R.id.listaMyCurso);
             // Pass the results into ListViewAdapter.java
-            adapter = new MyCoursesAdapter(getActivity(), grupos);
+            adapter = new MyCoursesAdapter(getActivity(), grupos, ob);
             // Binds the Adapter to the ListView
             listView.setAdapter(adapter);
             // Close the progressdialog
@@ -156,7 +150,7 @@ public class MyCourses_frag extends Fragment {
     public void setAdapterFromParse(){
         CourseEntry tabla = new CourseEntry();
         ParseHelper parseHelper = new ParseHelper();
-        ob = parseHelper.getAllMyCourses();
+        ob = parseHelper.getAllMyCourses(ParseUser.getCurrentUser());
         grupos = new ArrayList<RowItemMyCourses>();
         if(ob != null) {
             // fallo en coger los datos de la tabla
