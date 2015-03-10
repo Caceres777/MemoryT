@@ -1,14 +1,18 @@
 package com.example.owen.pruebasliderfragment.parse;
 
+import android.content.Context;
 import android.util.Log;
 
 import com.example.owen.pruebasliderfragment.JavaBean.BeanCursos;
+import com.example.owen.pruebasliderfragment.JavaBean.BeanTemas;
+import com.example.owen.pruebasliderfragment.data.Ayudante;
 import com.example.owen.pruebasliderfragment.parse.DataEntry.ChaptersEntry;
 import com.example.owen.pruebasliderfragment.parse.DataEntry.CourseEntry;
 import com.example.owen.pruebasliderfragment.parse.DataEntry.Progreso_ChaptersEntry;
 import com.example.owen.pruebasliderfragment.parse.DataEntry.Progreso_QuestionEntry;
 import com.example.owen.pruebasliderfragment.parse.DataEntry.Progreso_cursosEntry;
 import com.example.owen.pruebasliderfragment.parse.DataEntry.QuestionEntry;
+import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseObject;
@@ -24,12 +28,12 @@ import java.util.List;
 public class ParseHelper {
 
 
-    public ParseHelper(){
+    public ParseHelper() {
 
     }
 
 
-    public List<ParseObject> getAllCourses(){
+    public List<ParseObject> getAllCourses() {
         List<ParseObject> ob = null;
         ParseQuery<ParseObject> query = new ParseQuery<ParseObject>(new CourseEntry().getTableName());
         try {
@@ -41,12 +45,12 @@ public class ParseHelper {
     }
 
 
-    public void setNewMyCourse(ParseObject pointerUser, ParseObject pointerCourse){
+    public void setNewMyCourse(ParseObject pointerUser, ParseObject pointerCourse) {
         setProgreso_Course(pointerUser, pointerCourse);
         setProgreso_Chapters(pointerUser, pointerCourse);
     }
 
-    private void setProgreso_Course(ParseObject pointerUser, ParseObject pointerCourse){
+    private void setProgreso_Course(ParseObject pointerUser, ParseObject pointerCourse) {
         Progreso_cursosEntry tabla = new Progreso_cursosEntry();
         ParseObject progreso_curso = new ParseObject(tabla.getTableName());
         progreso_curso.put(tabla.getUserID(), pointerUser);
@@ -57,15 +61,15 @@ public class ParseHelper {
         progreso_curso.saveInBackground();
     }
 
-    private void setProgreso_Chapters(ParseObject pointerUser, ParseObject pointerCourse){
+    private void setProgreso_Chapters(ParseObject pointerUser, ParseObject pointerCourse) {
         ChaptersEntry tabla = new ChaptersEntry();
         Progreso_ChaptersEntry tabla2 = new Progreso_ChaptersEntry();
         List<ParseObject> ob = null;
         ParseQuery<ParseObject> query = new ParseQuery<ParseObject>(tabla.getTableName());
-            query.whereEqualTo(tabla.getCurso(), pointerCourse);
+        query.whereEqualTo(tabla.getCurso(), pointerCourse);
         try {
             ob = query.find();
-            for(ParseObject chapter : ob){
+            for (ParseObject chapter : ob) {
                 ParseObject myChapter = new ParseObject(tabla2.getTableName());
                 myChapter.put(tabla2.getUserID(), pointerUser);
                 myChapter.put(tabla2.getChapterID(), chapter);
@@ -80,7 +84,7 @@ public class ParseHelper {
         }
     }
 
-    private void setProgreso_Preguntas(ParseObject pointerUser, ParseObject pointerChapter){
+    private void setProgreso_Preguntas(ParseObject pointerUser, ParseObject pointerChapter) {
         QuestionEntry tabla = new QuestionEntry();
         Progreso_QuestionEntry tabla2 = new Progreso_QuestionEntry();
         List<ParseObject> ob = null;
@@ -88,7 +92,7 @@ public class ParseHelper {
         query.whereEqualTo(tabla.getChapterID(), pointerChapter);
         try {
             ob = query.find();
-            for(ParseObject question : ob){
+            for (ParseObject question : ob) {
                 ParseObject myQuestion = new ParseObject(tabla2.getTableName());
                 myQuestion.put(tabla2.getUserID(), pointerUser);
                 myQuestion.put(tabla2.getQuestionID(), question);
@@ -103,11 +107,11 @@ public class ParseHelper {
     }
 
 
-    public List<ParseObject> getAllMyCourses(ParseObject pointerUser){
+    public List<ParseObject> getAllMyCourses(ParseObject pointerUser) {
         Progreso_cursosEntry tabla = new Progreso_cursosEntry();
         List<ParseObject> ob = null;
         ParseQuery<ParseObject> query = new ParseQuery<ParseObject>(tabla.getTableName());
-            query.whereEqualTo(tabla.getUserID(), pointerUser);
+        query.whereEqualTo(tabla.getUserID(), pointerUser);
         try {
             ob = query.find();
         } catch (ParseException e) {
@@ -117,11 +121,11 @@ public class ParseHelper {
     }
 
 
-    public List<ParseObject> getAllChapter(ParseObject pointerUser, ParseObject pointerCourse){
+    public List<ParseObject> getAllChapter(ParseObject pointerUser, ParseObject pointerCourse) {
         Progreso_ChaptersEntry tabla = new Progreso_ChaptersEntry();
         List<ParseObject> ob = null;
         ParseQuery<ParseObject> query = new ParseQuery<ParseObject>(tabla.getTableName());
-            query.whereEqualTo(tabla.getUserID(), pointerUser);
+        query.whereEqualTo(tabla.getUserID(), pointerUser);
         try {
             ob = query.find();
         } catch (ParseException e) {
@@ -131,16 +135,38 @@ public class ParseHelper {
     }
 
 
-    public List<BeanCursos> getCoursesByUser(ParseObject pointerUser){
+    public String getProgreso_CursoID(ParseObject pointerUser, ParseObject pointerCourse) {
+        Progreso_cursosEntry tabla = new Progreso_cursosEntry();
+        String id = null;
+        ParseQuery<ParseObject> query = new ParseQuery<ParseObject>(tabla.getTableName());
+        query.whereEqualTo(tabla.getUserID(), pointerUser);
+        query.whereEqualTo(tabla.getCourseID(), pointerCourse);
+        try {
+            List<ParseObject> ob = query.find();
+            id = ob.get(0).getObjectId();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return id;
+    }
+
+
+
+    /*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+     * Apartir de aqui estan los metodos encargados de devolver la informacion entre parse y la base de datos local
+     +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+
+
+    public List<BeanCursos> getCoursesByUser(ParseObject pointerUser) {
         Progreso_cursosEntry tabla = new Progreso_cursosEntry();
         CourseEntry tabla2 = new CourseEntry();
         List<ParseObject> ob = null;
         ArrayList<BeanCursos> cursos = new ArrayList<BeanCursos>();
         ParseQuery<ParseObject> query = new ParseQuery<ParseObject>(tabla.getTableName());
-            query.whereEqualTo(tabla.getUserID(), pointerUser);
+        query.whereEqualTo(tabla.getUserID(), pointerUser);
         try {
             ob = query.find();
-            for(ParseObject mycurso : ob){
+            for (ParseObject mycurso : ob) {
                 ParseObject curso = (ParseObject) mycurso.get(tabla.getCourseID());
                 cursos.add(new BeanCursos(0, mycurso.getObjectId(), curso.getString(tabla2.getDefinition()), curso.getString(tabla2.getName()), mycurso.getInt(tabla.getAccuracy()), curso.getParseFile(tabla2.getImage()).getData()));
             }
@@ -151,5 +177,55 @@ public class ParseHelper {
         return cursos;
     }
 
+    public BeanCursos getCoursesByIDFromProgresoCourses(ParseObject pointerUser, ParseObject pointerCourse) {
+        Progreso_cursosEntry tabla = new Progreso_cursosEntry();
+        CourseEntry tabla2 = new CourseEntry();
+        List<ParseObject> ob = null;
+        BeanCursos cursobean = null;
+        ParseQuery<ParseObject> query = new ParseQuery<ParseObject>(tabla.getTableName());
+        query.whereEqualTo(tabla.getUserID(), pointerUser);
+        try {
+            ob = query.find();
+            for (ParseObject mycurso : ob) {
+                ParseObject curso = (ParseObject) mycurso.get(tabla.getCourseID());
+                cursobean = new BeanCursos(0, mycurso.getObjectId(), curso.getString(tabla2.getDefinition()), curso.getString(tabla2.getName()), mycurso.getInt(tabla.getAccuracy()), curso.getParseFile(tabla2.getImage()).getData());
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return cursobean;
+    }
+
+
+    public List<BeanTemas> getTemasByUserAndCourseFromProgreso_Chapters(ParseObject pointerUser, ParseObject pointerCourse, Context context) {
+        Progreso_ChaptersEntry tabla = new Progreso_ChaptersEntry();
+        ChaptersEntry tabla2 = new ChaptersEntry();
+        Ayudante SQLiteHelper = new Ayudante(context);
+        List<ParseObject> ob = null;
+        ArrayList<BeanTemas> chapters = new ArrayList<BeanTemas>();
+        ParseQuery<ParseObject> query = new ParseQuery<ParseObject>(tabla.getTableName());
+            query.whereEqualTo(tabla.getUserID(), pointerUser);
+            query.include("pointer to Chapters table");
+        try {
+            ob = query.find();
+            for (ParseObject mychapter : ob) {
+                ParseObject chapter = (ParseObject) mychapter.fetchIfNeeded().get(tabla.getChapterID());
+                ParseObject chaptercourse = (ParseObject)chapter.fetchIfNeeded().get(tabla2.getCurso());
+                if(chaptercourse.getObjectId().equals(pointerCourse.getObjectId())) {
+                    int fk_course = SQLiteHelper.getCursoByPARSE_ID(context, getProgreso_CursoID(ParseUser.getCurrentUser(), pointerCourse)).getID_COURSE();
+                    // falta coger el ID designado al curso dentro de la base de datos local
+                    chapters.add(new BeanTemas(0,
+                            mychapter.getObjectId(),
+                            fk_course,
+                            chapter.getString(tabla2.getName()),
+                            mychapter.getInt(tabla.getAccuracy()),
+                            chapter.getInt(tabla2.getPosition())));
+                }
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return chapters;
+    }
 
 }

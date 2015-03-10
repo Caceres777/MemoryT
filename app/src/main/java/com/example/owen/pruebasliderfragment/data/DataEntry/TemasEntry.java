@@ -8,10 +8,12 @@ import java.io.Serializable;
 public class TemasEntry implements Serializable {
     //        public static final String COLUMN_ID = BaseColumns._ID;
     public static String TABLE_NAME = "TEMAS";
+    public static String ID_PARSE = "id_parse";
     public static String ID_THEME = "id_theme";
     public static String FK_ID_COURSE = "fk_id_course";
     public static String NAME = "name";
     public static String ACCURACY="accuracy";
+    public static String POSITION="position";
 
     @Override
     public String toString() {
@@ -32,6 +34,10 @@ public class TemasEntry implements Serializable {
         return ID_THEME;
     }
 
+    public static String getID_PARSE() {
+        return ID_PARSE;
+    }
+
     public String getFkIdCourse() {
         return FK_ID_COURSE;
     }
@@ -42,5 +48,9 @@ public class TemasEntry implements Serializable {
 
     public static String getAccuracy() {
         return ACCURACY;
+    }
+
+    public static String getPOSITION() {
+        return POSITION;
     }
 }

@@ -41,9 +41,11 @@ public class Ayudante extends SQLiteOpenHelper {
     static final String CREATE_TABLE_CONTACT_TEMAS =
             "CREATE TABLE "+ TemasEntry.TABLE_NAME +"( " +
                     TemasEntry.ID_THEME + " INTEGER PRIMARY KEY AUTOINCREMENT ," +
+                    TemasEntry.ID_PARSE + " TEXT,"+
                     TemasEntry.NAME +" TEXT," +
                     TemasEntry.ACCURACY +" INTEGER,"+
                     TemasEntry.FK_ID_COURSE + " INTEGER ,"+
+                    TemasEntry.POSITION + " INTEGER ,"+
                     "FOREIGN KEY("+TemasEntry.FK_ID_COURSE+") REFERENCES "+CursosEntry.TABLE_NAME+"("+CursosEntry.ID_COURSE+"));";
 
     static final String CREATE_TABLE_CONTACT_BADGES =
@@ -78,7 +80,9 @@ public class Ayudante extends SQLiteOpenHelper {
     /**
      * Consultas a la base de datos
      */
-    static final String CONSULTA_SELECTALL_CURSOS = "SELECT * FROM "+CursosEntry.TABLE_NAME;
+    private static String CONSULTA_CURSOS_IDPARSE = "SELECT * FROM "+CursosEntry.TABLE_NAME+" WHERE "+CursosEntry.ID_PARSE+" = ?";
+
+    private static String CONSULTA_SELECTALL_CURSOS = "SELECT * FROM "+CursosEntry.TABLE_NAME+"";
 
 
 
@@ -119,22 +123,24 @@ public class Ayudante extends SQLiteOpenHelper {
         for(int i = 0; i < c.getCount(); i++) {
             cursos.add(new BeanCursos(c.getInt(0), c.getString(1), c.getString(3), c.getString(2), c.getInt(4), c.getBlob(5)));
         }
-            Log.d("SQLDATA", c.getString(2));
         return cursos;
     }
 
 
-    public void insertIntoCursos(){
-
+    public BeanCursos getCursoByPARSE_ID(Context context ,String parse_id){
+        DataSource ds = new DataSource(context);
+        SQLiteDatabase db = ds.openReadable();
+        BeanCursos curso = null;
+        // hacemos la query añadiendo el id de parse
+        Cursor c = db.rawQuery(CONSULTA_CURSOS_IDPARSE, new String[]{parse_id});
+        // problema al hacer el select ya que no coge la informacion
+        if(c.moveToFirst()) {
+            do {
+                curso = new BeanCursos(c.getInt(0), c.getString(1), c.getString(3), c.getString(2), c.getInt(4), c.getBlob(5));
+            } while (c.moveToNext());
+        }
+        Log.d("COMPROBACION", curso.getNAME());
+        return curso;
     }
 }
 
-
-//    static final String CREATE_TABLE_CONTACT_USUARIOS =
-//            "CREATE TABLE " + Contact.UsuariosEntry.TABLE_NAME + "( " +
-//                    Contact.UsuariosEntry.COLUMN_ID_USER + " INTEGER PRIMARY KEY AUTOINCREMENT ," +
-//                    Contact.UsuariosEntry.COLUMN_NAME + " TEXT NOT NULL," +
-//                    Contact.UsuariosEntry.COLUMN_EXP + " ," +
-//                    Contact.UsuariosEntry.COLUMN_AVATAR + " ," +
-//                    Contact.UsuariosEntry.COLUMN_MAIL + " NOT NULL," +
-//                    Contact.UsuariosEntry.COLUMN_PASSWORD + " NOT NULL);";

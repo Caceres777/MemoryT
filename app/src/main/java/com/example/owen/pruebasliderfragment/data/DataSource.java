@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.example.owen.pruebasliderfragment.JavaBean.BeanCursos;
+import com.example.owen.pruebasliderfragment.JavaBean.BeanTemas;
 import com.example.owen.pruebasliderfragment.data.DataEntry.CursosEntry;
 import com.example.owen.pruebasliderfragment.data.DataEntry.PreguntasEntry;
 import com.example.owen.pruebasliderfragment.data.DataEntry.RespuestasEntry;
@@ -34,7 +35,11 @@ public class DataSource {
         database.close();
     }
 
-
+    /**
+     * Metodo encargado de hacer insert en la tabla de cursos
+     * @param curso
+     * @return boolean
+     */
     public boolean insertContactCursos(BeanCursos curso) {
         DataSource dataSource = new DataSource(mContext);
         SQLiteDatabase database = dataSource.openWriteable();
@@ -45,6 +50,7 @@ public class DataSource {
         args.put(CursosEntry.DEFINITION, curso.getDEFINITION());
         args.put(CursosEntry.NAME, curso.getNAME());
         args.put(String.valueOf(CursosEntry.ACCURACY), curso.getACCURACY());
+        args.put(CursosEntry.IMAGE, curso.getIMAGE());
 
         database.insert(new CursosEntry().getTABLE_NAME(), null, args);
         database.setTransactionSuccessful();
@@ -53,18 +59,24 @@ public class DataSource {
         return insertado=true;
     }
 
-    public boolean insertContactTemas(TemasEntry tema) {
+    /**
+     * Inserta en la tabla temas de la base de datos local
+     * @param tema
+     * @return
+     */
+    public boolean insertContactTemas(BeanTemas tema) {
         DataSource dataSource = null;
         SQLiteDatabase database = dataSource.openWriteable();
         database.beginTransaction();
         ContentValues args = new ContentValues();
 
-        args.put(TemasEntry.ID_THEME, tema.getIdTema());
-        args.put(TemasEntry.NAME, tema.getName());
-        args.put(TemasEntry.FK_ID_COURSE, tema.getFkIdCourse());
-        args.put(TemasEntry.NAME, tema.getName());
-        args.put(String.valueOf(TemasEntry.ACCURACY), tema.getAccuracy());
-        database.insert(tema.getTableName(), null, args);
+        args.put(TemasEntry.ID_THEME, tema.getID_THEME());
+        args.put(TemasEntry.ID_PARSE, tema.getID_PARSE());
+        args.put(TemasEntry.NAME, tema.getNAME());
+        args.put(TemasEntry.FK_ID_COURSE, tema.getFK_ID_COURSE());
+        args.put(TemasEntry.ACCURACY, tema.getACCURACY());
+        args.put(TemasEntry.ACCURACY, tema.getPOSITION());
+        database.insert(new TemasEntry().getTableName(), null, args);
         database.setTransactionSuccessful();
         database.endTransaction();
         database.close();
