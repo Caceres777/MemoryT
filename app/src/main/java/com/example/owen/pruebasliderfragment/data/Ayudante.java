@@ -77,12 +77,7 @@ public class Ayudante extends SQLiteOpenHelper {
                     "FOREIGN KEY("+RespuestasEntry.FK_ID_QUESTION+") REFERENCES "+PreguntasEntry.TABLE_NAME+"("+PreguntasEntry.ID_QUESTION+"));";
 
 
-    /**
-     * Consultas a la base de datos
-     */
-    private static String CONSULTA_CURSOS_IDPARSE = "SELECT * FROM "+CursosEntry.TABLE_NAME+" WHERE "+CursosEntry.ID_PARSE+" = ?";
 
-    private static String CONSULTA_SELECTALL_CURSOS = "SELECT * FROM "+CursosEntry.TABLE_NAME+"";
 
 
 
@@ -115,32 +110,6 @@ public class Ayudante extends SQLiteOpenHelper {
         }
     }
 
-    public ArrayList<BeanCursos> getCursos(Context context){
-        ArrayList<BeanCursos> cursos = null;
-        DataSource ds = new DataSource(context);
-        SQLiteDatabase db = ds.openReadable();
-        Cursor c = db.rawQuery(CONSULTA_SELECTALL_CURSOS, null);
-        for(int i = 0; i < c.getCount(); i++) {
-            cursos.add(new BeanCursos(c.getInt(0), c.getString(1), c.getString(3), c.getString(2), c.getInt(4), c.getBlob(5)));
-        }
-        return cursos;
-    }
 
-
-    public BeanCursos getCursoByPARSE_ID(Context context ,String parse_id){
-        DataSource ds = new DataSource(context);
-        SQLiteDatabase db = ds.openReadable();
-        BeanCursos curso = null;
-        // hacemos la query añadiendo el id de parse
-        Cursor c = db.rawQuery(CONSULTA_CURSOS_IDPARSE, new String[]{parse_id});
-        // problema al hacer el select ya que no coge la informacion
-        if(c.moveToFirst()) {
-            do {
-                curso = new BeanCursos(c.getInt(0), c.getString(1), c.getString(3), c.getString(2), c.getInt(4), c.getBlob(5));
-            } while (c.moveToNext());
-        }
-        Log.d("COMPROBACION", curso.getNAME());
-        return curso;
-    }
 }
 

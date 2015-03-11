@@ -5,16 +5,9 @@ import android.util.Log;
 
 import com.example.owen.pruebasliderfragment.JavaBean.BeanCursos;
 import com.example.owen.pruebasliderfragment.JavaBean.BeanTemas;
-import com.example.owen.pruebasliderfragment.data.Ayudante;
-import com.example.owen.pruebasliderfragment.parse.DataEntry.ChaptersEntry;
-import com.example.owen.pruebasliderfragment.parse.DataEntry.CourseEntry;
-import com.example.owen.pruebasliderfragment.parse.DataEntry.Progreso_ChaptersEntry;
-import com.example.owen.pruebasliderfragment.parse.DataEntry.Progreso_QuestionEntry;
-import com.example.owen.pruebasliderfragment.parse.DataEntry.Progreso_cursosEntry;
-import com.example.owen.pruebasliderfragment.parse.DataEntry.QuestionEntry;
-import com.parse.Parse;
+import com.example.owen.pruebasliderfragment.data.*;
+import com.example.owen.pruebasliderfragment.parse.DataEntry.*;
 import com.parse.ParseException;
-import com.parse.ParseFile;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
@@ -183,7 +176,7 @@ public class ParseHelper {
         List<ParseObject> ob = null;
         BeanCursos cursobean = null;
         ParseQuery<ParseObject> query = new ParseQuery<ParseObject>(tabla.getTableName());
-        query.whereEqualTo(tabla.getUserID(), pointerUser);
+            query.whereEqualTo(tabla.getUserID(), pointerUser);
         try {
             ob = query.find();
             for (ParseObject mycurso : ob) {
@@ -197,10 +190,11 @@ public class ParseHelper {
     }
 
 
+    // obtiene los datos de los temas de parse para introducirlos dentro de SQLite
     public List<BeanTemas> getTemasByUserAndCourseFromProgreso_Chapters(ParseObject pointerUser, ParseObject pointerCourse, Context context) {
         Progreso_ChaptersEntry tabla = new Progreso_ChaptersEntry();
         ChaptersEntry tabla2 = new ChaptersEntry();
-        Ayudante SQLiteHelper = new Ayudante(context);
+        DataSource dataSource = new DataSource(context);
         List<ParseObject> ob = null;
         ArrayList<BeanTemas> chapters = new ArrayList<BeanTemas>();
         ParseQuery<ParseObject> query = new ParseQuery<ParseObject>(tabla.getTableName());
@@ -212,7 +206,7 @@ public class ParseHelper {
                 ParseObject chapter = (ParseObject) mychapter.fetchIfNeeded().get(tabla.getChapterID());
                 ParseObject chaptercourse = (ParseObject)chapter.fetchIfNeeded().get(tabla2.getCurso());
                 if(chaptercourse.getObjectId().equals(pointerCourse.getObjectId())) {
-                    int fk_course = SQLiteHelper.getCursoByPARSE_ID(context, getProgreso_CursoID(ParseUser.getCurrentUser(), pointerCourse)).getID_COURSE();
+                    int fk_course = dataSource.getCursoByPARSE_ID(context, getProgreso_CursoID(ParseUser.getCurrentUser(), pointerCourse)).getID_COURSE();
                     // falta coger el ID designado al curso dentro de la base de datos local
                     chapters.add(new BeanTemas(0,
                             mychapter.getObjectId(),
