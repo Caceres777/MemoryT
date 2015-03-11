@@ -206,7 +206,7 @@ public class ParseHelper {
                 ParseObject chapter = (ParseObject) mychapter.fetchIfNeeded().get(tabla.getChapterID());
                 ParseObject chaptercourse = (ParseObject)chapter.fetchIfNeeded().get(tabla2.getCurso());
                 if(chaptercourse.getObjectId().equals(pointerCourse.getObjectId())) {
-                    int fk_course = dataSource.getCursoByPARSE_ID(context, getProgreso_CursoID(ParseUser.getCurrentUser(), pointerCourse)).getID_COURSE();
+                    int fk_course = dataSource.getCursoByPARSE_ID(getProgreso_CursoID(ParseUser.getCurrentUser(), pointerCourse)).getID_COURSE();
                     // falta coger el ID designado al curso dentro de la base de datos local
                     chapters.add(new BeanTemas(0,
                             mychapter.getObjectId(),
