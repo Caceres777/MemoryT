@@ -19,6 +19,7 @@ import com.example.owen.pruebasliderfragment.ListViewItems.SubrowItemMyCourses;
 import com.example.owen.pruebasliderfragment.R;
 import com.example.owen.pruebasliderfragment.adapters.MyCoursesAdapter;
 import com.example.owen.pruebasliderfragment.data.Ayudante;
+import com.example.owen.pruebasliderfragment.data.DataSource;
 import com.example.owen.pruebasliderfragment.parse.DataEntry.CourseEntry;
 import com.example.owen.pruebasliderfragment.parse.DataEntry.Progreso_cursosEntry;
 import com.example.owen.pruebasliderfragment.parse.ParseHelper;
@@ -142,8 +143,8 @@ public class MyCourses_frag extends Fragment {
 
 
     public void setAdapterFromLocal(){
-        Ayudante SQLhelper = new Ayudante(getActivity());
-        SQLhelper.getCursos(getActivity());
+        DataSource dataSource = new DataSource(getActivity());
+        dataSource.getCursos();
     }
 
 
