@@ -51,6 +51,7 @@ public class Ayudante extends SQLiteOpenHelper {
     static final String CREATE_TABLE_CONTACT_BADGES =
             "CREATE TABLE "+ BadgesEntry.TABLE_NAME +"( " +
                     BadgesEntry.ID_BADGE + " INTEGER PRIMARY KEY AUTOINCREMENT ," +
+                    BadgesEntry.ID_PARSE + " TEXT,"+
                     BadgesEntry.FK_ID_COURSE + " INTEGER ," +
                     BadgesEntry.IMAGE +" BLOB,"+
                     BadgesEntry.TITLE +" TEXT,"+
@@ -60,6 +61,7 @@ public class Ayudante extends SQLiteOpenHelper {
     static final String CREATE_TABLE_CONTACT_PREGUNTAS =
             "CREATE TABLE "+ PreguntasEntry.TABLE_NAME +"( " +
                     PreguntasEntry.ID_QUESTION + " INTEGER PRIMARY KEY AUTOINCREMENT ," +
+                    PreguntasEntry.ID_PARSE + " TEXT,"+
                     PreguntasEntry.FK_ID_THEME + " INTEGER," +
                     PreguntasEntry.TEXT +" TEXT,"+
                     PreguntasEntry.DONE +" BOOLEAN,"+

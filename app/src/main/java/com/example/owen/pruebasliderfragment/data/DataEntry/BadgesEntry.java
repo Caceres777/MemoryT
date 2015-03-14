@@ -11,6 +11,7 @@ public class BadgesEntry implements Serializable {
     //        public static final String COLUMN_ID = BaseColumns._ID;
     public static final String TABLE_NAME = "BADGES";
     public static final String ID_BADGE = "id_badge";
+    public static final String ID_PARSE = "id_parse";
     public static final String FK_ID_COURSE = "fk_id_course";
     public static final String IMAGE= "IMAGE";
     public static final String TITLE = "title";

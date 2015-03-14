@@ -11,6 +11,7 @@ public class PreguntasEntry implements Serializable{
         //        public static final String COLUMN_ID = BaseColumns._ID;
     public static final String TABLE_NAME = "PREGUNTAS";
     public static final String ID_QUESTION = "id_question";
+    public static final String ID_PARSE = "id_parse";
     public static final String FK_ID_THEME = "fk_id_theme";
     public static final String TEXT = "text";
     public static final String DONE="done";
@@ -58,6 +59,13 @@ public class PreguntasEntry implements Serializable{
         return WRONG;
     }
 
+    public static String getFkIdTheme() {
+        return FK_ID_THEME;
+    }
+
+    public static String getIdParse() {
+        return ID_PARSE;
+    }
 }
 
 

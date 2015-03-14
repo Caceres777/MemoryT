@@ -6,12 +6,19 @@ import java.io.Serializable;
  * Created by Owen on 04/03/2015.
  */
 public class BeanRespuestas implements Serializable {
-    private String ID_ANSWER;
-    private String FK_ID_QUESTION;
-    private String FK_ID_THEME;
+    private int ID_ANSWER;
+    private int FK_ID_QUESTION;
+    private int FK_ID_THEME;
     private String TEXT;
 
-    public void setFK_ID_THEME(String FK_ID_THEME) {
+    public BeanRespuestas(int ID_ANSWER, int FK_ID_QUESTION, int FK_ID_THEME, String TEXT){
+        this.ID_ANSWER = ID_ANSWER;
+        this.FK_ID_QUESTION = FK_ID_QUESTION;
+        this.FK_ID_THEME = FK_ID_THEME;
+        this.TEXT = TEXT;
+    }
+
+    public void setFK_ID_THEME(int FK_ID_THEME) {
         this.FK_ID_THEME = FK_ID_THEME;
     }
 
@@ -19,15 +26,15 @@ public class BeanRespuestas implements Serializable {
         this.TEXT = TEXT;
     }
 
-    public void setFK_ID_QUESTION(String FK_ID_QUESTION) {
+    public void setFK_ID_QUESTION(int FK_ID_QUESTION) {
         this.FK_ID_QUESTION = FK_ID_QUESTION;
     }
 
-    public void setID_ANSWER(String ID_ANSWER) {
+    public void setID_ANSWER(int ID_ANSWER) {
         this.ID_ANSWER = ID_ANSWER;
     }
 
-    public String getFK_ID_THEME() {
+    public int getFK_ID_THEME() {
         return FK_ID_THEME;
     }
 
@@ -35,11 +42,11 @@ public class BeanRespuestas implements Serializable {
         return TEXT;
     }
 
-    public String getFK_ID_QUESTION() {
+    public int getFK_ID_QUESTION() {
         return FK_ID_QUESTION;
     }
 
-    public String getID_ANSWER() {
+    public int getID_ANSWER() {
         return ID_ANSWER;
     }
 }

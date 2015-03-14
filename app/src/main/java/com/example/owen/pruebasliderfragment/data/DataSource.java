@@ -6,6 +6,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.example.owen.pruebasliderfragment.JavaBean.BeanCursos;
+import com.example.owen.pruebasliderfragment.JavaBean.BeanPreguntas;
+import com.example.owen.pruebasliderfragment.JavaBean.BeanRespuestas;
 import com.example.owen.pruebasliderfragment.JavaBean.BeanTemas;
 import com.example.owen.pruebasliderfragment.data.DataEntry.CursosEntry;
 import com.example.owen.pruebasliderfragment.data.DataEntry.PreguntasEntry;
@@ -31,7 +33,8 @@ public class DataSource {
     private static String CONSULTA_CURSOS_BY_IDPARSE = "SELECT * FROM "+CursosEntry.TABLE_NAME+" WHERE "+CursosEntry.ID_PARSE+" = ";
     private static String CONSULTA_SELECTALL_CURSOS = "SELECT * FROM "+CursosEntry.TABLE_NAME;
     private static String CONSULTA_TEMAS_BY_IDPARSE = "SELECT * FROM "+TemasEntry.TABLE_NAME+" WHERE "+TemasEntry.ID_PARSE+" = ";
-
+    private static String CONSULTA_SELECTALL_TEMAS = "SELECT * FROM "+TemasEntry.TABLE_NAME+" WHERE "+TemasEntry.FK_ID_COURSE+" = ";
+    private static String CONSULTA_PREGUNTA_BY_IDPARSE = "SELECT * FROM "+PreguntasEntry.TABLE_NAME+" WHERE "+PreguntasEntry.ID_PARSE+" = ";
 
     public DataSource(Context context) {
         mContext = context;
@@ -94,36 +97,34 @@ public class DataSource {
         return insertado=true;
     }
 
-    public boolean insertContactPreguntas(PreguntasEntry pregunta) {
+    public boolean insertContactPreguntas(BeanPreguntas pregunta) {
         SQLiteDatabase database = this.openWriteable();
         database.beginTransaction();
         ContentValues args = new ContentValues();
 
-        args.put(PreguntasEntry.FK_ID_THEME, pregunta.getIdTheme());
-        args.put(PreguntasEntry.TEXT, pregunta.getText());
-        args.put(String.valueOf(PreguntasEntry.DONE), String.valueOf(pregunta.getDone()));
-        args.put(String.valueOf(PreguntasEntry.RIGHT), String.valueOf(pregunta.getRight()));
-        args.put(String.valueOf(PreguntasEntry.WRONG), String.valueOf(pregunta.getWrong()));
+        args.put(PreguntasEntry.FK_ID_THEME, pregunta.getFK_ID_THEME());
+        args.put(PreguntasEntry.TEXT, pregunta.getTEXT());
+        args.put(String.valueOf(PreguntasEntry.DONE), String.valueOf(pregunta.getDONE()));
+        args.put(String.valueOf(PreguntasEntry.RIGHT), String.valueOf(pregunta.getRIGHT()));
+        args.put(String.valueOf(PreguntasEntry.WRONG), String.valueOf(pregunta.getWRONG()));
 
-        database.insert(pregunta.getTableName(), null, args);
+        database.insert(PreguntasEntry.TABLE_NAME, null, args);
         database.setTransactionSuccessful();
         database.endTransaction();
         database.close();
         return insertado=true;
     }
 
-    public boolean insertContactRespuestas(RespuestasEntry respuesta) {
+    public boolean insertContactRespuestas(BeanRespuestas respuesta) {
         SQLiteDatabase database = this.openWriteable();
         database.beginTransaction();
         ContentValues args = new ContentValues();
 
-        long insercion;
+        args.put(RespuestasEntry.FK_ID_QUESTION, respuesta.getFK_ID_QUESTION());
+        args.put(RespuestasEntry.FK_ID_THEME, respuesta.getFK_ID_THEME());
+        args.put(RespuestasEntry.TEXT, respuesta.getTEXT());
 
-        args.put(RespuestasEntry.FK_ID_QUESTION, respuesta.getFkIdQuestion());
-        args.put(RespuestasEntry.FK_ID_THEME, respuesta.getFkIdTheme());
-        args.put(RespuestasEntry.TEXT, respuesta.getText());
-
-        database.insert(respuesta.getTableName(), null, args);
+        database.insert(RespuestasEntry.TABLE_NAME, null, args);
         database.setTransactionSuccessful();
         database.endTransaction();
         database.close();
@@ -141,6 +142,18 @@ public class DataSource {
         c.close();
         db.close();
         return cursos;
+    }
+
+    public ArrayList<BeanTemas> getTemas(int IDChapter){
+        ArrayList<BeanTemas> temas = null;
+        SQLiteDatabase db = this.openReadable();
+        Cursor c = db.rawQuery(CONSULTA_SELECTALL_TEMAS+IDChapter, null);
+        for(int i = 0; i < c.getCount(); i++) {
+            temas.add(new BeanTemas(c.getInt(0), c.getString(1), c.getInt(5), c.getString(2), c.getInt(3), c.getInt(4)));
+        }
+        c.close();
+        db.close();
+        return temas;
     }
 
 
@@ -161,43 +174,23 @@ public class DataSource {
         BeanTemas tema = null;
         Cursor c = db.rawQuery(CONSULTA_TEMAS_BY_IDPARSE+"'"+parse_id+"'", null);
         if(c.moveToFirst()) {
-            //tema = new BeanCursos(c.getInt(0), c.getString(1), c.getString(3), c.getString(2), c.getInt(4), c.getBlob(5));
+            tema = new BeanTemas(c.getInt(0), c.getString(1), c.getInt(5), c.getString(2), c.getInt(3), c.getInt(4));
         }
         c.close();
         db.close();
         return tema;
     }
 
-//    public boolean insertContactUsuarios(int idUser, String name, int exp, Blob avatar, String email, String pass) {
-//        DataSource dataSource = null;
-//        SQLiteDatabase database = dataSource.openWriteable();
-//        database.beginTransaction();
-//        ContentValues args = new ContentValues();
-//
-//        args.put(ContactBean.UsuariosEntry.getColumnIdUser(), idUser);
-//        args.put(ContactBean.UsuariosEntry.getColumnName(), name);
-//        args.put(ContactBean.UsuariosEntry.getColumnExp(), exp);
-//        args.put(ContactBean.UsuariosEntry.getColumnAvatar(), String.valueOf(avatar));
-//        args.put(ContactBean.UsuariosEntry.getColumnMail(), email);
-//        args.put(ContactBean.UsuariosEntry.getColumnPassword(), pass);
-//        database.insert(ContactBean.UsuariosEntry.getTableName(), null, args);
-//        database.setTransactionSuccessful();
-//        database.endTransaction();
-//        database.close();
-//        return insertado=true;
-//    }
-
-//    public boolean borrarContactoUsuario(long rowId) {
-//        DataSource dataSource = null;
-//        SQLiteDatabase database = dataSource.openWriteable();
-//        database.beginTransaction();
-//        database.delete(ContactBean.UsuariosEntry.getTableName(),
-//                String.format("%s=%d", BaseColumns._ID, rowId),
-//                null);
-//        database.setTransactionSuccessful();
-//        database.endTransaction();
-//        database.close();
-//        return actualizado=true;
-//    }
+    public BeanPreguntas getPreguntasByParse_ID(String parse_id){
+        SQLiteDatabase db = this.openReadable();
+        BeanPreguntas pregunta = null;
+        Cursor c = db.rawQuery(CONSULTA_PREGUNTA_BY_IDPARSE+parse_id, null);
+        if(c.moveToFirst()){
+            pregunta = new BeanPreguntas(c.getInt(0), c.getString(1), c.getInt(2), c.getString(3), c.getInt(4)>0, c.getInt(5), c.getInt(6));
+        }
+        c.close();
+        db.close();
+        return pregunta;
+    }
 
 }

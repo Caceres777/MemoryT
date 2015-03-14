@@ -17,6 +17,8 @@ import android.widget.Toast;
 import com.example.owen.pruebasliderfragment.AppMemoryt;
 import com.example.owen.pruebasliderfragment.ImageHelper;
 import com.example.owen.pruebasliderfragment.JavaBean.BeanCursos;
+import com.example.owen.pruebasliderfragment.JavaBean.BeanPreguntas;
+import com.example.owen.pruebasliderfragment.JavaBean.BeanRespuestas;
 import com.example.owen.pruebasliderfragment.JavaBean.BeanTemas;
 import com.example.owen.pruebasliderfragment.ListViewItems.RowItemSearchCourses;
 import com.example.owen.pruebasliderfragment.R;
@@ -97,15 +99,22 @@ public class SearchCoursesAdapter extends BaseExpandableListAdapter {
                 // guardar en base de datos local tambien
                 DataSource dataSource = new DataSource(activity);
                 // obtenemos el curso y lo guardamos en nuestra base de datos local
-                BeanCursos obcurso = parseHelper.getCoursesByIDFromProgresoCourses(ParseUser.getCurrentUser(), course);
+                BeanCursos obcurso = parseHelper.getCoursesByIDFromProgresoCourses(ParseUser.getCurrentUser());
                 dataSource.insertContactCursos(obcurso);
                 // obetenemos los temas y los guardamos en la base de datos local
-                List<BeanTemas> obTemas = parseHelper.getTemasByUserAndCourseFromProgreso_Chapters(ParseUser.getCurrentUser(), course, activity);
+                List<BeanTemas> obTemas = parseHelper.getTemasByUserFromParse(ParseUser.getCurrentUser(), course, activity);
                 for(BeanTemas aux : obTemas){
                     dataSource.insertContactTemas(aux);
                 }
-
-
+                // obtenemos de parse todos las preguntas del curso y los guardamos en la base de datos local
+                List<BeanPreguntas> obPreguntas = parseHelper.getPreguntasByUserFromParse(ParseUser.getCurrentUser(), course, activity);
+                for(BeanPreguntas aux : obPreguntas){
+                    dataSource.insertContactPreguntas(aux);
+                }
+                List<BeanRespuestas> obRespuestas = parseHelper.getRespuestasByUserFromParse(ParseUser.getCurrentUser(), course, activity);
+                for(BeanRespuestas aux : obRespuestas){
+                    dataSource.insertContactRespuestas(aux);
+                }
                 //List<BeanCursos> ob = parseHelper.getCoursesByUser(ParseUser.getCurrentUser());
                 //for(BeanCursos aux : ob)
                 //    dataSource.insertContactCursos(aux);
