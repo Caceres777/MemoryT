@@ -35,6 +35,9 @@ public class DataSource {
     private static String CONSULTA_TEMAS_BY_IDPARSE = "SELECT * FROM "+TemasEntry.TABLE_NAME+" WHERE "+TemasEntry.ID_PARSE+" = ";
     private static String CONSULTA_SELECTALL_TEMAS = "SELECT * FROM "+TemasEntry.TABLE_NAME+" WHERE "+TemasEntry.FK_ID_COURSE+" = ";
     private static String CONSULTA_PREGUNTA_BY_IDPARSE = "SELECT * FROM "+PreguntasEntry.TABLE_NAME+" WHERE "+PreguntasEntry.ID_PARSE+" = ";
+    private static String CONSULTA_SELECTALL_PREGUNTAS = "SELECT * FROM "+PreguntasEntry.TABLE_NAME+" WHERE "+PreguntasEntry.FK_ID_THEME+" = ";
+    private static String CONSULTA_SELECTALL_RESPUESTAS = "SELECT * FROM "+RespuestasEntry.TABLE_NAME+" WHERE "+RespuestasEntry.FK_ID_THEME+" = ";
+    private static String CONSULTA_SELECT_RESPUESTAS_CORRECTA = "SELECT * FROM "+RespuestasEntry.TABLE_NAME+" WHERE "+RespuestasEntry.FK_ID_QUESTION+" = ";
 
     public DataSource(Context context) {
         mContext = context;
@@ -70,7 +73,7 @@ public class DataSource {
         database.insert(new CursosEntry().getTABLE_NAME(), null, args);
         database.setTransactionSuccessful();
         database.endTransaction();
-        database.close();
+        this.close(database);
         return insertado=true;
     }
 
@@ -93,7 +96,7 @@ public class DataSource {
         database.insert(new TemasEntry().getTableName(), null, args);
         database.setTransactionSuccessful();
         database.endTransaction();
-        database.close();
+        this.close(database);
         return insertado=true;
     }
 
@@ -111,7 +114,7 @@ public class DataSource {
         database.insert(PreguntasEntry.TABLE_NAME, null, args);
         database.setTransactionSuccessful();
         database.endTransaction();
-        database.close();
+        this.close(database);
         return insertado=true;
     }
 
@@ -127,7 +130,7 @@ public class DataSource {
         database.insert(RespuestasEntry.TABLE_NAME, null, args);
         database.setTransactionSuccessful();
         database.endTransaction();
-        database.close();
+        this.close(database);
         return insertado=true;
 
     }
@@ -140,20 +143,59 @@ public class DataSource {
             cursos.add(new BeanCursos(c.getInt(0), c.getString(1), c.getString(3), c.getString(2), c.getInt(4), c.getBlob(5)));
         }
         c.close();
-        db.close();
+        this.close(db);
         return cursos;
     }
 
-    public ArrayList<BeanTemas> getTemas(int IDChapter){
+    public ArrayList<BeanTemas> getTemas(int IDCourse){
         ArrayList<BeanTemas> temas = null;
         SQLiteDatabase db = this.openReadable();
-        Cursor c = db.rawQuery(CONSULTA_SELECTALL_TEMAS+IDChapter, null);
+        Cursor c = db.rawQuery(CONSULTA_SELECTALL_TEMAS+IDCourse, null);
         for(int i = 0; i < c.getCount(); i++) {
             temas.add(new BeanTemas(c.getInt(0), c.getString(1), c.getInt(5), c.getString(2), c.getInt(3), c.getInt(4)));
         }
         c.close();
-        db.close();
+        this.close(db);
         return temas;
+    }
+
+
+    public ArrayList<BeanPreguntas> getPreguntas(int IDChapter){
+        ArrayList<BeanPreguntas> preguntas = null;
+        SQLiteDatabase db = this.openReadable();
+        Cursor c = db.rawQuery(CONSULTA_SELECTALL_PREGUNTAS+IDChapter, null);
+        for(int i = 0; i < c.getCount(); i++) {
+            preguntas.add(new BeanPreguntas(c.getInt(0), c.getString(1), c.getInt(2), c.getString(3), c.getInt(4)>0, c.getInt(5), c.getInt(6)));
+        }
+        c.close();
+        this.close(db);
+        return preguntas;
+    }
+
+
+    public ArrayList<BeanRespuestas> getRespuestas(int IDChapter){
+        ArrayList<BeanRespuestas> respuestas = null;
+        SQLiteDatabase db = this.openReadable();
+        Cursor c = db.rawQuery(CONSULTA_SELECTALL_RESPUESTAS+IDChapter, null);
+        for(int i = 0; i < c.getCount(); i++) {
+            respuestas.add(new BeanRespuestas(c.getInt(0), c.getInt(1), c.getInt(2), c.getString(3)));
+        }
+        c.close();
+        this.close(db);
+        return respuestas;
+    }
+
+
+    public BeanRespuestas getRespuestaCorrecta(int IDQuestion){
+        BeanRespuestas respuesta = null;
+        SQLiteDatabase db = this.openReadable();
+        Cursor c = db.rawQuery(CONSULTA_SELECT_RESPUESTAS_CORRECTA+IDQuestion, null);
+        for(int i = 0; i < c.getCount(); i++) {
+            respuesta = new BeanRespuestas(c.getInt(0), c.getInt(1), c.getInt(2), c.getString(3));
+        }
+        c.close();
+        this.close(db);
+        return respuesta;
     }
 
 
@@ -165,7 +207,7 @@ public class DataSource {
             curso = new BeanCursos(c.getInt(0), c.getString(1), c.getString(3), c.getString(2), c.getInt(4), c.getBlob(5));
         }
         c.close();
-        db.close();
+        this.close(db);
         return curso;
     }
 
@@ -177,7 +219,7 @@ public class DataSource {
             tema = new BeanTemas(c.getInt(0), c.getString(1), c.getInt(5), c.getString(2), c.getInt(3), c.getInt(4));
         }
         c.close();
-        db.close();
+        this.close(db);
         return tema;
     }
 
@@ -189,7 +231,7 @@ public class DataSource {
             pregunta = new BeanPreguntas(c.getInt(0), c.getString(1), c.getInt(2), c.getString(3), c.getInt(4)>0, c.getInt(5), c.getInt(6));
         }
         c.close();
-        db.close();
+        this.close(db);
         return pregunta;
     }
 
