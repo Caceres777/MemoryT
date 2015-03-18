@@ -15,6 +15,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.owen.pruebasliderfragment.ImageHelper;
+import com.example.owen.pruebasliderfragment.JavaBean.BeanCursos;
 import com.example.owen.pruebasliderfragment.ListViewItems.RowItemMyCourses;
 import com.example.owen.pruebasliderfragment.R;
 import com.example.owen.pruebasliderfragment.fragments.Chapters_frag;
@@ -31,7 +32,7 @@ import java.util.List;
 public class MyCoursesAdapter extends BaseExpandableListAdapter {
 
     private final ArrayList<RowItemMyCourses> grupos;
-    private List<ParseObject> ob;
+    private List<BeanCursos> ob;
     public LayoutInflater inflater;
     public Activity activity;
     private FragmentManager fm;
@@ -39,7 +40,7 @@ public class MyCoursesAdapter extends BaseExpandableListAdapter {
 
 
     // constructor
-    public MyCoursesAdapter(Activity act, ArrayList<RowItemMyCourses> grupos, List<ParseObject> ob){
+    public MyCoursesAdapter(Activity act, ArrayList<RowItemMyCourses> grupos, List<BeanCursos> ob){
         this.ob = ob;
         activity = act;
         this.grupos = grupos;
@@ -76,7 +77,7 @@ public class MyCoursesAdapter extends BaseExpandableListAdapter {
         TextView definition = (TextView)convertView.findViewById(R.id.course_definition);
         TextView num_chapters = (TextView)convertView.findViewById(R.id.course_numberChapters);
         Button btnEnter = (Button) convertView.findViewById(R.id.Mycourses_button);
-
+        // entramos en los temas del curso en cuestion
         btnEnter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -1,6 +1,8 @@
 package com.example.owen.pruebasliderfragment.adapters;
 
 import android.app.Activity;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,10 +13,14 @@ import android.widget.CheckedTextView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.example.owen.pruebasliderfragment.JavaBean.BeanTemas;
 import com.example.owen.pruebasliderfragment.ListViewItems.RowItemChapter;
 import com.example.owen.pruebasliderfragment.R;
+import com.example.owen.pruebasliderfragment.fragments.Chapters_frag;
+import com.example.owen.pruebasliderfragment.fragments.Questions_frag;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Carlos on 11/02/2015.
@@ -22,15 +28,19 @@ import java.util.ArrayList;
 public class ChaptersAdapter extends BaseExpandableListAdapter {
 
     private final ArrayList<RowItemChapter> grupos;
+    private List<BeanTemas> temas;
     public LayoutInflater inflater;
     public Activity activity;
+    private FragmentManager fm;
+    private FragmentTransaction ft;
 
 
     // Constructor
-    public ChaptersAdapter(Activity act, ArrayList<RowItemChapter> grupos) {
+    public ChaptersAdapter(Activity act, ArrayList<RowItemChapter> grupos, List<BeanTemas> temas) {
         activity = act;
         this.grupos = grupos;
         inflater = act.getLayoutInflater();
+        this.temas = temas;
     }
 
 
@@ -112,7 +122,7 @@ public class ChaptersAdapter extends BaseExpandableListAdapter {
 
     //Obtenemos el layout para los ítems
     @Override
-    public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
+    public View getGroupView(final int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
         if (convertView == null) {
             convertView = inflater.inflate(R.layout.chapter_item, null);
         }
@@ -125,7 +135,15 @@ public class ChaptersAdapter extends BaseExpandableListAdapter {
         btnStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // call new fragment, this fragment will be the game itself
+                // call new fragment
+                fm = activity.getFragmentManager();
+                ft = fm.beginTransaction();
+                ft.setCustomAnimations(R.animator.slide_in_left_frag, R.animator.slide_out_right_frag);
+                Questions_frag questions = new Questions_frag();
+                Log.d("PREGUNTAS", "FK_ID  "+temas.get(groupPosition).getNAME());
+                questions.setTema(temas.get(groupPosition));
+                ft.replace(R.id.container, questions);
+                ft.commit();
             }
         });
 

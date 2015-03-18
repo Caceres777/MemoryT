@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import com.example.owen.pruebasliderfragment.JavaBean.BeanCursos;
 import com.example.owen.pruebasliderfragment.JavaBean.BeanPreguntas;
@@ -68,6 +69,7 @@ public class DataSource {
         args.put(CursosEntry.DEFINITION, curso.getDEFINITION());
         args.put(CursosEntry.NAME, curso.getNAME());
         args.put(String.valueOf(CursosEntry.ACCURACY), curso.getACCURACY());
+        args.put(CursosEntry.PROGRESS, curso.getPROGRESS());
         args.put(CursosEntry.IMAGE, curso.getIMAGE());
 
         database.insert(new CursosEntry().getTABLE_NAME(), null, args);
@@ -91,6 +93,7 @@ public class DataSource {
         args.put(TemasEntry.NAME, tema.getNAME());
         args.put(TemasEntry.FK_ID_COURSE, tema.getFK_ID_COURSE());
         args.put(TemasEntry.ACCURACY, tema.getACCURACY());
+        args.put(TemasEntry.PROGRESS, tema.getPROGRESS());
         args.put(TemasEntry.POSITION, tema.getPOSITION());
 
         database.insert(new TemasEntry().getTableName(), null, args);
@@ -106,6 +109,7 @@ public class DataSource {
         ContentValues args = new ContentValues();
 
         args.put(PreguntasEntry.FK_ID_THEME, pregunta.getFK_ID_THEME());
+        args.put(PreguntasEntry.ID_PARSE, pregunta.getPARSE_ID());
         args.put(PreguntasEntry.TEXT, pregunta.getTEXT());
         args.put(String.valueOf(PreguntasEntry.DONE), String.valueOf(pregunta.getDONE()));
         args.put(String.valueOf(PreguntasEntry.RIGHT), String.valueOf(pregunta.getRIGHT()));
@@ -136,11 +140,13 @@ public class DataSource {
     }
 
     public ArrayList<BeanCursos> getCursos(){
-        ArrayList<BeanCursos> cursos = null;
+        ArrayList<BeanCursos> cursos = new ArrayList<BeanCursos>();
         SQLiteDatabase db = this.openReadable();
         Cursor c = db.rawQuery(CONSULTA_SELECTALL_CURSOS, null);
-        for(int i = 0; i < c.getCount(); i++) {
-            cursos.add(new BeanCursos(c.getInt(0), c.getString(1), c.getString(3), c.getString(2), c.getInt(4), c.getBlob(5)));
+        if(c.moveToFirst()) {
+            for (int i = 0; i < c.getCount(); i++) {
+                cursos.add(new BeanCursos(c.getInt(0), c.getString(1), c.getString(3), c.getString(2), c.getInt(4), c.getBlob(6), c.getInt(5)));
+            }
         }
         c.close();
         this.close(db);
@@ -148,11 +154,14 @@ public class DataSource {
     }
 
     public ArrayList<BeanTemas> getTemas(int IDCourse){
-        ArrayList<BeanTemas> temas = null;
+        ArrayList<BeanTemas> temas = new ArrayList<BeanTemas>();
         SQLiteDatabase db = this.openReadable();
         Cursor c = db.rawQuery(CONSULTA_SELECTALL_TEMAS+IDCourse, null);
-        for(int i = 0; i < c.getCount(); i++) {
-            temas.add(new BeanTemas(c.getInt(0), c.getString(1), c.getInt(5), c.getString(2), c.getInt(3), c.getInt(4)));
+        if(c.moveToFirst()) {
+            for (int i = 0; i < c.getCount(); i++) {
+                temas.add(new BeanTemas(c.getInt(0), c.getString(1), c.getInt(5), c.getString(2), c.getInt(3), c.getInt(4), c.getInt(5)));
+                c.moveToNext();
+            }
         }
         c.close();
         this.close(db);
@@ -161,11 +170,15 @@ public class DataSource {
 
 
     public ArrayList<BeanPreguntas> getPreguntas(int IDChapter){
-        ArrayList<BeanPreguntas> preguntas = null;
+        ArrayList<BeanPreguntas> preguntas = new ArrayList<BeanPreguntas>();
         SQLiteDatabase db = this.openReadable();
         Cursor c = db.rawQuery(CONSULTA_SELECTALL_PREGUNTAS+IDChapter, null);
-        for(int i = 0; i < c.getCount(); i++) {
-            preguntas.add(new BeanPreguntas(c.getInt(0), c.getString(1), c.getInt(2), c.getString(3), c.getInt(4)>0, c.getInt(5), c.getInt(6)));
+        Log.d("PREGUNTAS", String.valueOf(c.getCount()));
+        if(c.moveToFirst()) {
+            for (int i = 0; i < c.getCount(); i++) {
+                preguntas.add(new BeanPreguntas(c.getInt(0), c.getString(1), c.getInt(2), c.getString(3), c.getInt(4) > 0, c.getInt(5), c.getInt(6)));
+                c.moveToNext();
+            }
         }
         c.close();
         this.close(db);
@@ -174,11 +187,14 @@ public class DataSource {
 
 
     public ArrayList<BeanRespuestas> getRespuestas(int IDChapter){
-        ArrayList<BeanRespuestas> respuestas = null;
+        ArrayList<BeanRespuestas> respuestas = new ArrayList<BeanRespuestas>();
         SQLiteDatabase db = this.openReadable();
         Cursor c = db.rawQuery(CONSULTA_SELECTALL_RESPUESTAS+IDChapter, null);
-        for(int i = 0; i < c.getCount(); i++) {
-            respuestas.add(new BeanRespuestas(c.getInt(0), c.getInt(1), c.getInt(2), c.getString(3)));
+        if(c.moveToFirst()) {
+            for (int i = 0; i < c.getCount(); i++) {
+                respuestas.add(new BeanRespuestas(c.getInt(0), c.getInt(1), c.getInt(2), c.getString(3)));
+                c.moveToNext();
+            }
         }
         c.close();
         this.close(db);
@@ -190,7 +206,7 @@ public class DataSource {
         BeanRespuestas respuesta = null;
         SQLiteDatabase db = this.openReadable();
         Cursor c = db.rawQuery(CONSULTA_SELECT_RESPUESTAS_CORRECTA+IDQuestion, null);
-        for(int i = 0; i < c.getCount(); i++) {
+        if(c.moveToFirst()) {
             respuesta = new BeanRespuestas(c.getInt(0), c.getInt(1), c.getInt(2), c.getString(3));
         }
         c.close();
@@ -204,7 +220,7 @@ public class DataSource {
         BeanCursos curso = null;
         Cursor c = db.rawQuery(CONSULTA_CURSOS_BY_IDPARSE+"'"+parse_id+"'", null);
         if(c.moveToFirst()) {
-            curso = new BeanCursos(c.getInt(0), c.getString(1), c.getString(3), c.getString(2), c.getInt(4), c.getBlob(5));
+            curso = new BeanCursos(c.getInt(0), c.getString(1), c.getString(3), c.getString(2), c.getInt(4), c.getBlob(6), c.getInt(5));
         }
         c.close();
         this.close(db);
@@ -216,7 +232,7 @@ public class DataSource {
         BeanTemas tema = null;
         Cursor c = db.rawQuery(CONSULTA_TEMAS_BY_IDPARSE+"'"+parse_id+"'", null);
         if(c.moveToFirst()) {
-            tema = new BeanTemas(c.getInt(0), c.getString(1), c.getInt(5), c.getString(2), c.getInt(3), c.getInt(4));
+            tema = new BeanTemas(c.getInt(0), c.getString(1), c.getInt(5), c.getString(2), c.getInt(3), c.getInt(4), c.getInt(5));
         }
         c.close();
         this.close(db);
@@ -226,7 +242,7 @@ public class DataSource {
     public BeanPreguntas getPreguntasByParse_ID(String parse_id){
         SQLiteDatabase db = this.openReadable();
         BeanPreguntas pregunta = null;
-        Cursor c = db.rawQuery(CONSULTA_PREGUNTA_BY_IDPARSE+parse_id, null);
+        Cursor c = db.rawQuery(CONSULTA_PREGUNTA_BY_IDPARSE+"'"+parse_id+"'", null);
         if(c.moveToFirst()){
             pregunta = new BeanPreguntas(c.getInt(0), c.getString(1), c.getInt(2), c.getString(3), c.getInt(4)>0, c.getInt(5), c.getInt(6));
         }

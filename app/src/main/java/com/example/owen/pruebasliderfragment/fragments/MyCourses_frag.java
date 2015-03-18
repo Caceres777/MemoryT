@@ -1,6 +1,7 @@
 package com.example.owen.pruebasliderfragment.fragments;
 
 import android.app.ProgressDialog;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Fragment;
@@ -14,6 +15,7 @@ import android.widget.ExpandableListView;
 import android.widget.Toast;
 
 import com.example.owen.pruebasliderfragment.ImageHelper;
+import com.example.owen.pruebasliderfragment.JavaBean.BeanCursos;
 import com.example.owen.pruebasliderfragment.ListViewItems.RowItemMyCourses;
 import com.example.owen.pruebasliderfragment.ListViewItems.SubrowItemMyCourses;
 import com.example.owen.pruebasliderfragment.R;
@@ -34,8 +36,7 @@ import java.util.List;
 public class MyCourses_frag extends Fragment {
 
     ArrayList<RowItemMyCourses> grupos;
-    List<ParseObject> ob;
-    ProgressDialog mProgressDialog;
+    ArrayList<BeanCursos> cursos;
     MyCoursesAdapter adapter;
 
 
@@ -46,7 +47,7 @@ public class MyCourses_frag extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setHasOptionsMenu(true);
+        //setHasOptionsMenu(true);
         new RemoteDataTask().execute();
     }
 
@@ -54,13 +55,6 @@ public class MyCourses_frag extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v =  inflater.inflate(R.layout.fragment_my_courses_frag, container, false);
-        //setAdapterFromLocal();
-        //setAdapterFromParse();
-
-        //ExpandableListView listView = (ExpandableListView) v.findViewById(R.id.listaMyCurso);
-        //MyCoursesAdapter adapter = new MyCoursesAdapter(getActivity(), grupos, ob);
-        //listView.setAdapter(adapter);
-
         return v;
     }
 
@@ -70,37 +64,19 @@ public class MyCourses_frag extends Fragment {
     class RemoteDataTask extends AsyncTask<Void, Void, Void> {
         @Override
         protected void onPreExecute() {
-            super.onPreExecute();
-            // Create a progressdialog
-            mProgressDialog = new ProgressDialog(getActivity());
-            // Set progressdialog title
-            mProgressDialog.setTitle("Searching for your Courses");
-            // Set progressdialog message
-            mProgressDialog.setMessage("Loading...");
-            mProgressDialog.setIndeterminate(false);
-            // Show progressdialog
-            mProgressDialog.show();
+
         }
 
         @Override
         protected Void doInBackground(Void... params) {
             // Create the array
-
             grupos = new ArrayList<RowItemMyCourses>();
-            CourseEntry tabla = new CourseEntry();
-            ParseHelper parseHelper = new ParseHelper();
-            ob = parseHelper.getAllMyCourses(ParseUser.getCurrentUser());
-            if(ob != null) {
-                // fallo en coger los datos de la tabla
-                for (ParseObject myCourse : ob) {
-                    ParseObject curso = (ParseObject) myCourse.get(new Progreso_cursosEntry().getCourseID());
-                    ParseFile image = (ParseFile) curso.get(tabla.getImage());
-                    // comprobar el tipo de dato introducidos en RowItemCourses
-                    RowItemMyCourses item = new RowItemMyCourses(new ImageHelper().parseFiletoBitmap(image), curso.getString(tabla.getName()), new SubrowItemMyCourses(curso.getString(tabla.getDefinition()), 5, 2), (Integer) myCourse.get(new Progreso_cursosEntry().getProgress()));
+            cursos = new DataSource(getActivity()).getCursos();
+            if(cursos != null) {
+                for (BeanCursos myCourse : cursos) {
+                    RowItemMyCourses item = new RowItemMyCourses(BitmapFactory.decodeByteArray(myCourse.getIMAGE(), 0, myCourse.getIMAGE().length), myCourse.getNAME(), new SubrowItemMyCourses(myCourse.getDEFINITION(), 5, 2), myCourse.getPROGRESS());
                     grupos.add(item);
                 }
-            }else{
-                Toast.makeText(getActivity(),"No courses",Toast.LENGTH_LONG);
             }
             return null;
         }
@@ -110,11 +86,9 @@ public class MyCourses_frag extends Fragment {
             // Locate the listview in listview_main.xml
             ExpandableListView listView = (ExpandableListView) getActivity().findViewById(R.id.listaMyCurso);
             // Pass the results into ListViewAdapter.java
-            adapter = new MyCoursesAdapter(getActivity(), grupos, ob);
+            adapter = new MyCoursesAdapter(getActivity(), grupos, cursos);
             // Binds the Adapter to the ListView
             listView.setAdapter(adapter);
-            // Close the progressdialog
-            mProgressDialog.dismiss();
         }
     }
 
@@ -142,30 +116,6 @@ public class MyCourses_frag extends Fragment {
     }
 
 
-    public void setAdapterFromLocal(){
-        DataSource dataSource = new DataSource(getActivity());
-        dataSource.getCursos();
-    }
 
-
-    public void setAdapterFromParse(){
-        CourseEntry tabla = new CourseEntry();
-        ParseHelper parseHelper = new ParseHelper();
-        ob = parseHelper.getAllMyCourses(ParseUser.getCurrentUser());
-        grupos = new ArrayList<RowItemMyCourses>();
-        if(ob != null) {
-            // fallo en coger los datos de la tabla
-            for (ParseObject myCourse : ob) {
-                //Log.d("PARSECURSO", myCourse.getString(new Progreso_cursosEntry().getFinished()));
-                ParseObject curso = (ParseObject) myCourse.get(new Progreso_cursosEntry().getCourseID());
-                Toast.makeText(getActivity(),"Mensaje: "+curso.getObjectId(), Toast.LENGTH_LONG);
-                ParseFile image = curso.getParseFile(tabla.getImage());
-                RowItemMyCourses item = new RowItemMyCourses(new ImageHelper().parseFiletoBitmap(image), curso.getString(tabla.getName()), new SubrowItemMyCourses(curso.getString(tabla.getDefinition()), 5, 2), myCourse.getInt(new Progreso_cursosEntry().getProgress()));
-                grupos.add(item);
-            }
-        }else{
-            Toast.makeText(getActivity(),"No courses",Toast.LENGTH_LONG);
-        }
-    }
 
 }

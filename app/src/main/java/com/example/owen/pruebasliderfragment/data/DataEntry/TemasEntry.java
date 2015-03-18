@@ -13,6 +13,7 @@ public class TemasEntry implements Serializable {
     public static String FK_ID_COURSE = "fk_id_course";
     public static String NAME = "name";
     public static String ACCURACY="accuracy";
+    public static final String PROGRESS="progress";
     public static String POSITION="position";
 
     @Override
@@ -24,6 +25,10 @@ public class TemasEntry implements Serializable {
                 ", NAME='" + NAME + '\'' +
                 ", ACCURACY='" + ACCURACY + '\'' +
                 '}';
+    }
+
+    public static String getProgress() {
+        return PROGRESS;
     }
 
     public String getTableName() {

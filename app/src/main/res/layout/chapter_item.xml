@@ -76,6 +76,8 @@
                 android:background="@color/Light_orange"
                 android:layout_gravity="center_vertical|right"
                 android:text="Start"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
                 android:id="@+id/start_button"
                 android:layout_weight="1"
                 android:layout_marginLeft="2dp" />

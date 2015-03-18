@@ -35,6 +35,7 @@ public class Ayudante extends SQLiteOpenHelper {
                     CursosEntry.NAME + " TEXT NOT NULL,"+
                     CursosEntry.DEFINITION + " TEXT,"+
                     CursosEntry.ACCURACY +" INTEGER,"+
+                    CursosEntry.PROGRESS+" INTEGER,"+
                     CursosEntry.IMAGE +" BLOB);";
 
 
@@ -46,6 +47,7 @@ public class Ayudante extends SQLiteOpenHelper {
                     TemasEntry.ACCURACY +" INTEGER,"+
                     TemasEntry.FK_ID_COURSE + " INTEGER ,"+
                     TemasEntry.POSITION + " INTEGER ,"+
+                    CursosEntry.PROGRESS+" INTEGER,"+
                     "FOREIGN KEY("+TemasEntry.FK_ID_COURSE+") REFERENCES "+CursosEntry.TABLE_NAME+"("+CursosEntry.ID_COURSE+"));";
 
     static final String CREATE_TABLE_CONTACT_BADGES =

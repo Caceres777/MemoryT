@@ -11,15 +11,21 @@ public class BeanTemas implements Serializable {
     private int FK_ID_COURSE;
     private String NAME;
     private int ACCURACY;
+    private int PROGRESS;
     private int POSITION;
 
-    public BeanTemas(int ID_THEME, String ID_PARSE, int FK_ID_COURSE, String NAME, int ACCURACY, int POSITION){
+    public BeanTemas(int ID_THEME, String ID_PARSE, int FK_ID_COURSE, String NAME, int ACCURACY, int POSITION, int PROGRESS){
         this.ID_THEME = ID_THEME;
         this.ID_PARSE = ID_PARSE;
         this.FK_ID_COURSE = FK_ID_COURSE;
         this.NAME = NAME;
         this.ACCURACY = ACCURACY;
+        this.PROGRESS = PROGRESS;
         this.POSITION = POSITION;
+    }
+
+    public int getPROGRESS() {
+        return PROGRESS;
     }
 
     public int getACCURACY() {
@@ -68,5 +74,9 @@ public class BeanTemas implements Serializable {
 
     public void setPOSITION(int POSITION) {
         this.POSITION = POSITION;
+    }
+
+    public void setPROGRESS(int PROGRESS) {
+        this.PROGRESS = PROGRESS;
     }
 }

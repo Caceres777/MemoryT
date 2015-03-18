@@ -14,6 +14,7 @@ public class CursosEntry implements Serializable {
     public static final String DEFINITION="definition";
     public static final String NAME = "name";
     public static final String ACCURACY="accuracy";
+    public static final String PROGRESS="progress";
     public static final String IMAGE= "image";
 
     @Override
@@ -26,6 +27,10 @@ public class CursosEntry implements Serializable {
                 ", ACCURACY='" + ACCURACY + '\'' +
                 ", IMAGE='" + IMAGE +
                 '}';
+    }
+
+    public static String getProgress() {
+        return PROGRESS;
     }
 
     public String getID_COURSE() {

@@ -117,11 +117,11 @@ public class ParseHelper {
     }
 
 
-    public List<ParseObject> getAllChapter(ParseObject pointerUser, ParseObject pointerCourse) {
+    public List<ParseObject> getAllChapter(ParseObject pointerUser) {
         Progreso_ChaptersEntry tabla = new Progreso_ChaptersEntry();
         List<ParseObject> ob = null;
         ParseQuery<ParseObject> query = new ParseQuery<ParseObject>(tabla.getTableName());
-        query.whereEqualTo(tabla.getUserID(), pointerUser);
+            query.whereEqualTo(tabla.getUserID(), pointerUser);
         try {
             ob = query.find();
         } catch (ParseException e) {
@@ -196,7 +196,7 @@ public class ParseHelper {
             ob = query.find();
             for (ParseObject mycurso : ob) {
                 ParseObject curso = (ParseObject) mycurso.get(tabla.getCourseID());
-                cursos.add(new BeanCursos(0, mycurso.getObjectId(), curso.getString(tabla2.getDefinition()), curso.getString(tabla2.getName()), mycurso.getInt(tabla.getAccuracy()), curso.getParseFile(tabla2.getImage()).getData()));
+                cursos.add(new BeanCursos(0, mycurso.getObjectId(), curso.getString(tabla2.getDefinition()), curso.getString(tabla2.getName()), mycurso.getInt(tabla.getAccuracy()), curso.getParseFile(tabla2.getImage()).getData(), mycurso.getInt(tabla.getProgress())));
             }
         } catch (ParseException e) {
             e.printStackTrace();
@@ -216,7 +216,7 @@ public class ParseHelper {
             ob = query.find();
             for (ParseObject mycurso : ob) {
                 ParseObject curso = (ParseObject) mycurso.get(tabla.getCourseID());
-                cursobean = new BeanCursos(0, mycurso.getObjectId(), curso.getString(tabla2.getDefinition()), curso.getString(tabla2.getName()), mycurso.getInt(tabla.getAccuracy()), curso.getParseFile(tabla2.getImage()).getData());
+                cursobean = new BeanCursos(0, mycurso.getObjectId(), curso.getString(tabla2.getDefinition()), curso.getString(tabla2.getName()), mycurso.getInt(tabla.getAccuracy()), curso.getParseFile(tabla2.getImage()).getData(), mycurso.getInt(tabla.getProgress()));
             }
         } catch (ParseException e) {
             e.printStackTrace();
@@ -240,14 +240,16 @@ public class ParseHelper {
                 ParseObject chapter = (ParseObject) mychapter.fetchIfNeeded().get(tabla.getChapterID());
                 ParseObject chaptercourse = (ParseObject)chapter.fetchIfNeeded().get(tabla2.getCurso());
                 if(chaptercourse.getObjectId().equals(pointerCourse.getObjectId())) {
-                    int fk_course = dataSource.getCursoByPARSE_ID(getProgreso_CursoID(ParseUser.getCurrentUser(), pointerCourse)).getID_COURSE();
+                    String aux = getProgreso_CursoID(ParseUser.getCurrentUser(), pointerCourse);
+                    int fk_course = dataSource.getCursoByPARSE_ID(aux).getID_COURSE();
                     // falta coger el ID designado al curso dentro de la base de datos local
                     chapters.add(new BeanTemas(0,
                             mychapter.getObjectId(),
                             fk_course,
                             chapter.getString(tabla2.getName()),
                             mychapter.getInt(tabla.getAccuracy()),
-                            chapter.getInt(tabla2.getPosition())
+                            chapter.getInt(tabla2.getPosition()),
+                            mychapter.getInt(tabla.getProgress())
                     ));
                 }
             }
@@ -307,7 +309,8 @@ public class ParseHelper {
                 obAnswers = query2.find();
                 for(ParseObject answer : obAnswers){
                     int fk_tema = dataSource.getTemasByPARSE_ID(getProgreso_TemasID(pointerUser, tema)).getID_THEME();
-                    int fk_question = dataSource.getPreguntasByParse_ID(getProgreso_PreguntasID(pointerUser,answer.fetchIfNeeded().getParseObject(tablaAnswer.getQuestionID()))).getID_QUESTION();
+                    String aux = getProgreso_PreguntasID(pointerUser,answer.fetchIfNeeded().getParseObject(tablaAnswer.getQuestionID()));
+                    int fk_question = dataSource.getPreguntasByParse_ID(aux).getID_QUESTION();
                     answers.add(new BeanRespuestas(
                             0,
                             fk_question,

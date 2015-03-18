@@ -12,15 +12,21 @@ public class BeanCursos implements Serializable {
     private String DEFINITION;
     private String NAME;
     private int ACCURACY;
+    private int PROGRESS;
     private byte[] IMAGE;
 
-    public BeanCursos(int ID_COURSE, String ID_PARSE, String DEFINITION, String NAME, int ACCURACY, byte[] IMAGE){
+    public BeanCursos(int ID_COURSE, String ID_PARSE, String DEFINITION, String NAME, int ACCURACY, byte[] IMAGE, int PROGRESS){
         this.ID_COURSE = ID_COURSE;
         this.ACCURACY = ACCURACY;
         this.ID_PARSE = ID_PARSE;
         this.DEFINITION = DEFINITION;
         this.NAME=NAME;
+        this.PROGRESS = PROGRESS;
         this.IMAGE=IMAGE;
+    }
+
+    public void setPROGRESS(int PROGRESS) {
+        this.PROGRESS = PROGRESS;
     }
 
     public void setIMAGE(byte[] IMAGE) {
@@ -69,5 +75,9 @@ public class BeanCursos implements Serializable {
 
     public String getID_PARSE() {
         return ID_PARSE;
+    }
+
+    public int getPROGRESS() {
+        return PROGRESS;
     }
 }
