@@ -1,5 +1,6 @@
 package com.example.owen.pruebasliderfragment.fragments;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Fragment;
@@ -7,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ExpandableListView;
 import android.widget.ListView;
 
 import com.example.owen.pruebasliderfragment.JavaBean.BeanPreguntas;
@@ -15,6 +15,7 @@ import com.example.owen.pruebasliderfragment.JavaBean.BeanRespuestas;
 import com.example.owen.pruebasliderfragment.JavaBean.BeanTemas;
 import com.example.owen.pruebasliderfragment.ListViewItems.RowItemQuestion;
 import com.example.owen.pruebasliderfragment.R;
+import com.example.owen.pruebasliderfragment.activities.Game;
 import com.example.owen.pruebasliderfragment.adapters.QuestionAdapter;
 import com.example.owen.pruebasliderfragment.data.DataSource;
 
@@ -52,7 +53,11 @@ public class Questions_frag extends Fragment {
         startGame.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // start game here
+                // start game here (Activity Game)
+                Intent intent = new Intent(getActivity(), Game.class);
+                intent.putExtra("tema", tema.getID_THEME());
+                startActivity(intent);
+                getActivity().overridePendingTransition(R.animator.left_in, R.animator.left_out);
             }
         });
         return v;

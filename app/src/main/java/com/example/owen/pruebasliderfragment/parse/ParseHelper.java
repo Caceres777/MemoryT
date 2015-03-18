@@ -181,7 +181,7 @@ public class ParseHelper {
 
 
     /*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-     * Apartir de aqui estan los metodos encargados de devolver la informacion entre parse y la base de datos local
+     * A partir de aqui estan los metodos encargados de devolver la informacion entre parse y la base de datos local
      +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 
 

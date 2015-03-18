@@ -39,6 +39,7 @@ public class DataSource {
     private static String CONSULTA_SELECTALL_PREGUNTAS = "SELECT * FROM "+PreguntasEntry.TABLE_NAME+" WHERE "+PreguntasEntry.FK_ID_THEME+" = ";
     private static String CONSULTA_SELECTALL_RESPUESTAS = "SELECT * FROM "+RespuestasEntry.TABLE_NAME+" WHERE "+RespuestasEntry.FK_ID_THEME+" = ";
     private static String CONSULTA_SELECT_RESPUESTAS_CORRECTA = "SELECT * FROM "+RespuestasEntry.TABLE_NAME+" WHERE "+RespuestasEntry.FK_ID_QUESTION+" = ";
+    private static String CONSULTA_SELECT_RESPUESTAS_INCORRECTAS = "SELECT * FROM "+RespuestasEntry.TABLE_NAME+" WHERE "+RespuestasEntry.FK_ID_QUESTION+" != ";
 
     public DataSource(Context context) {
         mContext = context;
@@ -215,6 +216,23 @@ public class DataSource {
     }
 
 
+    public ArrayList<BeanRespuestas>  getRespuestasIncorrectas(int IDQuestion){
+        ArrayList<BeanRespuestas> respuestas = new ArrayList<BeanRespuestas>();
+        SQLiteDatabase db = this.openReadable();
+        Cursor c = db.rawQuery(CONSULTA_SELECT_RESPUESTAS_INCORRECTAS+IDQuestion, null);
+        if(c.moveToFirst()) {
+            for (int i = 0; i < c.getCount(); i++) {
+                Log.d("ANSWER", c.getString(3));
+                respuestas.add(new BeanRespuestas(c.getInt(0), c.getInt(1), c.getInt(2), c.getString(3)));
+                c.moveToNext();
+            }
+        }
+        c.close();
+        this.close(db);
+        return respuestas;
+    }
+
+
     public BeanCursos getCursoByPARSE_ID(String parse_id){
         SQLiteDatabase db = this.openReadable();
         BeanCursos curso = null;
@@ -249,6 +267,35 @@ public class DataSource {
         c.close();
         this.close(db);
         return pregunta;
+    }
+
+
+    public void updatePreguntaRight(BeanPreguntas pregunta, int right){
+        SQLiteDatabase db = this.openReadable();
+        ContentValues args = new ContentValues();
+
+        args.put(PreguntasEntry.FK_ID_THEME, pregunta.getFK_ID_THEME());
+        args.put(PreguntasEntry.ID_PARSE, pregunta.getPARSE_ID());
+        args.put(PreguntasEntry.TEXT, pregunta.getTEXT());
+        args.put(String.valueOf(PreguntasEntry.DONE), String.valueOf(pregunta.getDONE()));
+        args.put(String.valueOf(PreguntasEntry.RIGHT), right);
+        args.put(String.valueOf(PreguntasEntry.WRONG), String.valueOf(pregunta.getWRONG()));
+        db.update(PreguntasEntry.TABLE_NAME, args, PreguntasEntry.ID_QUESTION+" = ?", new String[] { String.valueOf(pregunta.getID_QUESTION()) });
+        this.close(db);
+    }
+
+    public void updatePreguntaWrong(BeanPreguntas pregunta, int wrong){
+        SQLiteDatabase db = this.openReadable();
+        ContentValues args = new ContentValues();
+
+        args.put(PreguntasEntry.FK_ID_THEME, pregunta.getFK_ID_THEME());
+        args.put(PreguntasEntry.ID_PARSE, pregunta.getPARSE_ID());
+        args.put(PreguntasEntry.TEXT, pregunta.getTEXT());
+        args.put(String.valueOf(PreguntasEntry.DONE), String.valueOf(pregunta.getDONE()));
+        args.put(String.valueOf(PreguntasEntry.RIGHT), String.valueOf(pregunta.getRIGHT()));
+        args.put(String.valueOf(PreguntasEntry.WRONG), wrong);
+        db.update(PreguntasEntry.TABLE_NAME, args, PreguntasEntry.ID_QUESTION+" = ?", new String[] { String.valueOf(pregunta.getID_QUESTION()) });
+        this.close(db);
     }
 
 }

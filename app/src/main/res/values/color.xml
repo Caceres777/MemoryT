@@ -10,4 +10,5 @@
     <color name="Initial_buttons">#46e5e5e5</color>
     <color name="Initial_buttons_pressed">#96FFFFFF</color>
     <color name="Green">#2EFE2E</color>
+    <color name="Red">#FF0000</color>
 </resources>
