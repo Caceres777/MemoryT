@@ -74,24 +74,26 @@ public class Game extends ActionBarActivity {
 
     // creara la siguiente pregunta
     public void setNewQuestion(){
-        android.app.FragmentManager fm = getFragmentManager();
-        FragmentTransaction ft = fm.beginTransaction();
-        respuestasIncorrectos = new DataSource(this).getRespuestasIncorrectas(preguntas.get(contador).getID_QUESTION());
-        respuestaCorrecta = new DataSource(this).getRespuestaCorrecta(preguntas.get(contador).getID_QUESTION());
-        ft.setCustomAnimations(R.animator.slide_in_left_frag, R.animator.slide_out_right_frag);
-        GameQuestion_frag frag = new GameQuestion_frag();
-        frag.defineQuestionAndAnswers(preguntas.get(contador), respuestasIncorrectos, respuestaCorrecta);
-        contador++;
-        ft.replace(R.id.game_container,frag);
-        ft.addToBackStack(null);
-        ft.commit();
+        if(contador < preguntas.size()) {
+            android.app.FragmentManager fm = getFragmentManager();
+            FragmentTransaction ft = fm.beginTransaction();
+            respuestasIncorrectos = new DataSource(this).getRespuestasIncorrectas(preguntas.get(contador).getID_QUESTION());
+            respuestaCorrecta = new DataSource(this).getRespuestaCorrecta(preguntas.get(contador).getID_QUESTION());
+            ft.setCustomAnimations(R.animator.slide_in_left_frag, R.animator.slide_out_right_frag);
+            GameQuestion_frag frag = new GameQuestion_frag();
+            frag.defineQuestionAndAnswers(preguntas.get(contador), respuestasIncorrectos, respuestaCorrecta);
+            contador++;
+            ft.replace(R.id.game_container, frag);
+            ft.addToBackStack(null);
+            ft.commit();
+        }
     }
 
 
     public void setCorrectOrWrong(boolean aux){
         if(aux)
-            new DataSource(this).updatePreguntaRight(preguntas.get(contador), preguntas.get(contador).getRIGHT()+1);
+            new DataSource(this).updatePreguntaRight(preguntas.get(contador-1), preguntas.get(contador-1).getRIGHT()+1);
         else
-            new DataSource(this).updatePreguntaWrong(preguntas.get(contador), preguntas.get(contador).getWRONG()+1);
+            new DataSource(this).updatePreguntaWrong(preguntas.get(contador - 1), preguntas.get(contador - 1).getWRONG() + 1);
     }
 }

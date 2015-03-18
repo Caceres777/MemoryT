@@ -147,6 +147,7 @@ public class DataSource {
         if(c.moveToFirst()) {
             for (int i = 0; i < c.getCount(); i++) {
                 cursos.add(new BeanCursos(c.getInt(0), c.getString(1), c.getString(3), c.getString(2), c.getInt(4), c.getBlob(6), c.getInt(5)));
+                c.moveToNext();
             }
         }
         c.close();

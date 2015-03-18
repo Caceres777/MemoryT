@@ -141,7 +141,7 @@ public class MyCoursesAdapter extends BaseExpandableListAdapter {
         TextView text = (TextView)convertView.findViewById(R.id.course_name);
         ImageView image = (ImageView)convertView.findViewById(R.id.course_image);
         ProgressBar progress = (ProgressBar)convertView.findViewById(R.id.courses_progressBar);
-        CheckedTextView check = (CheckedTextView)convertView.findViewById(R.id.course_check);
+        //CheckedTextView check = (CheckedTextView)convertView.findViewById(R.id.course_check);
         Button continue_button = (Button) convertView.findViewById(R.id.continue_button);
         Button review_button = (Button) convertView.findViewById(R.id.review_button);
 
@@ -150,7 +150,7 @@ public class MyCoursesAdapter extends BaseExpandableListAdapter {
         text.setText(grupo.getTitle());
         progress.setProgress(grupo.getProgress());
         image.setImageBitmap(new ImageHelper().getRoundedCornerBitmap(grupo.getImageId(), 0));
-        check.setChecked(isExpanded);
+        //check.setChecked(isExpanded);
         return convertView;
     }
 
