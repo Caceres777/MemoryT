@@ -3,25 +3,20 @@ package com.example.owen.pruebasliderfragment.adapters;
 import android.app.Activity;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
-import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.Button;
-import android.widget.CheckedTextView;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.owen.pruebasliderfragment.ImageHelper;
-import com.example.owen.pruebasliderfragment.JavaBean.BeanCursos;
+import com.example.owen.pruebasliderfragment.JavaBean.BeanCourse;
 import com.example.owen.pruebasliderfragment.ListViewItems.RowItemMyCourses;
 import com.example.owen.pruebasliderfragment.R;
 import com.example.owen.pruebasliderfragment.fragments.Chapters_frag;
-import com.example.owen.pruebasliderfragment.fragments.SearchCourses_frag;
-import com.parse.ParseObject;
-import com.parse.ParseUser;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +27,7 @@ import java.util.List;
 public class MyCoursesAdapter extends BaseExpandableListAdapter {
 
     private final ArrayList<RowItemMyCourses> grupos;
-    private List<BeanCursos> ob;
+    private List<BeanCourse> ob;
     public LayoutInflater inflater;
     public Activity activity;
     private FragmentManager fm;
@@ -40,7 +35,7 @@ public class MyCoursesAdapter extends BaseExpandableListAdapter {
 
 
     // constructor
-    public MyCoursesAdapter(Activity act, ArrayList<RowItemMyCourses> grupos, List<BeanCursos> ob){
+    public MyCoursesAdapter(Activity act, ArrayList<RowItemMyCourses> grupos, List<BeanCourse> ob){
         this.ob = ob;
         activity = act;
         this.grupos = grupos;

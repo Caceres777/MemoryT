@@ -1,6 +1,5 @@
 package com.example.owen.pruebasliderfragment.fragments;
 
-import android.app.ProgressDialog;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -12,31 +11,21 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ExpandableListView;
-import android.widget.Toast;
 
-import com.example.owen.pruebasliderfragment.ImageHelper;
-import com.example.owen.pruebasliderfragment.JavaBean.BeanCursos;
+import com.example.owen.pruebasliderfragment.JavaBean.BeanCourse;
 import com.example.owen.pruebasliderfragment.ListViewItems.RowItemMyCourses;
 import com.example.owen.pruebasliderfragment.ListViewItems.SubrowItemMyCourses;
 import com.example.owen.pruebasliderfragment.R;
 import com.example.owen.pruebasliderfragment.adapters.MyCoursesAdapter;
-import com.example.owen.pruebasliderfragment.data.Ayudante;
 import com.example.owen.pruebasliderfragment.data.DataSource;
-import com.example.owen.pruebasliderfragment.parse.DataEntry.CourseEntry;
-import com.example.owen.pruebasliderfragment.parse.DataEntry.Progreso_cursosEntry;
-import com.example.owen.pruebasliderfragment.parse.ParseHelper;
-import com.parse.ParseFile;
-import com.parse.ParseObject;
-import com.parse.ParseUser;
 
 import java.util.ArrayList;
-import java.util.List;
 
 
 public class MyCourses_frag extends Fragment {
 
     ArrayList<RowItemMyCourses> grupos;
-    ArrayList<BeanCursos> cursos;
+    ArrayList<BeanCourse> cursos;
     MyCoursesAdapter adapter;
 
 
@@ -73,7 +62,7 @@ public class MyCourses_frag extends Fragment {
             grupos = new ArrayList<RowItemMyCourses>();
             cursos = new DataSource(getActivity()).getCursos();
             if(cursos != null) {
-                for (BeanCursos myCourse : cursos) {
+                for (BeanCourse myCourse : cursos) {
                     RowItemMyCourses item = new RowItemMyCourses(BitmapFactory.decodeByteArray(myCourse.getIMAGE(), 0, myCourse.getIMAGE().length), myCourse.getNAME(), new SubrowItemMyCourses(myCourse.getDEFINITION(), 5, 2), myCourse.getPROGRESS());
                     grupos.add(item);
                 }

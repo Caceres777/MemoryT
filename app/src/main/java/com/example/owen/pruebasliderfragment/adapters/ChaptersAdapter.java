@@ -13,10 +13,9 @@ import android.widget.CheckedTextView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.example.owen.pruebasliderfragment.JavaBean.BeanTemas;
+import com.example.owen.pruebasliderfragment.JavaBean.BeanChapter;
 import com.example.owen.pruebasliderfragment.ListViewItems.RowItemChapter;
 import com.example.owen.pruebasliderfragment.R;
-import com.example.owen.pruebasliderfragment.fragments.Chapters_frag;
 import com.example.owen.pruebasliderfragment.fragments.Questions_frag;
 
 import java.util.ArrayList;
@@ -28,7 +27,7 @@ import java.util.List;
 public class ChaptersAdapter extends BaseExpandableListAdapter {
 
     private final ArrayList<RowItemChapter> grupos;
-    private List<BeanTemas> temas;
+    private List<BeanChapter> temas;
     public LayoutInflater inflater;
     public Activity activity;
     private FragmentManager fm;
@@ -36,7 +35,7 @@ public class ChaptersAdapter extends BaseExpandableListAdapter {
 
 
     // Constructor
-    public ChaptersAdapter(Activity act, ArrayList<RowItemChapter> grupos, List<BeanTemas> temas) {
+    public ChaptersAdapter(Activity act, ArrayList<RowItemChapter> grupos, List<BeanChapter> temas) {
         activity = act;
         this.grupos = grupos;
         inflater = act.getLayoutInflater();

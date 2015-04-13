@@ -10,9 +10,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ListView;
 
-import com.example.owen.pruebasliderfragment.JavaBean.BeanPreguntas;
-import com.example.owen.pruebasliderfragment.JavaBean.BeanRespuestas;
-import com.example.owen.pruebasliderfragment.JavaBean.BeanTemas;
+import com.example.owen.pruebasliderfragment.JavaBean.BeanQuestions;
+import com.example.owen.pruebasliderfragment.JavaBean.BeanChapter;
 import com.example.owen.pruebasliderfragment.ListViewItems.RowItemQuestion;
 import com.example.owen.pruebasliderfragment.R;
 import com.example.owen.pruebasliderfragment.activities.Game;
@@ -24,18 +23,18 @@ import java.util.ArrayList;
 
 public class Questions_frag extends Fragment {
 
-    BeanTemas tema;
+    BeanChapter tema;
     ListView listView;
     Button startGame;
     QuestionAdapter adapter;
     ArrayList<RowItemQuestion> questions;
-    ArrayList<BeanPreguntas> ob;
+    ArrayList<BeanQuestions> ob;
 
     public Questions_frag() {
 
     }
 
-    public void setTema(BeanTemas tema){
+    public void setTema(BeanChapter tema){
         this.tema = tema;
     }
 
@@ -55,7 +54,7 @@ public class Questions_frag extends Fragment {
             public void onClick(View v) {
                 // start game here (Activity Game)
                 Intent intent = new Intent(getActivity(), Game.class);
-                intent.putExtra("tema", tema.getID_THEME());
+                intent.putExtra("tema", tema.getID());
                 startActivity(intent);
                 getActivity().overridePendingTransition(R.animator.left_in, R.animator.left_out);
             }
@@ -75,10 +74,9 @@ public class Questions_frag extends Fragment {
         protected Void doInBackground(Void... params) {
             // Create the array
             questions = new ArrayList<RowItemQuestion>();
-            ob = new DataSource(getActivity()).getPreguntas(tema.getID_THEME());
-            for (BeanPreguntas question : ob) {
-                BeanRespuestas respuesta = new DataSource(getActivity()).getRespuestaCorrecta(question.getID_QUESTION());
-                RowItemQuestion item = new RowItemQuestion(question.getTEXT(), respuesta.getTEXT(), question.getWRONG(), question.getRIGHT());
+            ob = new DataSource(getActivity()).getPreguntas(tema.getID());
+            for (BeanQuestions question : ob) {
+                RowItemQuestion item = new RowItemQuestion(question.getTEXT1(), question.getTEXT2(), question.getWRONG(), question.getTOTAL()-question.getWRONG());
                 questions.add(item);
             }
             return null;

@@ -1,9 +1,6 @@
 package com.example.owen.pruebasliderfragment.adapters;
 
 import android.app.Activity;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,20 +11,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.owen.pruebasliderfragment.AppMemoryt;
 import com.example.owen.pruebasliderfragment.ImageHelper;
-import com.example.owen.pruebasliderfragment.JavaBean.BeanCursos;
-import com.example.owen.pruebasliderfragment.JavaBean.BeanPreguntas;
-import com.example.owen.pruebasliderfragment.JavaBean.BeanRespuestas;
-import com.example.owen.pruebasliderfragment.JavaBean.BeanTemas;
+import com.example.owen.pruebasliderfragment.JavaBean.BeanCourse;
+import com.example.owen.pruebasliderfragment.JavaBean.BeanQuestions;
+import com.example.owen.pruebasliderfragment.JavaBean.BeanChapter;
 import com.example.owen.pruebasliderfragment.ListViewItems.RowItemSearchCourses;
 import com.example.owen.pruebasliderfragment.R;
-import com.example.owen.pruebasliderfragment.data.Ayudante;
 import com.example.owen.pruebasliderfragment.data.DataSource;
-import com.example.owen.pruebasliderfragment.fragments.SearchCourses_frag;
 import com.example.owen.pruebasliderfragment.parse.ParseHelper;
-import com.parse.ParseException;
-import com.parse.ParseFile;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
 
@@ -99,26 +90,18 @@ public class SearchCoursesAdapter extends BaseExpandableListAdapter {
                 // guardar en base de datos local tambien
                 DataSource dataSource = new DataSource(activity);
                 // obtenemos el curso y lo guardamos en nuestra base de datos local
-                BeanCursos obcurso = parseHelper.getCoursesByIDFromProgresoCourses(ParseUser.getCurrentUser());
+                BeanCourse obcurso = parseHelper.getCoursesByIDFromProgresoCourses(ParseUser.getCurrentUser());
                 dataSource.insertContactCursos(obcurso);
                 // obetenemos los temas y los guardamos en la base de datos local
-                List<BeanTemas> obTemas = parseHelper.getTemasByUserFromParse(ParseUser.getCurrentUser(), course, activity);
-                for(BeanTemas aux : obTemas){
+                List<BeanChapter> obTemas = parseHelper.getTemasByUserFromParse(ParseUser.getCurrentUser(), course, activity);
+                for(BeanChapter aux : obTemas){
                     dataSource.insertContactTemas(aux);
                 }
                 // obtenemos de parse todos las preguntas del curso y los guardamos en la base de datos local
-                List<BeanPreguntas> obPreguntas = parseHelper.getPreguntasByUserFromParse(ParseUser.getCurrentUser(), course, activity);
-                for(BeanPreguntas aux : obPreguntas){
+                List<BeanQuestions> obPreguntas = parseHelper.getPreguntasByUserFromParse(ParseUser.getCurrentUser(), course, activity);
+                for(BeanQuestions aux : obPreguntas){
                     dataSource.insertContactPreguntas(aux);
                 }
-                List<BeanRespuestas> obRespuestas = parseHelper.getRespuestasByUserFromParse(ParseUser.getCurrentUser(), course, activity);
-                for(BeanRespuestas aux : obRespuestas){
-                    dataSource.insertContactRespuestas(aux);
-                }
-                //List<BeanCursos> ob = parseHelper.getCoursesByUser(ParseUser.getCurrentUser());
-                //for(BeanCursos aux : ob)
-                //    dataSource.insertContactCursos(aux);
-                //dataSource.insertContactCursos(new BeanCursos(curso.getObjectId(), curso.getString("Definition"), curso.getString("Name"), curso.getInt(""), ));
             }
         });
         definition.setText(grupo.getChild().getDefinition());

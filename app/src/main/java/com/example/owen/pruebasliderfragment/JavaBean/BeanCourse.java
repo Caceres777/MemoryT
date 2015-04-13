@@ -6,18 +6,16 @@ import java.sql.Blob;
 /**
  * Created by Owen on 04/03/2015.
  */
-public class BeanCursos implements Serializable {
-    private int ID_COURSE;
+public class BeanCourse implements Serializable {
+    private int ID;
     private String ID_PARSE;
     private String DEFINITION;
     private String NAME;
-    private int ACCURACY;
     private int PROGRESS;
     private byte[] IMAGE;
 
-    public BeanCursos(int ID_COURSE, String ID_PARSE, String DEFINITION, String NAME, int ACCURACY, byte[] IMAGE, int PROGRESS){
-        this.ID_COURSE = ID_COURSE;
-        this.ACCURACY = ACCURACY;
+    public BeanCourse(int ID, String ID_PARSE, String DEFINITION, String NAME, byte[] IMAGE, int PROGRESS){
+        this.ID = ID;
         this.ID_PARSE = ID_PARSE;
         this.DEFINITION = DEFINITION;
         this.NAME=NAME;
@@ -33,16 +31,12 @@ public class BeanCursos implements Serializable {
         this.IMAGE = IMAGE;
     }
 
-    public void setACCURACY(int ACCURACY) {
-        this.ACCURACY = ACCURACY;
-    }
-
     public void setDEFINITION(String DEFINITION) {
         this.DEFINITION = DEFINITION;
     }
 
-    public void setID_COURSE(int ID_COURSE) {
-        this.ID_COURSE = ID_COURSE;
+    public void setID(int ID) {
+        this.ID = ID;
     }
 
     public void setNAME(String NAME) {
@@ -57,16 +51,12 @@ public class BeanCursos implements Serializable {
         this.ID_PARSE = ID_PARSE;
     }
 
-    public int getACCURACY() {
-        return ACCURACY;
-    }
-
     public String getDEFINITION() {
         return DEFINITION;
     }
 
-    public int getID_COURSE() {
-        return ID_COURSE;
+    public int getID() {
+        return ID;
     }
 
     public String getNAME() {

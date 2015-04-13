@@ -1,19 +1,11 @@
 package com.example.owen.pruebasliderfragment.data;
 
 import android.content.Context;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-import com.example.owen.pruebasliderfragment.JavaBean.BeanCursos;
-import com.example.owen.pruebasliderfragment.data.DataEntry.BadgesEntry;
-import com.example.owen.pruebasliderfragment.data.DataEntry.CursosEntry;
-import com.example.owen.pruebasliderfragment.data.DataEntry.PreguntasEntry;
-import com.example.owen.pruebasliderfragment.data.DataEntry.RespuestasEntry;
-import com.example.owen.pruebasliderfragment.data.DataEntry.TemasEntry;
-
-import java.util.ArrayList;
+import com.example.owen.pruebasliderfragment.data.SQLContract.*;
 
 /**
  * Created by CHUFASCHIN on 29/01/2015.
@@ -29,56 +21,50 @@ public class Ayudante extends SQLiteOpenHelper {
     private static final String TAG = "";
 
     static final String CREATE_TABLE_CONTACT_CURSOS =
-            "CREATE TABLE "+ CursosEntry.TABLE_NAME +"( " +
-                    CursosEntry.ID_COURSE + " INTEGER PRIMARY KEY AUTOINCREMENT ," +
-                    CursosEntry.ID_PARSE+ " TEXT NOT NULL,"+
-                    CursosEntry.NAME + " TEXT NOT NULL,"+
-                    CursosEntry.DEFINITION + " TEXT,"+
-                    CursosEntry.ACCURACY +" INTEGER,"+
-                    CursosEntry.PROGRESS+" INTEGER,"+
-                    CursosEntry.IMAGE +" BLOB);";
+            "CREATE TABLE "+ CourseEntry.TABLE_NAME +"( " +
+                    CourseEntry.ID + " INTEGER PRIMARY KEY AUTOINCREMENT ," +
+                    CourseEntry.ID_PARSE+ " TEXT NOT NULL,"+
+                    CourseEntry.NAME + " TEXT NOT NULL,"+
+                    CourseEntry.DEFINITION + " TEXT,"+
+                    CourseEntry.PROGRESS+" INTEGER,"+
+                    CourseEntry.IMAGE +" BLOB);";
 
 
     static final String CREATE_TABLE_CONTACT_TEMAS =
-            "CREATE TABLE "+ TemasEntry.TABLE_NAME +"( " +
-                    TemasEntry.ID_THEME + " INTEGER PRIMARY KEY AUTOINCREMENT ," +
-                    TemasEntry.ID_PARSE + " TEXT,"+
-                    TemasEntry.NAME +" TEXT," +
-                    TemasEntry.ACCURACY +" INTEGER,"+
-                    TemasEntry.FK_ID_COURSE + " INTEGER ,"+
-                    TemasEntry.POSITION + " INTEGER ,"+
-                    CursosEntry.PROGRESS+" INTEGER,"+
-                    "FOREIGN KEY("+TemasEntry.FK_ID_COURSE+") REFERENCES "+CursosEntry.TABLE_NAME+"("+CursosEntry.ID_COURSE+"));";
+            "CREATE TABLE "+ ChapterEntry.TABLE_NAME +"( " +
+                    ChapterEntry.ID + " INTEGER PRIMARY KEY AUTOINCREMENT ," +
+                    ChapterEntry.ID_PARSE + " TEXT,"+
+                    ChapterEntry.NAME +" TEXT," +
+                    ChapterEntry.ACCURACY +" INTEGER,"+
+                    ChapterEntry.FK_ID_COURSE + " INTEGER ,"+
+                    ChapterEntry.POSITION + " INTEGER ,"+
+                    CourseEntry.PROGRESS+" INTEGER,"+
+                    "FOREIGN KEY("+ChapterEntry.FK_ID_COURSE+") REFERENCES "+ChapterEntry.TABLE_NAME+"("+CourseEntry.ID+"));";
+
 
     static final String CREATE_TABLE_CONTACT_BADGES =
             "CREATE TABLE "+ BadgesEntry.TABLE_NAME +"( " +
-                    BadgesEntry.ID_BADGE + " INTEGER PRIMARY KEY AUTOINCREMENT ," +
+                    BadgesEntry.ID + " INTEGER PRIMARY KEY AUTOINCREMENT ," +
                     BadgesEntry.ID_PARSE + " TEXT,"+
                     BadgesEntry.FK_ID_COURSE + " INTEGER ," +
                     BadgesEntry.IMAGE +" BLOB,"+
                     BadgesEntry.TITLE +" TEXT,"+
                     BadgesEntry.TEXT +" TEXT,"+
-                    "FOREIGN KEY("+BadgesEntry.FK_ID_COURSE+") REFERENCES "+CursosEntry.TABLE_NAME+"("+CursosEntry.ID_COURSE+"));";
+                    "FOREIGN KEY("+BadgesEntry.FK_ID_COURSE+") REFERENCES "+CourseEntry.TABLE_NAME+"("+CourseEntry.ID+"));";
+
 
     static final String CREATE_TABLE_CONTACT_PREGUNTAS =
-            "CREATE TABLE "+ PreguntasEntry.TABLE_NAME +"( " +
-                    PreguntasEntry.ID_QUESTION + " INTEGER PRIMARY KEY AUTOINCREMENT ," +
-                    PreguntasEntry.ID_PARSE + " TEXT,"+
-                    PreguntasEntry.FK_ID_THEME + " INTEGER," +
-                    PreguntasEntry.TEXT +" TEXT,"+
-                    PreguntasEntry.DONE +" BOOLEAN,"+
-                    PreguntasEntry.RIGHT +" INTEGER,"+
-                    PreguntasEntry.WRONG +" INTEGER,"+
-                    "FOREIGN KEY("+PreguntasEntry.FK_ID_THEME+") REFERENCES "+TemasEntry.TABLE_NAME+"("+TemasEntry.ID_THEME+"));";
-
-    static final String CREATE_TABLE_CONTACT_RESPUESTAS =
-            "CREATE TABLE "+ RespuestasEntry.TABLE_NAME +"( " +
-                    RespuestasEntry.ID_ANSWER + " INTEGER PRIMARY KEY AUTOINCREMENT ," +
-                    RespuestasEntry.FK_ID_QUESTION + " INTEGER," +
-                    RespuestasEntry.FK_ID_THEME + " INTEGER," +
-                    RespuestasEntry.TEXT +" TEXT,"+
-                    "FOREIGN KEY("+RespuestasEntry.FK_ID_THEME+") REFERENCES "+TemasEntry.TABLE_NAME+"("+TemasEntry.ID_THEME+"),"+
-                    "FOREIGN KEY("+RespuestasEntry.FK_ID_QUESTION+") REFERENCES "+PreguntasEntry.TABLE_NAME+"("+PreguntasEntry.ID_QUESTION+"));";
+            "CREATE TABLE "+ QuestionEntry.TABLE_NAME +"( " +
+                    QuestionEntry.ID + " INTEGER PRIMARY KEY AUTOINCREMENT ," +
+                    QuestionEntry.ID_PARSE + " TEXT,"+
+                    QuestionEntry.FK_ID_THEME + " INTEGER," +
+                    QuestionEntry.TEXT1 +" TEXT1,"+
+                    QuestionEntry.TEXT2 +" TEXT2,"+
+                    QuestionEntry.TOTAL +" INTEGER,"+
+                    QuestionEntry.IMAGE +" BLOB,"+
+                    QuestionEntry.EF +" NUMERIC,"+
+                    QuestionEntry.WRONG +" INTEGER,"+
+                    "FOREIGN KEY("+QuestionEntry.FK_ID_THEME+") REFERENCES "+ChapterEntry.TABLE_NAME+"("+ChapterEntry.ID+"));";
 
 
 
@@ -92,7 +78,6 @@ public class Ayudante extends SQLiteOpenHelper {
             db.execSQL(CREATE_TABLE_CONTACT_TEMAS);
             db.execSQL(CREATE_TABLE_CONTACT_BADGES);
             db.execSQL(CREATE_TABLE_CONTACT_PREGUNTAS);
-            db.execSQL(CREATE_TABLE_CONTACT_RESPUESTAS);
         } catch (Exception e) {
             Log.e(TAG, "SQLException ", e);
         }
@@ -109,7 +94,6 @@ public class Ayudante extends SQLiteOpenHelper {
             db.execSQL("DROP TABLE IF EXISTS " + CREATE_TABLE_CONTACT_TEMAS);
             db.execSQL("DROP TABLE IF EXISTS " + CREATE_TABLE_CONTACT_BADGES);
             db.execSQL("DROP TABLE IF EXISTS " + CREATE_TABLE_CONTACT_PREGUNTAS);
-            db.execSQL("DROP TABLE IF EXISTS " + CREATE_TABLE_CONTACT_RESPUESTAS);
             onCreate(db);
         }
     }

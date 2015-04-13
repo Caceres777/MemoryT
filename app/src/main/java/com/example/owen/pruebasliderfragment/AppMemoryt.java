@@ -35,7 +35,8 @@ public class AppMemoryt extends Application{
         super.onCreate();
 
         Parse.enableLocalDatastore(this);
-        Parse.initialize(this, "eUm1h1r7STn62J6CMZpISBQCtM7izmp8b001Udab", "g3qvGnhMjsVrMGn03ZkcdmIGBvUPEDIoTJUMyrxP");
+        //Parse.initialize(this, "eUm1h1r7STn62J6CMZpISBQCtM7izmp8b001Udab", "g3qvGnhMjsVrMGn03ZkcdmIGBvUPEDIoTJUMyrxP");
+        Parse.initialize(this, "LqQzEG40XVLk82oLyFihkOMYzuZwfNydnto0XDrO", "uSYuprVVtMo3wJonlosXxxBL25gUFLIE8pyA5vZX");
     }
 
 

@@ -5,8 +5,8 @@ import java.io.Serializable;
 /**
  * Created by Owen on 04/03/2015.
  */
-public class BeanTemas implements Serializable {
-    private int ID_THEME;
+public class BeanChapter implements Serializable {
+    private int ID;
     private String ID_PARSE;
     private int FK_ID_COURSE;
     private String NAME;
@@ -14,8 +14,8 @@ public class BeanTemas implements Serializable {
     private int PROGRESS;
     private int POSITION;
 
-    public BeanTemas(int ID_THEME, String ID_PARSE, int FK_ID_COURSE, String NAME, int ACCURACY, int POSITION, int PROGRESS){
-        this.ID_THEME = ID_THEME;
+    public BeanChapter(int ID, String ID_PARSE, int FK_ID_COURSE, String NAME, int ACCURACY, int POSITION, int PROGRESS){
+        this.ID = ID;
         this.ID_PARSE = ID_PARSE;
         this.FK_ID_COURSE = FK_ID_COURSE;
         this.NAME = NAME;
@@ -40,8 +40,8 @@ public class BeanTemas implements Serializable {
         return FK_ID_COURSE;
     }
 
-    public int getID_THEME() {
-        return ID_THEME;
+    public int getID() {
+        return ID;
     }
 
     public String getID_PARSE() {
@@ -64,8 +64,8 @@ public class BeanTemas implements Serializable {
         this.FK_ID_COURSE = FK_ID_COURSE;
     }
 
-    public void setID_THEME(int ID_THEME) {
-        this.ID_THEME = ID_THEME;
+    public void setID(int ID) {
+        this.ID = ID;
     }
 
     public void setID_PARSE(String ID_PARSE) {

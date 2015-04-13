@@ -7,12 +7,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.WindowManager;
 
-import com.example.owen.pruebasliderfragment.JavaBean.BeanPreguntas;
-import com.example.owen.pruebasliderfragment.JavaBean.BeanRespuestas;
+import com.example.owen.pruebasliderfragment.JavaBean.BeanQuestions;
 import com.example.owen.pruebasliderfragment.R;
 import com.example.owen.pruebasliderfragment.data.DataSource;
 import com.example.owen.pruebasliderfragment.fragments.GameQuestion_frag;
-import com.example.owen.pruebasliderfragment.fragments.MyCourses_frag;
 
 import java.util.ArrayList;
 
@@ -20,9 +18,8 @@ public class Game extends ActionBarActivity {
 
     private final static int NUM_PREGUNTAS = 5;
     int id_tema, contador = 0;
-    ArrayList<BeanPreguntas> preguntas;
-    ArrayList<BeanRespuestas> respuestasIncorrectos;
-    BeanRespuestas respuestaCorrecta;
+    ArrayList<BeanQuestions> preguntas;
+    ArrayList<String> respuestasIncorrectos;
     android.app.FragmentManager fm = getFragmentManager();
     FragmentTransaction ft = fm.beginTransaction();
 
@@ -32,19 +29,17 @@ public class Game extends ActionBarActivity {
         setContentView(R.layout.activity_game);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        preguntas = new ArrayList<BeanPreguntas>();
-        respuestasIncorrectos = new ArrayList<BeanRespuestas>();
+        preguntas = new ArrayList<BeanQuestions>();
 
         id_tema = getIntent().getIntExtra("tema", 0);
         contador = 0;
 
         preguntas = new DataSource(this).getPreguntas(id_tema);
-        respuestasIncorrectos = new DataSource(this).getRespuestasIncorrectas(preguntas.get(contador).getID_QUESTION());
-        respuestaCorrecta = new DataSource(this).getRespuestaCorrecta(preguntas.get(contador).getID_QUESTION());
+        respuestasIncorrectos = new DataSource(this).getRespuestasIncorrectas(id_tema, preguntas.get(contador).getID());
         // creamos la primera pregunta
         ft.setCustomAnimations(R.animator.slide_in_left_frag, R.animator.slide_out_right_frag);
         GameQuestion_frag frag = new GameQuestion_frag();
-        frag.defineQuestionAndAnswers(preguntas.get(contador), respuestasIncorrectos, respuestaCorrecta);
+        frag.defineQuestionAndAnswers(preguntas.get(contador), respuestasIncorrectos);
         contador++;
         ft.replace(R.id.game_container,frag);
         ft.addToBackStack(null);
@@ -77,11 +72,11 @@ public class Game extends ActionBarActivity {
         if(contador < preguntas.size()) {
             android.app.FragmentManager fm = getFragmentManager();
             FragmentTransaction ft = fm.beginTransaction();
-            respuestasIncorrectos = new DataSource(this).getRespuestasIncorrectas(preguntas.get(contador).getID_QUESTION());
-            respuestaCorrecta = new DataSource(this).getRespuestaCorrecta(preguntas.get(contador).getID_QUESTION());
+            //respuestasIncorrectos = new DataSource(this).getRespuestasIncorrectas(preguntas.get(contador).getID_QUESTION());
+            //respuestaCorrecta = new DataSource(this).getRespuestaCorrecta(preguntas.get(contador).getID_QUESTION());
             ft.setCustomAnimations(R.animator.slide_in_left_frag, R.animator.slide_out_right_frag);
             GameQuestion_frag frag = new GameQuestion_frag();
-            frag.defineQuestionAndAnswers(preguntas.get(contador), respuestasIncorrectos, respuestaCorrecta);
+            //frag.defineQuestionAndAnswers(preguntas.get(contador), respuestasIncorrectos, respuestaCorrecta);
             contador++;
             ft.replace(R.id.game_container, frag);
             ft.addToBackStack(null);
@@ -91,9 +86,9 @@ public class Game extends ActionBarActivity {
 
 
     public void setCorrectOrWrong(boolean aux){
-        if(aux)
-            new DataSource(this).updatePreguntaRight(preguntas.get(contador-1), preguntas.get(contador-1).getRIGHT()+1);
-        else
-            new DataSource(this).updatePreguntaWrong(preguntas.get(contador - 1), preguntas.get(contador - 1).getWRONG() + 1);
+        int wrong = preguntas.get(contador-1).getWRONG();
+        if(!aux)
+            wrong++;
+        new DataSource(this).updatePregunta(preguntas.get(contador - 1), wrong);
     }
 }
