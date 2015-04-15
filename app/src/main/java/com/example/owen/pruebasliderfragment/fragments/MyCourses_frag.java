@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ExpandableListView;
 
+import com.example.owen.pruebasliderfragment.Controller;
 import com.example.owen.pruebasliderfragment.JavaBean.BeanCourse;
 import com.example.owen.pruebasliderfragment.ListViewItems.RowItemMyCourses;
 import com.example.owen.pruebasliderfragment.ListViewItems.SubrowItemMyCourses;
@@ -20,12 +21,13 @@ import com.example.owen.pruebasliderfragment.adapters.MyCoursesAdapter;
 import com.example.owen.pruebasliderfragment.data.DataSource;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class MyCourses_frag extends Fragment {
 
     ArrayList<RowItemMyCourses> grupos;
-    ArrayList<BeanCourse> cursos;
+    List<BeanCourse> cursos;
     MyCoursesAdapter adapter;
 
 
@@ -60,7 +62,7 @@ public class MyCourses_frag extends Fragment {
         protected Void doInBackground(Void... params) {
             // Create the array
             grupos = new ArrayList<RowItemMyCourses>();
-            cursos = new DataSource(getActivity()).getCursos();
+            cursos = new Controller(getActivity()).getCourseFromLocal();
             if(cursos != null) {
                 for (BeanCourse myCourse : cursos) {
                     RowItemMyCourses item = new RowItemMyCourses(BitmapFactory.decodeByteArray(myCourse.getIMAGE(), 0, myCourse.getIMAGE().length), myCourse.getNAME(), new SubrowItemMyCourses(myCourse.getDEFINITION(), 5, 2), myCourse.getPROGRESS());

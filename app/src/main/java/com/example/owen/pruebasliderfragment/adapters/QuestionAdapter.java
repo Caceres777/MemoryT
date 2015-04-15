@@ -39,8 +39,8 @@ public class QuestionAdapter extends ArrayAdapter<RowItemQuestion> {
         aciertos = (TextView) convertView.findViewById(R.id.aciertos);
 
         pregunta.setText(rowItemMenu.getPregunta()+" ("+rowItemMenu.getRespuesta()+")");
-        fallos.setText("Miss: "+rowItemMenu.getFallos());
-        aciertos.setText("Hits: "+ rowItemMenu.getAciertos());
+        fallos.setText(Integer.toString(rowItemMenu.getFallos()));
+        aciertos.setText(Integer.toString(rowItemMenu.getAciertos()));
         return convertView;
     }
 }

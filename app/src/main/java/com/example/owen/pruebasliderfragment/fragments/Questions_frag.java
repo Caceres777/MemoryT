@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ListView;
 
+import com.example.owen.pruebasliderfragment.Controller;
 import com.example.owen.pruebasliderfragment.JavaBean.BeanQuestions;
 import com.example.owen.pruebasliderfragment.JavaBean.BeanChapter;
 import com.example.owen.pruebasliderfragment.ListViewItems.RowItemQuestion;
@@ -19,6 +20,7 @@ import com.example.owen.pruebasliderfragment.adapters.QuestionAdapter;
 import com.example.owen.pruebasliderfragment.data.DataSource;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class Questions_frag extends Fragment {
@@ -28,7 +30,7 @@ public class Questions_frag extends Fragment {
     Button startGame;
     QuestionAdapter adapter;
     ArrayList<RowItemQuestion> questions;
-    ArrayList<BeanQuestions> ob;
+    List<BeanQuestions> ob;
 
     public Questions_frag() {
 
@@ -54,7 +56,8 @@ public class Questions_frag extends Fragment {
             public void onClick(View v) {
                 // start game here (Activity Game)
                 Intent intent = new Intent(getActivity(), Game.class);
-                intent.putExtra("tema", tema.getID());
+                intent.putExtra("chapter", tema.getID());
+                intent.putExtra("course", tema.getFK_ID_COURSE());
                 startActivity(intent);
                 getActivity().overridePendingTransition(R.animator.left_in, R.animator.left_out);
             }
@@ -74,7 +77,7 @@ public class Questions_frag extends Fragment {
         protected Void doInBackground(Void... params) {
             // Create the array
             questions = new ArrayList<RowItemQuestion>();
-            ob = new DataSource(getActivity()).getPreguntas(tema.getID());
+            ob = new Controller(getActivity()).getQuestionsFromLocal(tema.getID());
             for (BeanQuestions question : ob) {
                 RowItemQuestion item = new RowItemQuestion(question.getTEXT1(), question.getTEXT2(), question.getWRONG(), question.getTOTAL()-question.getWRONG());
                 questions.add(item);
@@ -92,5 +95,7 @@ public class Questions_frag extends Fragment {
             listView.setAdapter(adapter);
         }
     }
+
+
 
 }

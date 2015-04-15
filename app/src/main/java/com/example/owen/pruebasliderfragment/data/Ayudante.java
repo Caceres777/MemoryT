@@ -64,6 +64,7 @@ public class Ayudante extends SQLiteOpenHelper {
                     QuestionEntry.IMAGE +" BLOB,"+
                     QuestionEntry.EF +" NUMERIC,"+
                     QuestionEntry.WRONG +" INTEGER,"+
+                    QuestionEntry.ASKED +" BOOLEAN,"+
                     "FOREIGN KEY("+QuestionEntry.FK_ID_THEME+") REFERENCES "+ChapterEntry.TABLE_NAME+"("+ChapterEntry.ID+"));";
 
 

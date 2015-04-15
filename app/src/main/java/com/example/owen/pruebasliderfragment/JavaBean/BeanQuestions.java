@@ -15,8 +15,9 @@ public class BeanQuestions implements Serializable {
     private int WRONG;
     private Double EF;
     private byte[] IMAGE;
+    private int ASKED;
 
-    public BeanQuestions(int ID, String PARSE_ID, int FK_ID_THEME, String TEXT1, String TEXT2, int TOTAL, int WRONG, Double EF, byte[] IMAGE){
+    public BeanQuestions(int ID, String PARSE_ID, int FK_ID_THEME, String TEXT1, String TEXT2, int TOTAL, int WRONG, Double EF, byte[] IMAGE, int ASKED){
         this.ID = ID;
         this.PARSE_ID = PARSE_ID;
         this.FK_ID_THEME = FK_ID_THEME;
@@ -26,6 +27,11 @@ public class BeanQuestions implements Serializable {
         this.WRONG = WRONG;
         this.EF = EF;
         this.IMAGE = IMAGE;
+        this.ASKED = ASKED;
+    }
+
+    public void setASKED(int ASKED) {
+        this.ASKED = ASKED;
     }
 
     public void setIMAGE(byte[] IMAGE) {
@@ -98,5 +104,9 @@ public class BeanQuestions implements Serializable {
 
     public Double getEF() {
         return EF;
+    }
+
+    public int getASKED(){
+        return ASKED;
     }
 }

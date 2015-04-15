@@ -134,12 +134,11 @@ public class ChaptersAdapter extends BaseExpandableListAdapter {
         btnStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // call new fragment
+                // call new fragment Introducir un thread de carga
                 fm = activity.getFragmentManager();
                 ft = fm.beginTransaction();
                 ft.setCustomAnimations(R.animator.slide_in_left_frag, R.animator.slide_out_right_frag);
                 Questions_frag questions = new Questions_frag();
-                Log.d("PREGUNTAS", "FK_ID  "+temas.get(groupPosition).getNAME());
                 questions.setTema(temas.get(groupPosition));
                 ft.replace(R.id.container, questions);
                 ft.commit();

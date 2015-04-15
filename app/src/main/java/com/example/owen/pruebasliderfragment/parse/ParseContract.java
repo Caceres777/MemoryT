@@ -64,6 +64,7 @@ public class ParseContract {
         public static final String TOTAL = "Total";
         public static final String MISS = "Miss";
         public static final String EF = "EF"; // coficiente de repeticion
+        public static final String ASKED = "Asked";
     }
 
     public static abstract class Progress_badgesEntry implements BaseColumns{

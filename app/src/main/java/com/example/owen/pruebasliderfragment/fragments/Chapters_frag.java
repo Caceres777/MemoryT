@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ExpandableListView;
 
+import com.example.owen.pruebasliderfragment.Controller;
 import com.example.owen.pruebasliderfragment.JavaBean.BeanCourse;
 import com.example.owen.pruebasliderfragment.JavaBean.BeanChapter;
 import com.example.owen.pruebasliderfragment.ListViewItems.RowItemChapter;
@@ -25,7 +26,7 @@ public class Chapters_frag extends Fragment {
     BeanCourse course;
     // para la busqueda
     ArrayList<RowItemChapter> grupos;
-    List<BeanChapter> ob;
+    List<BeanChapter> chapters;
     ChaptersAdapter adapter;
     ExpandableListView listView;
 
@@ -64,8 +65,8 @@ public class Chapters_frag extends Fragment {
         protected Void doInBackground(Void... params) {
             // Create the array
             grupos = new ArrayList<RowItemChapter>();
-            ob = new DataSource(getActivity()).getTemas(course.getID());
-            for (BeanChapter tema : ob) {
+            chapters = new Controller(getActivity()).getChapterFromLocal(course.getID());
+            for (BeanChapter tema : chapters) {
                 RowItemChapter item = new RowItemChapter(tema.getNAME() , new SubrowItemChapter(10 , 5, tema.getACCURACY()), tema.getPROGRESS());
                 grupos.add(item);
             }
@@ -77,7 +78,7 @@ public class Chapters_frag extends Fragment {
             // Locate the listview in listview_main.xml
             listView = (ExpandableListView) getActivity().findViewById(R.id.listaChapters);
             // Pass the results into ListViewAdapter.java
-            adapter = new ChaptersAdapter(getActivity(), grupos, ob);
+            adapter = new ChaptersAdapter(getActivity(), grupos, chapters);
             // Binds the Adapter to the ListView
             listView.setAdapter(adapter);
         }

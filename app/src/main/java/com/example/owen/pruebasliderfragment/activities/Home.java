@@ -208,9 +208,4 @@ public class Home extends ActionBarActivity implements NavigationDrawerFragment.
         }
     }
 
-
-    public void setCourse(ParseObject course){
-
-    }
-
 }

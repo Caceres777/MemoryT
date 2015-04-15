@@ -42,6 +42,7 @@ public class SQLContract {
         public static final String IMAGE = "image";
         public static final String EF = "ef";
         public static final String WRONG="wrong";
+        public static final String ASKED="asked";
     }
 
     public static abstract class BadgesEntry implements BaseColumns{

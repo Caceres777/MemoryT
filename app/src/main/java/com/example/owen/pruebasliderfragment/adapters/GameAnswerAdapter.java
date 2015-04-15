@@ -45,14 +45,15 @@ public class GameAnswerAdapter extends ArrayAdapter<String> {
             public void onClick(View v) {
                 // comprobar si es correcta
                 Button boton = (Button)v.findViewById(R.id.gameAsnwer);
-                boolean right = false;
                 if(position==correcto){
                     boton.setBackgroundColor(context.getResources().getColor(R.color.Green));
-                    right = true;
-                }else
+                    ((Game)context).setCorrect();
+                }else {
                     boton.setBackgroundColor(context.getResources().getColor(R.color.Red));
+                    ((Game)context).setWrong();
+                }
                 // llamar a nueva pregunta
-                ((Game)context).setCorrectOrWrong(right);
+
                 ((Game)context).setNewQuestion();
             }
         });

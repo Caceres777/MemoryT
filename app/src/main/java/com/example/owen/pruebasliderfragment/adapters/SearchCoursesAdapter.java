@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.owen.pruebasliderfragment.Controller;
 import com.example.owen.pruebasliderfragment.ImageHelper;
 import com.example.owen.pruebasliderfragment.JavaBean.BeanCourse;
 import com.example.owen.pruebasliderfragment.JavaBean.BeanQuestions;
@@ -76,32 +77,13 @@ public class SearchCoursesAdapter extends BaseExpandableListAdapter {
         btnLearn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                // cogemos los punteros para la tabla
-                ParseObject user = ParseUser.getCurrentUser();
-                ParseObject course = courses.get(groupPosition);
-                // cramos el parseHelper
-                ParseHelper parseHelper = new ParseHelper();
-                parseHelper.setNewMyCourse(user, course);
-                // avisamos que el curso a sido guardado
-                Toast.makeText(activity,"Apuntado", Toast.LENGTH_LONG).show();
-
-
-                // guardar en base de datos local tambien
-                DataSource dataSource = new DataSource(activity);
-                // obtenemos el curso y lo guardamos en nuestra base de datos local
-                BeanCourse obcurso = parseHelper.getCoursesByIDFromProgresoCourses(ParseUser.getCurrentUser());
-                dataSource.insertContactCursos(obcurso);
-                // obetenemos los temas y los guardamos en la base de datos local
-                List<BeanChapter> obTemas = parseHelper.getTemasByUserFromParse(ParseUser.getCurrentUser(), course, activity);
-                for(BeanChapter aux : obTemas){
-                    dataSource.insertContactTemas(aux);
-                }
-                // obtenemos de parse todos las preguntas del curso y los guardamos en la base de datos local
-                List<BeanQuestions> obPreguntas = parseHelper.getPreguntasByUserFromParse(ParseUser.getCurrentUser(), course, activity);
-                for(BeanQuestions aux : obPreguntas){
-                    dataSource.insertContactPreguntas(aux);
-                }
+                new Thread(new Runnable() {
+                    public void run() {
+                        ParseObject course = courses.get(groupPosition);
+                        Controller controller = new Controller(activity);
+                        controller.setCourse(course);
+                    }
+                }).start();
             }
         });
         definition.setText(grupo.getChild().getDefinition());
