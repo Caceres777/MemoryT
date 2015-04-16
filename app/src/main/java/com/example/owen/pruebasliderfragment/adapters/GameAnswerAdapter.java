@@ -52,8 +52,6 @@ public class GameAnswerAdapter extends ArrayAdapter<String> {
                     boton.setBackgroundColor(context.getResources().getColor(R.color.Red));
                     ((Game)context).setWrong();
                 }
-                // llamar a nueva pregunta
-
                 ((Game)context).setNewQuestion();
             }
         });

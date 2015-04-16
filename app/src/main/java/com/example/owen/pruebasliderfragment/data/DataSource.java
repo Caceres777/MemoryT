@@ -311,12 +311,13 @@ public class DataSource {
     }
 
 
-    public void updatePreguntaTotal(BeanQuestions pregunta, int wrong){
+    public void updatePreguntaTotal(BeanQuestions pregunta){
         SQLiteDatabase db = this.openReadable();
         ContentValues args = new ContentValues();
 
         args.put(String.valueOf(QuestionEntry.TOTAL), String.valueOf(pregunta.getTOTAL()+1));
-        args.put(String.valueOf(QuestionEntry.WRONG), String.valueOf(pregunta.getWRONG()+wrong));
+        args.put(String.valueOf(QuestionEntry.WRONG), String.valueOf(pregunta.getWRONG()));
+        args.put(String.valueOf(QuestionEntry.EF), String.valueOf(pregunta.getEF()));
 
         db.update(QuestionEntry.TABLE_NAME, args, QuestionEntry.ID+" = ?", new String[] { String.valueOf(pregunta.getID()) });
         this.close(db);

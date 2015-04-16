@@ -6,6 +6,7 @@ import com.example.owen.pruebasliderfragment.JavaBean.BeanChapter;
 import com.example.owen.pruebasliderfragment.JavaBean.BeanCourse;
 import com.example.owen.pruebasliderfragment.JavaBean.BeanQuestions;
 import com.example.owen.pruebasliderfragment.data.DataSource;
+import com.example.owen.pruebasliderfragment.parse.ParseContract;
 import com.example.owen.pruebasliderfragment.parse.ParseHelper;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
@@ -94,9 +95,32 @@ public class Controller {
 
 
 
-    public void updateQuestionTotal(BeanQuestions question, int wrong){
-        datasourse.updatePreguntaTotal(question, wrong);
-        parseHelper.updateQuestionTotal(question, wrong);
+    public List<ParseObject> getSearchCourses(){
+        List<ParseObject> pcourse = parseHelper.getAllCourses();
+        List<BeanCourse> lcourse = datasourse.getCursos();
+        for(BeanCourse myCourse : lcourse){
+            for(ParseObject course : pcourse){
+                if(course.getString(ParseContract.CourseEntry.NAME).equals(myCourse.getNAME()))
+                    pcourse.remove(course);
+            }
+        }
+        return  pcourse;
+    }
+
+
+
+
+    public List<String> getWrongAnswers(int chapter, int correctAnswer){
+        List<String> answers = datasourse.getRespuestasIncorrectas(chapter, correctAnswer);
+        return answers;
+    }
+
+
+
+
+    public void updateQuestionTotal(BeanQuestions question){
+        datasourse.updatePreguntaTotal(question);
+        parseHelper.updateQuestionTotal(question);
     }
 
 
@@ -126,4 +150,5 @@ public class Controller {
         aux = datasourse.getCurso(courseID);
         parseHelper.updateCourse(aux);
     }
+
 }

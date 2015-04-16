@@ -13,22 +13,23 @@ import com.example.owen.pruebasliderfragment.R;
 import com.example.owen.pruebasliderfragment.adapters.GameAnswerAdapter;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
-public class GameQuestion_frag extends Fragment {
+public class GameTestQuestion_frag extends Fragment {
 
     private static final int NUM_ANSWERS = 4;
     BeanQuestions beanpregunta;
-    ArrayList<String> respuestasIncorrectas;
+    List<String> respuestasIncorrectas;
     ArrayList<String> answers;
     TextView pregunta;
 
 
-    public GameQuestion_frag() {
+    public GameTestQuestion_frag() {
         // Required empty public constructor
     }
 
-    public void defineQuestionAndAnswers(BeanQuestions beanpregunta, ArrayList<String> respuestasIncorrectas){
+    public void defineQuestionAndAnswers(BeanQuestions beanpregunta, List<String> respuestasIncorrectas){
         this.beanpregunta = beanpregunta;
         this.respuestasIncorrectas = respuestasIncorrectas;
     }
@@ -41,7 +42,7 @@ public class GameQuestion_frag extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v =  inflater.inflate(R.layout.fragment_game_question_frag, container, false);
+        View v =  inflater.inflate(R.layout.fragment_game_test_question_frag, container, false);
 
         pregunta = (TextView) v.findViewById(R.id.pregunta);
 

@@ -17,18 +17,17 @@
         android:layout_weight="1"
         android:background="@color/Initial_buttons"/>
 
-    <TextView
+    <EditText
         android:id="@+id/respuesta"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@drawable/edit_text_top"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:gravity="center"
         android:textStyle="bold"
-        android:textSize="20dp"
-        android:layout_weight="1"
-        android:textColor="@color/White"
-        android:background="@android:color/darker_gray"/>
+        android:textSize="20dp"/>
 
     <ImageView
         android:id="@+id/next"
@@ -37,6 +36,7 @@
         android:src="@drawable/ic_boton_next"
         android:layout_weight="1"
         android:layout_gravity="center"/>
+
 
 
 </LinearLayout>

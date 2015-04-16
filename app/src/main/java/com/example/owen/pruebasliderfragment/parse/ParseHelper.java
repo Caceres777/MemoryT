@@ -1,15 +1,12 @@
 package com.example.owen.pruebasliderfragment.parse;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.example.owen.pruebasliderfragment.Controller;
 import com.example.owen.pruebasliderfragment.JavaBean.BeanCourse;
 import com.example.owen.pruebasliderfragment.JavaBean.BeanQuestions;
 import com.example.owen.pruebasliderfragment.JavaBean.BeanChapter;
-import com.example.owen.pruebasliderfragment.data.*;
 import com.example.owen.pruebasliderfragment.parse.ParseContract.*;
-import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
@@ -206,13 +203,14 @@ public class ParseHelper {
         }
     }
 
-    public void updateQuestionTotal(BeanQuestions question, int wrong) {
+    public void updateQuestionTotal(BeanQuestions question) {
         ParseQuery<ParseObject> query = new ParseQuery<ParseObject>(Progress_questionEntry.TABLE_NAME);
         query.whereEqualTo(OBJECT_ID, question.getPARSE_ID());
         try {
             ParseObject pquest = query.find().get(0);
             pquest.put(Progress_questionEntry.TOTAL, pquest.getInt(Progress_questionEntry.TOTAL)+1);
-            pquest.put(Progress_questionEntry.MISS, question.getWRONG()+wrong);
+            pquest.put(Progress_questionEntry.MISS, question.getWRONG());
+            pquest.put(Progress_questionEntry.EF, question.getEF());
             pquest.saveInBackground();
         } catch (ParseException e) {
             e.printStackTrace();
@@ -261,6 +259,9 @@ public class ParseHelper {
         return cursos;
     }
 
+
+
+
     public BeanCourse getCourseByUserAndCourse(ParseObject pointerUser, ParseObject pointerCourse) {
         BeanCourse cursobean = null;
         ParseQuery<ParseObject> query = new ParseQuery<ParseObject>(Progress_courseEntry.TABLE_NAME);
@@ -276,7 +277,8 @@ public class ParseHelper {
     }
 
 
-    // obtiene los datos de los temas de parse para introducirlos dentro de SQLite
+
+
     public List<BeanChapter> getTemasByUserFromParse(ParseObject pointerUser, ParseObject pointerCourse, Context context) {
         ParseObject progress = null;
         List<ParseObject> pchapters = getAllChaptersCourse(pointerCourse);
@@ -305,7 +307,9 @@ public class ParseHelper {
         return chapters;
     }
 
-    // modificar metodo por problemas
+
+
+
     public List<BeanQuestions> getPreguntasByUserFromParse(ParseObject pointerUser, String progressChapter, Context context){
         ArrayList<BeanQuestions> questions = new ArrayList<BeanQuestions>();
         int fk_tema = new Controller(context).getIdCChapterFromLocal(progressChapter);

@@ -10,20 +10,26 @@ import android.view.WindowManager;
 import com.example.owen.pruebasliderfragment.Controller;
 import com.example.owen.pruebasliderfragment.JavaBean.BeanQuestions;
 import com.example.owen.pruebasliderfragment.R;
+import com.example.owen.pruebasliderfragment.SM2;
 import com.example.owen.pruebasliderfragment.data.DataSource;
-import com.example.owen.pruebasliderfragment.fragments.GameQuestion_frag;
+import com.example.owen.pruebasliderfragment.fragments.GameFinishScreen_frag;
+import com.example.owen.pruebasliderfragment.fragments.GameTestQuestion_frag;
 import com.example.owen.pruebasliderfragment.fragments.GameStudy_frag;
+import com.example.owen.pruebasliderfragment.fragments.GameWriteQuestion_frag;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Game extends ActionBarActivity {
 
     private int porcetange = 0;
     private int wrong = 0;
-    private final static int NUM_PREGUNTAS = 5;
+    private final static int NUM_PREGUNTAS = 15;
+    private final static double EF_QUESTION_TIPE = 2.0;
+    private SM2 sm2;
     int id_tema, id_course, cont = 0;
     ArrayList<BeanQuestions> preguntas;
-    ArrayList<String> respuestasIncorrectas;
+    List<String> respuestasIncorrectas;
     Controller controller;
 
     @Override
@@ -31,8 +37,6 @@ public class Game extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
-        preguntas = new ArrayList<BeanQuestions>();
 
         id_tema = getIntent().getIntExtra("chapter", 0);
         id_course = getIntent().getIntExtra("course", 0);
@@ -66,42 +70,83 @@ public class Game extends ActionBarActivity {
 
     public void setNewQuestion(){
         if(cont < preguntas.size()) {
-            android.app.FragmentManager fm = getFragmentManager();
-            FragmentTransaction ft = fm.beginTransaction();
-            respuestasIncorrectas = new DataSource(this).getRespuestasIncorrectas(id_tema, preguntas.get(cont).getID());
+            //respuestasIncorrectas = new DataSource(this).getRespuestasIncorrectas(id_tema, preguntas.get(cont).getID());
+            respuestasIncorrectas = new Controller(this).getWrongAnswers(id_tema, preguntas.get(cont).getID());
             // comprobamos si se a preguntado con aterioridad
             if(preguntas.get(cont).getASKED() > 0) {
                 // comprobar si el EF de la pregunta es mayor que 2, en caso de ser asi introducir preguntas escritas
-                ft.setCustomAnimations(R.animator.slide_in_left_frag, R.animator.slide_out_right_frag);
-                GameQuestion_frag frag = new GameQuestion_frag();
-                frag.defineQuestionAndAnswers(preguntas.get(cont), respuestasIncorrectas);
-                ft.replace(R.id.game_container, frag);
+                if(preguntas.get(cont).getEF() >= EF_QUESTION_TIPE ) {
+                    // mostramos la pantalla de write
+                    setWriteQuestionScreen(cont);
+                }else{
+                    setTetsQuestionScreen(cont);
+                }
                 cont++;
             }else {
                 // mostramos la pantalla de estudio
-                ft.setCustomAnimations(R.animator.slide_in_left_frag, R.animator.slide_out_right_frag);
-                GameStudy_frag frag = new GameStudy_frag(this, preguntas.get(cont).getTEXT1(), preguntas.get(cont).getTEXT2());
-                ft.replace(R.id.game_container, frag);
-                preguntas.get(cont).setASKED(1);
-                setAsked();
+                setLearningScreen(cont);
             }
-            ft.addToBackStack(null);
-            ft.commit();
+        }else{
+            setLastGameScreen();
         }
     }
 
 
     public void setLastGameScreen(){
-        // pantalla final del juego con puntuaciones y boton para volver
+        android.app.FragmentManager fm = getFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
+        ft.setCustomAnimations(R.animator.slide_in_left_frag, R.animator.slide_out_right_frag);
+        GameFinishScreen_frag frag = new GameFinishScreen_frag();
+        ft.replace(R.id.game_container, frag);
+        ft.addToBackStack(null);
+        ft.commit();
+    }
 
+    public void setWriteQuestionScreen(int pos){
+        android.app.FragmentManager fm = getFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
+        ft.setCustomAnimations(R.animator.slide_in_left_frag, R.animator.slide_out_right_frag);
+        GameWriteQuestion_frag frag = new GameWriteQuestion_frag(preguntas.get(pos));
+        ft.replace(R.id.game_container, frag);
+        ft.addToBackStack(null);
+        ft.commit();
+    }
+
+
+
+
+    public void setTetsQuestionScreen(int pos){
+        android.app.FragmentManager fm = getFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
+        ft.setCustomAnimations(R.animator.slide_in_left_frag, R.animator.slide_out_right_frag);
+        GameTestQuestion_frag frag = new GameTestQuestion_frag();
+        frag.defineQuestionAndAnswers(preguntas.get(pos), respuestasIncorrectas);
+        ft.replace(R.id.game_container, frag);
+        ft.addToBackStack(null);
+        ft.commit();
+    }
+
+
+
+
+    public void setLearningScreen(int pos){
+        android.app.FragmentManager fm = getFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
+        ft.setCustomAnimations(R.animator.slide_in_left_frag, R.animator.slide_out_right_frag);
+        GameStudy_frag frag = new GameStudy_frag(this, preguntas.get(pos).getTEXT1(), preguntas.get(pos).getTEXT2());
+        ft.replace(R.id.game_container, frag);
+        ft.addToBackStack(null);
+        ft.commit();
+        setAsked();
     }
 
 
     public void setCorrect(){
         controller = new Controller(this);
+        updateEF(cont-1,5);
         new Thread(new Runnable() {
             public void run() {
-                controller.updateQuestionTotal(preguntas.get(cont - 1), 0);
+                controller.updateQuestionTotal(preguntas.get(cont - 1));
             }
         }).start();
 
@@ -110,10 +155,12 @@ public class Game extends ActionBarActivity {
     public void setWrong(){
         wrong++;
         porcetange = wrong*100/cont;
+        preguntas.get(cont-1).setWRONG(preguntas.get(cont-1).getWRONG()+1);
+        updateEF(cont - 1, 0);
         controller = new Controller(this);
         new Thread(new Runnable() {
             public void run() {
-                controller.updateQuestionTotal(preguntas.get(cont - 1), 1);
+                controller.updateQuestionTotal(preguntas.get(cont - 1));
             }
         }).start();
 
@@ -122,6 +169,7 @@ public class Game extends ActionBarActivity {
 
     public void setAsked(){
         controller = new Controller(this);
+        preguntas.get(cont).setASKED(1);
         new Thread(new Runnable() {
             public void run() {
                 controller.updateQuestionAsked(preguntas.get(cont));
@@ -140,5 +188,14 @@ public class Game extends ActionBarActivity {
         }).start();
         super.onBackPressed();
     }
+
+
+    public void updateEF(int pos, int eq){
+        double ef = preguntas.get(pos).getEF();
+        sm2 = new SM2(ef, eq);
+        ef = sm2.getNewEFactor();
+        preguntas.get(pos).setEF(ef);
+    }
+
 
 }

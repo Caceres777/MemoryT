@@ -20,6 +20,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.owen.pruebasliderfragment.AppMemoryt;
+import com.example.owen.pruebasliderfragment.Controller;
 import com.example.owen.pruebasliderfragment.ImageHelper;
 import com.example.owen.pruebasliderfragment.R;
 import com.example.owen.pruebasliderfragment.ListViewItems.RowItemSearchCourses;
@@ -87,8 +88,7 @@ public class SearchCourses_frag extends Fragment{
         protected Void doInBackground(Void... params) {
             // Create the array
             grupos = new ArrayList<RowItemSearchCourses>();
-            ParseHelper parseHelper = new ParseHelper();
-            ob = parseHelper.getAllCourses();
+            ob = new Controller(getActivity()).getSearchCourses();
             for (ParseObject course : ob) {
                 // Locate images in flag column
                 ParseFile image = (ParseFile) course.get("Image");
