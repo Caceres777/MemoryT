@@ -357,13 +357,13 @@ public class DataSource {
         int total=0;
         List<BeanChapter> chapters = getTemas(course.getID());
         for(BeanChapter chapter : chapters){
-            total += chapter.getPROGRESS()/100;
+            total += chapter.getPROGRESS();
         }
 
         SQLiteDatabase db = this.openReadable();
         ContentValues args = new ContentValues();
 
-        args.put(CourseEntry.PROGRESS, String.valueOf(total*100/chapters.size()));
+        args.put(CourseEntry.PROGRESS, String.valueOf((total*100)/(chapters.size()*100)));
 
         db.update(CourseEntry.TABLE_NAME, args, CourseEntry.ID+" = ?", new String[] { String.valueOf(course.getID()) });
         this.close(db);

@@ -1,6 +1,7 @@
 package com.example.owen.pruebasliderfragment.parse;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.example.owen.pruebasliderfragment.Controller;
 import com.example.owen.pruebasliderfragment.JavaBean.BeanCourse;
@@ -122,6 +123,18 @@ public class ParseHelper {
         return chapters;
     }
 
+    public List<ParseObject> getAllQuestionsChapter(ParseObject pointerChapter) {
+        List<ParseObject> questions = null;
+        ParseQuery<ParseObject> query = new ParseQuery<ParseObject>(QuestionEntry.TABLE_NAME);
+        query.whereEqualTo(QuestionEntry.CHAPTER_ID, pointerChapter);
+        try {
+            questions = query.find();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return questions;
+    }
+
 
     public String getProgreso_CursoID(ParseObject pointerUser, ParseObject pointerCourse) {
         String id = null;
@@ -165,6 +178,19 @@ public class ParseHelper {
             e.printStackTrace();
         }
         return id;
+    }
+
+    public ParseObject getChapter(ParseObject pointerUser ,String progress_chapterID){
+        ParseQuery<ParseObject> query = new ParseQuery<ParseObject>(Progress_chapterEntry.TABLE_NAME);
+            query.whereEqualTo(Progress_questionEntry.USER_ID, pointerUser);
+            query.whereEqualTo(OBJECT_ID, progress_chapterID);
+        ParseObject chapter = null;
+        try {
+            chapter = query.find().get(0).getParseObject(Progress_chapterEntry.CHAPTER_ID);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return chapter;
     }
 
 
@@ -279,46 +305,42 @@ public class ParseHelper {
         return chapters;
     }
 
-
-    public List<BeanQuestions> getPreguntasByUserFromParse(ParseObject pointerUser, ParseObject pointerCourse, Context context){
-        DataSource dataSource = new DataSource(context);
-        List<ParseObject> ob = null;
+    // modificar metodo por problemas
+    public List<BeanQuestions> getPreguntasByUserFromParse(ParseObject pointerUser, String progressChapter, Context context){
         ArrayList<BeanQuestions> questions = new ArrayList<BeanQuestions>();
-        ParseQuery<ParseObject> query = new ParseQuery<ParseObject>(Progress_questionEntry.TABLE_NAME);
-            query.whereEqualTo(Progress_questionEntry.USER_ID, pointerUser);
-
-        try {
-            ob = query.find();
-            for(ParseObject myQuestion : ob){
-                ParseObject question =  myQuestion.fetchIfNeeded().getParseObject(Progress_questionEntry.QUESTION_ID);
-                ParseObject course = question.fetchIfNeeded().getParseObject(QuestionEntry.CHAPTER_ID).fetchIfNeeded().getParseObject(ChapterEntry.COURSE_ID);
-                if(course.getObjectId().equals(pointerCourse.getObjectId())){
-                    int fk_tema = dataSource.getTemasByPARSE_ID(getProgreso_TemasID(pointerUser, myQuestion.fetchIfNeeded().getParseObject(Progress_questionEntry.QUESTION_ID).getParseObject(QuestionEntry.CHAPTER_ID))).getID();
-                    if(question.getParseFile(QuestionEntry.IMAGE) == null) {
-                        questions.add(new BeanQuestions(0,
-                                myQuestion.getObjectId(),
-                                fk_tema,
-                                question.getString(QuestionEntry.TEXT1),
-                                question.getString(QuestionEntry.TEXT2),
-                                0, 0, 2.5,
-                                null,
-                                0
-                        ));
-                    }else{
-                        questions.add(new BeanQuestions(0,
-                                myQuestion.getObjectId(),
-                                fk_tema,
-                                question.getString(QuestionEntry.TEXT1),
-                                question.getString(QuestionEntry.TEXT2),
-                                0, 0, 2.5,
-                                question.getParseFile(QuestionEntry.IMAGE).getData(),
-                                0
-                        ));
-                    }
+        int fk_tema = new Controller(context).getIdCChapterFromLocal(progressChapter);
+        ParseObject pointerChapter = getChapter(pointerUser, progressChapter);
+        List<ParseObject> pquestions = getAllQuestionsChapter(pointerChapter);
+        for(ParseObject question : pquestions) {
+            ParseQuery<ParseObject> query = new ParseQuery<ParseObject>(Progress_questionEntry.TABLE_NAME);
+                query.whereEqualTo(Progress_questionEntry.USER_ID, pointerUser);
+                query.whereEqualTo(Progress_questionEntry.QUESTION_ID, question);
+            try {
+                ParseObject myQuestion = query.find().get(0);
+                if(question.getParseFile(QuestionEntry.IMAGE) == null) {
+                    questions.add(new BeanQuestions(0,
+                            myQuestion.getObjectId(),
+                            fk_tema,
+                            question.getString(QuestionEntry.TEXT1),
+                            question.getString(QuestionEntry.TEXT2),
+                            0, 0, 2.5,
+                            null,
+                            0
+                    ));
+                }else {
+                    questions.add(new BeanQuestions(0,
+                            myQuestion.getObjectId(),
+                            fk_tema,
+                            question.getString(QuestionEntry.TEXT1),
+                            question.getString(QuestionEntry.TEXT2),
+                            0, 0, 2.5,
+                            question.getParseFile(QuestionEntry.IMAGE).getData(),
+                            0
+                    ));
                 }
+            } catch (ParseException e) {
+                e.printStackTrace();
             }
-        } catch (ParseException e) {
-            e.printStackTrace();
         }
         return questions;
     }
