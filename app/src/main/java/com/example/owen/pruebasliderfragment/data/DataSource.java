@@ -36,6 +36,7 @@ public class DataSource {
     private static String CONSULTA_PREGUNTA_BY_IDPARSE = "SELECT * FROM "+QuestionEntry.TABLE_NAME+" WHERE "+QuestionEntry.ID_PARSE+" = ";
     private static String CONSULTA_SELECTALL_PREGUNTAS = "SELECT * FROM "+QuestionEntry.TABLE_NAME+" WHERE "+QuestionEntry.FK_ID_THEME+" = ";
     private static String CONSULTA_SELECT_RESPUESTAS_INCORRECTAS = "SELECT * FROM "+QuestionEntry.TABLE_NAME+" WHERE "+QuestionEntry.FK_ID_THEME+" = ";
+    private static String CONSULTA_REVIEW_QUESTIONS = "SELECT COUNT(*) FROM "+QuestionEntry.TABLE_NAME+" WHERE "+QuestionEntry.REVIEW+" < ";
 
     public DataSource(Context context) {
         mContext = context;
@@ -111,6 +112,7 @@ public class DataSource {
         args.put(String.valueOf(QuestionEntry.TOTAL), String.valueOf(pregunta.getTOTAL()));
         args.put(String.valueOf(QuestionEntry.WRONG), String.valueOf(pregunta.getWRONG()));
         args.put(QuestionEntry.ASKED, pregunta.getASKED());
+        args.put(QuestionEntry.REVIEW, pregunta.getREVIEW());
 
         database.insert(QuestionEntry.TABLE_NAME, null, args);
         database.setTransactionSuccessful();
@@ -222,7 +224,8 @@ public class DataSource {
                         c.getInt(c.getColumnIndex(QuestionEntry.WRONG)),
                         c.getDouble(c.getColumnIndex(QuestionEntry.EF)),
                         c.getBlob(c.getColumnIndex(QuestionEntry.IMAGE)),
-                        c.getInt(c.getColumnIndex(QuestionEntry.ASKED))
+                        c.getInt(c.getColumnIndex(QuestionEntry.ASKED)),
+                        c.getLong(c.getColumnIndex(QuestionEntry.REVIEW))
                 ));
                 c.moveToNext();
             }
@@ -302,7 +305,8 @@ public class DataSource {
                     c.getInt(c.getColumnIndex(QuestionEntry.WRONG)),
                     c.getDouble(c.getColumnIndex(QuestionEntry.EF)),
                     c.getBlob(c.getColumnIndex(QuestionEntry.IMAGE)),
-                    c.getInt(c.getColumnIndex(QuestionEntry.ASKED))
+                    c.getInt(c.getColumnIndex(QuestionEntry.ASKED)),
+                    c.getInt(c.getColumnIndex(QuestionEntry.REVIEW))
             );
         }
         c.close();
@@ -311,11 +315,23 @@ public class DataSource {
     }
 
 
+    public int getNumReviewQuestions(long epoch){
+        SQLiteDatabase db = this.openReadable();
+        int cont = 0;
+        Cursor c = db.rawQuery(CONSULTA_REVIEW_QUESTIONS+"'"+epoch+"'", null);
+        c.moveToFirst();
+        cont= c.getInt(0);
+        c.close();
+        this.close(db);
+        return cont;
+    }
+
+
     public void updatePreguntaTotal(BeanQuestions pregunta){
         SQLiteDatabase db = this.openReadable();
         ContentValues args = new ContentValues();
 
-        args.put(String.valueOf(QuestionEntry.TOTAL), String.valueOf(pregunta.getTOTAL()+1));
+        args.put(String.valueOf(QuestionEntry.TOTAL), String.valueOf(pregunta.getTOTAL()));
         args.put(String.valueOf(QuestionEntry.WRONG), String.valueOf(pregunta.getWRONG()));
         args.put(String.valueOf(QuestionEntry.EF), String.valueOf(pregunta.getEF()));
 

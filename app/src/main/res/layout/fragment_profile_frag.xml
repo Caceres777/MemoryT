@@ -80,7 +80,7 @@
                     style="?android:attr/progressBarStyleHorizontal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:progressDrawable="@drawable/progress_bar_custom"
+                    android:progressDrawable="@drawable/progress_bar_user_custom"
                     android:id="@+id/profile_progressBar"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginLeft="10dp"

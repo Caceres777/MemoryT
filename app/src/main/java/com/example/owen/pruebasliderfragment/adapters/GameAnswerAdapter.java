@@ -48,11 +48,13 @@ public class GameAnswerAdapter extends ArrayAdapter<String> {
                 if(position==correcto){
                     boton.setBackgroundColor(context.getResources().getColor(R.color.Green));
                     ((Game)context).setCorrect();
+                    ((Game)context).setNewQuestion();
                 }else {
                     boton.setBackgroundColor(context.getResources().getColor(R.color.Red));
                     ((Game)context).setWrong();
+                    ((Game)context).setLearningScreen();
                 }
-                ((Game)context).setNewQuestion();
+
             }
         });
         return convertView;

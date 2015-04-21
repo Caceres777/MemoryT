@@ -3,6 +3,7 @@ package com.example.owen.pruebasliderfragment.activities;
 import android.app.FragmentTransaction;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.WindowManager;
@@ -22,11 +23,11 @@ import java.util.List;
 
 public class Game extends ActionBarActivity {
 
-    private int porcetange = 0;
+    private int porcetange = 0; // usado en la pantalla final de game
     private int wrong = 0;
-    private final static int NUM_PREGUNTAS = 15;
-    private final static double EF_QUESTION_TIPE = 2.0;
-    private SM2 sm2;
+    private final static int NUM_PREGUNTAS = 15; // numero de preguntas realizadas
+    private final static double EF_QUESTION_TIPE = 1.7; // al superar este EF las preguntas pasan a tipo write
+    private SM2 sm2; // algorithm que devuelve el dia de repaso y el nuevo EF
     int id_tema, id_course, cont = 0;
     ArrayList<BeanQuestions> preguntas;
     List<String> respuestasIncorrectas;
@@ -84,7 +85,7 @@ public class Game extends ActionBarActivity {
                 cont++;
             }else {
                 // mostramos la pantalla de estudio
-                setLearningScreen(cont);
+                setLearningScreen();
             }
         }else{
             setLastGameScreen();
@@ -101,6 +102,9 @@ public class Game extends ActionBarActivity {
         ft.addToBackStack(null);
         ft.commit();
     }
+
+
+
 
     public void setWriteQuestionScreen(int pos){
         android.app.FragmentManager fm = getFragmentManager();
@@ -129,11 +133,11 @@ public class Game extends ActionBarActivity {
 
 
 
-    public void setLearningScreen(int pos){
+    public void setLearningScreen(){
         android.app.FragmentManager fm = getFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
         ft.setCustomAnimations(R.animator.slide_in_left_frag, R.animator.slide_out_right_frag);
-        GameStudy_frag frag = new GameStudy_frag(this, preguntas.get(pos).getTEXT1(), preguntas.get(pos).getTEXT2());
+        GameStudy_frag frag = new GameStudy_frag(this, preguntas.get(cont).getTEXT1(), preguntas.get(cont).getTEXT2());
         ft.replace(R.id.game_container, frag);
         ft.addToBackStack(null);
         ft.commit();
@@ -190,11 +194,13 @@ public class Game extends ActionBarActivity {
     }
 
 
-    public void updateEF(int pos, int eq){
+
+    public void updateEF(int pos, int qr){
         double ef = preguntas.get(pos).getEF();
-        sm2 = new SM2(ef, eq);
-        ef = sm2.getNewEFactor();
-        preguntas.get(pos).setEF(ef);
+        sm2 = new SM2(ef, qr);
+        preguntas.get(pos).setTOTAL(preguntas.get(pos).getTOTAL()+1);
+        preguntas.get(pos).setEF(sm2.getNewEFactor());
+        preguntas.get(pos).setREVIEW(sm2.getNextInterval(preguntas.get(pos).getTOTAL()));
     }
 
 

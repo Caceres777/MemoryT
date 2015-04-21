@@ -46,7 +46,7 @@ public class GameWriteQuestion_frag extends Fragment {
                     ((Game)getActivity()).setCorrect();
                 }else
                     ((Game)getActivity()).setWrong();
-                ((Game)getActivity()).setNewQuestion();
+                ((Game)getActivity()).setLearningScreen();
             }
         });
 

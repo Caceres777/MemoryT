@@ -43,8 +43,6 @@ public class ParseContract {
         public static final String TABLE_NAME = "Progress_course";
         public static final String USER_ID = "UserID";
         public static final String COURSE_ID = "CourseID";
-        //public static final String accuracy = "Accuracy"; // no es necesario
-        //public static final String Finished = "Finished"; // xomprobar a traves de progress
         public static final String PROGRESS = "Progress";
     }
 
@@ -53,7 +51,6 @@ public class ParseContract {
         public static final String USER_ID = "UserID";
         public static final String CHAPTER_ID = "ChaptersID";
         public static final String ACCURACY = "Accuracy";
-        //public static final String finished = "Finished"; // comprobar a traves de progress
         public static final String PROGRESS = "Progress";
     }
 
@@ -65,6 +62,7 @@ public class ParseContract {
         public static final String MISS = "Miss";
         public static final String EF = "EF"; // coficiente de repeticion
         public static final String ASKED = "Asked";
+        public static final String REVIEW = "Review";
     }
 
     public static abstract class Progress_badgesEntry implements BaseColumns{

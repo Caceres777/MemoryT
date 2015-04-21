@@ -29,7 +29,7 @@
         <EditText
             style="@style/TextFields"
             android:inputType="textEmailAddress"
-            android:background="@drawable/edit_text_top"
+            android:background="@drawable/edit_text_initial_top"
             android:drawableLeft="@drawable/ic_action_email"
             android:ems="10"
             android:id="@+id/register_email"
@@ -71,7 +71,7 @@
         <EditText
             style="@style/TextFields"
             android:inputType="textPassword"
-            android:background="@drawable/edit_text_bottom"
+            android:background="@drawable/edit_text__initial_bottom"
             android:drawableLeft="@drawable/ic_action_password"
             android:ems="10"
             android:id="@+id/register_Pass2"

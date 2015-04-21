@@ -54,11 +54,10 @@ public class ParseHelper {
     }
 
     private void setProgreso_Chapters(ParseObject pointerUser, ParseObject pointerCourse) {
-        List<ParseObject> ob = null;
         ParseQuery<ParseObject> query = new ParseQuery<ParseObject>(ChapterEntry.TABLE_NAME);
             query.whereEqualTo(ChapterEntry.COURSE_ID, pointerCourse);
         try {
-            ob = query.find();
+            List<ParseObject> ob = query.find();
             for (ParseObject chapter : ob) {
                 ParseObject myChapter = new ParseObject(Progress_chapterEntry.TABLE_NAME);
                 myChapter.put(Progress_chapterEntry.USER_ID, pointerUser);
@@ -74,11 +73,10 @@ public class ParseHelper {
     }
 
     private void setProgreso_Preguntas(ParseObject pointerUser, ParseObject pointerChapter) {
-        List<ParseObject> ob = null;
         ParseQuery<ParseObject> query = new ParseQuery<ParseObject>(QuestionEntry.TABLE_NAME);
         query.whereEqualTo(QuestionEntry.CHAPTER_ID, pointerChapter);
         try {
-            ob = query.find();
+            List<ParseObject> ob = query.find();
             for (ParseObject question : ob) {
                 ParseObject myQuestion = new ParseObject(Progress_questionEntry.TABLE_NAME);
                 myQuestion.put(Progress_questionEntry.USER_ID, pointerUser);
@@ -87,6 +85,7 @@ public class ParseHelper {
                 myQuestion.put(Progress_questionEntry.MISS, 0);
                 myQuestion.put(Progress_questionEntry.EF, 2.5); // introducir EF dentro de la tabla progress_question de parse
                 myQuestion.put(Progress_questionEntry.ASKED, false);
+                myQuestion.put(Progress_questionEntry.REVIEW, 0); // fecha de la siguiente revision en epoch format
                 myQuestion.saveInBackground();
             }
         } catch (ParseException e) {
@@ -208,9 +207,10 @@ public class ParseHelper {
         query.whereEqualTo(OBJECT_ID, question.getPARSE_ID());
         try {
             ParseObject pquest = query.find().get(0);
-            pquest.put(Progress_questionEntry.TOTAL, pquest.getInt(Progress_questionEntry.TOTAL)+1);
+            pquest.put(Progress_questionEntry.TOTAL, question.getTOTAL());
             pquest.put(Progress_questionEntry.MISS, question.getWRONG());
             pquest.put(Progress_questionEntry.EF, question.getEF());
+            pquest.put(Progress_questionEntry.REVIEW, question.getREVIEW());
             pquest.saveInBackground();
         } catch (ParseException e) {
             e.printStackTrace();
@@ -231,7 +231,15 @@ public class ParseHelper {
     }
 
     public void updateCourse(BeanCourse course){
-
+        ParseQuery<ParseObject> query = new ParseQuery<ParseObject>(Progress_courseEntry.TABLE_NAME);
+        query.whereEqualTo(OBJECT_ID, course.getID_PARSE());
+        try{
+            ParseObject pcourse = query.find().get(0);
+            pcourse.put(Progress_courseEntry.PROGRESS, course.getPROGRESS());
+            pcourse.saveInBackground();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
     }
 
 
@@ -239,26 +247,6 @@ public class ParseHelper {
     /*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
      * A partir de aqui estan los metodos encargados de devolver la informacion entre parse y la base de datos local
      +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
-
-
-    public List<BeanCourse> getCoursesByUser(ParseObject pointerUser) {
-        List<ParseObject> ob = null;
-        ArrayList<BeanCourse> cursos = new ArrayList<BeanCourse>();
-        ParseQuery<ParseObject> query = new ParseQuery<ParseObject>(Progress_courseEntry.TABLE_NAME);
-            query.whereEqualTo(Progress_courseEntry.USER_ID, pointerUser);
-        try {
-            ob = query.find();
-            for (ParseObject mycurso : ob) {
-                ParseObject curso = (ParseObject) mycurso.get(Progress_courseEntry.COURSE_ID);
-                cursos.add(new BeanCourse(0, mycurso.getObjectId(), curso.getString(CourseEntry.DEFINITION), curso.getString(CourseEntry.NAME), curso.getParseFile(CourseEntry.IMAGE).getData(), mycurso.getInt(Progress_courseEntry.PROGRESS)));
-            }
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
-        return cursos;
-    }
-
 
 
 
@@ -280,16 +268,15 @@ public class ParseHelper {
 
 
     public List<BeanChapter> getTemasByUserFromParse(ParseObject pointerUser, ParseObject pointerCourse, Context context) {
-        ParseObject progress = null;
         List<ParseObject> pchapters = getAllChaptersCourse(pointerCourse);
         ArrayList<BeanChapter> chapters = new ArrayList<BeanChapter>();
 
         try {
             for(ParseObject chapter : pchapters){
-                ParseQuery<ParseObject> query = new ParseQuery<ParseObject>(Progress_chapterEntry.TABLE_NAME);
+                ParseQuery<ParseObject> query = new ParseQuery<>(Progress_chapterEntry.TABLE_NAME);
                     query.whereEqualTo(Progress_chapterEntry.USER_ID, pointerUser);
                     query.whereEqualTo(Progress_chapterEntry.CHAPTER_ID, chapter);
-                progress = query.find().get(0);
+                ParseObject progress = query.find().get(0);
                 String aux = getProgreso_CursoID(ParseUser.getCurrentUser(), pointerCourse);
                 int fk_course = new Controller(context).getIdCourseFromLocal(aux);
                 chapters.add(new BeanChapter(0,
@@ -329,7 +316,7 @@ public class ParseHelper {
                             question.getString(QuestionEntry.TEXT2),
                             0, 0, 2.5,
                             null,
-                            0
+                            0, 0
                     ));
                 }else {
                     questions.add(new BeanQuestions(0,
@@ -339,7 +326,7 @@ public class ParseHelper {
                             question.getString(QuestionEntry.TEXT2),
                             0, 0, 2.5,
                             question.getParseFile(QuestionEntry.IMAGE).getData(),
-                            0
+                            0, 0
                     ));
                 }
             } catch (ParseException e) {

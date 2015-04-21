@@ -1,6 +1,7 @@
 package com.example.owen.pruebasliderfragment.JavaBean;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * Created by Owen on 04/03/2015.
@@ -16,8 +17,9 @@ public class BeanQuestions implements Serializable {
     private Double EF;
     private byte[] IMAGE;
     private int ASKED;
+    private long REVIEW;
 
-    public BeanQuestions(int ID, String PARSE_ID, int FK_ID_THEME, String TEXT1, String TEXT2, int TOTAL, int WRONG, Double EF, byte[] IMAGE, int ASKED){
+    public BeanQuestions(int ID, String PARSE_ID, int FK_ID_THEME, String TEXT1, String TEXT2, int TOTAL, int WRONG, Double EF, byte[] IMAGE, int ASKED, long REVIEW){
         this.ID = ID;
         this.PARSE_ID = PARSE_ID;
         this.FK_ID_THEME = FK_ID_THEME;
@@ -28,6 +30,7 @@ public class BeanQuestions implements Serializable {
         this.EF = EF;
         this.IMAGE = IMAGE;
         this.ASKED = ASKED;
+        this.REVIEW = REVIEW;
     }
 
     public void setASKED(int ASKED) {
@@ -70,6 +73,10 @@ public class BeanQuestions implements Serializable {
         this.EF = EF;
     }
 
+    public void setREVIEW(long REVIEW) {
+        this.REVIEW = REVIEW;
+    }
+
     public byte[] getIMAGE() {
         return IMAGE;
     }
@@ -108,5 +115,9 @@ public class BeanQuestions implements Serializable {
 
     public int getASKED(){
         return ASKED;
+    }
+
+    public long getREVIEW() {
+        return REVIEW;
     }
 }

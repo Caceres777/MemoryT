@@ -1,38 +1,27 @@
 package com.example.owen.pruebasliderfragment.fragments;
 
-import android.app.Activity;
 import android.app.Fragment;
-import android.app.ProgressDialog;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ExpandableListView;
-import android.widget.ImageView;
-import android.widget.Toast;
+import android.widget.LinearLayout;
 
-import com.example.owen.pruebasliderfragment.AppMemoryt;
 import com.example.owen.pruebasliderfragment.Controller;
-import com.example.owen.pruebasliderfragment.ImageHelper;
 import com.example.owen.pruebasliderfragment.R;
 import com.example.owen.pruebasliderfragment.ListViewItems.RowItemSearchCourses;
 import com.example.owen.pruebasliderfragment.ListViewItems.SubrowItemSearchCourses;
 import com.example.owen.pruebasliderfragment.adapters.SearchCoursesAdapter;
-import com.example.owen.pruebasliderfragment.parse.ParseHelper;
-import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseObject;
-import com.parse.ParseQuery;
-import com.parse.ParseUser;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,7 +29,7 @@ import java.util.List;
 public class SearchCourses_frag extends Fragment{
     ArrayList<RowItemSearchCourses> grupos;
     List<ParseObject> ob;
-    ProgressDialog mProgressDialog;
+    LinearLayout progressBar;
     SearchCoursesAdapter adapter;
     ExpandableListView listView;
 
@@ -54,14 +43,15 @@ public class SearchCourses_frag extends Fragment{
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
-        new RemoteDataTask().execute();
     }
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_search_courses, container, false);
+        listView = (ExpandableListView) v.findViewById(R.id.listaBuscarCurso);
+        progressBar = (LinearLayout) v.findViewById(R.id.HeaderProgress);
+        new RemoteDataTask().execute();
         return v;
     }
 
@@ -70,27 +60,19 @@ public class SearchCourses_frag extends Fragment{
 
     // RemoteDataTask AsyncTask
     class RemoteDataTask extends AsyncTask<Void, Void, Void> {
+
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            // Create a progressdialog
-            mProgressDialog = new ProgressDialog(getActivity());
-            // Set progressdialog title
-            mProgressDialog.setTitle("Looking for Courses");
-            // Set progressdialog message
-            mProgressDialog.setMessage("Loading...");
-            mProgressDialog.setIndeterminate(false);
-            // Show progressdialog
-            mProgressDialog.show();
+            listView.setVisibility(View.GONE);
+            progressBar.setVisibility(View.VISIBLE);
         }
 
         @Override
         protected Void doInBackground(Void... params) {
-            // Create the array
             grupos = new ArrayList<RowItemSearchCourses>();
             ob = new Controller(getActivity()).getSearchCourses();
             for (ParseObject course : ob) {
-                // Locate images in flag column
                 ParseFile image = (ParseFile) course.get("Image");
                 RowItemSearchCourses item = new RowItemSearchCourses(setCourseImg(image),(String) course.get("Name"),new SubrowItemSearchCourses((String) course.get("Definition"), 5));
                 grupos.add(item);
@@ -100,14 +82,10 @@ public class SearchCourses_frag extends Fragment{
 
         @Override
         protected void onPostExecute(Void result) {
-            // Locate the listview in listview_main.xml
-            listView = (ExpandableListView) getActivity().findViewById(R.id.listaBuscarCurso);
-            // Pass the results into ListViewAdapter.java
             adapter = new SearchCoursesAdapter(getActivity(), grupos, ob);
-            // Binds the Adapter to the ListView
             listView.setAdapter(adapter);
-            // Close the progressdialog
-            mProgressDialog.dismiss();
+            progressBar.setVisibility(View.GONE);
+            listView.setVisibility(View.VISIBLE);
         }
 
 
@@ -129,16 +107,24 @@ public class SearchCourses_frag extends Fragment{
 
 
 
+
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         menu.clear();
         inflater.inflate(R.menu.mycourses , menu);
         super.onCreateOptionsMenu(menu, inflater);
     }
+
+
+
+
     @Override
     public void onPrepareOptionsMenu(Menu menu) {
         super.onPrepareOptionsMenu(menu);
     }
+
+
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

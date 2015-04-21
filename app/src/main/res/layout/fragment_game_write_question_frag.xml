@@ -9,34 +9,46 @@
         android:id="@+id/pregunta"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
         android:gravity="center"
         android:textStyle="bold"
         android:textSize="20dp"
         android:layout_weight="1"
-        android:background="@color/Initial_buttons"/>
+        android:text="Question"/>
 
-    <EditText
-        android:id="@+id/respuesta"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:background="@drawable/edit_text_top"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:gravity="center"
-        android:textStyle="bold"
-        android:textSize="20dp"/>
+        android:layout_weight="2"
 
-    <ImageView
-        android:id="@+id/next"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_boton_next"
-        android:layout_weight="1"
-        android:layout_gravity="center"/>
+        android:orientation="horizontal">
 
+        <EditText
+            android:id="@+id/respuesta"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:background="@drawable/edit_text_answer"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_gravity="center"
+            android:textStyle="bold"
+            android:textSize="20dp"/>
 
+        <ImageView
+            android:id="@+id/next"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_boton_next"
+            android:layout_weight="1"
+            android:layout_gravity="center"/>
+
+    </LinearLayout>
+
+    <Space
+        android:layout_height="0dp"
+        android:layout_width="match_parent"
+        android:layout_weight="1"/>
 
 </LinearLayout>

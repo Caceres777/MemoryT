@@ -43,6 +43,7 @@ public class SQLContract {
         public static final String EF = "ef";
         public static final String WRONG="wrong";
         public static final String ASKED="asked";
+        public static final String REVIEW="review";
     }
 
     public static abstract class BadgesEntry implements BaseColumns{

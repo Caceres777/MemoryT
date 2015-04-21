@@ -12,6 +12,8 @@ import com.parse.ParseObject;
 import com.parse.ParseUser;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -97,6 +99,7 @@ public class Controller {
 
     public List<ParseObject> getSearchCourses(){
         List<ParseObject> pcourse = parseHelper.getAllCourses();
+        /*
         List<BeanCourse> lcourse = datasourse.getCursos();
         for(BeanCourse myCourse : lcourse){
             for(ParseObject course : pcourse){
@@ -104,6 +107,7 @@ public class Controller {
                     pcourse.remove(course);
             }
         }
+        */
         return  pcourse;
     }
 
@@ -151,4 +155,13 @@ public class Controller {
         parseHelper.updateCourse(aux);
     }
 
+
+
+
+    public int getNumReviewQuestions(){
+        Calendar calendar= Calendar.getInstance();
+        Date date = calendar.getTime();
+        int cont = datasourse.getNumReviewQuestions(date.getTime()/1000);
+        return cont;
+    }
 }

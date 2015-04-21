@@ -4,6 +4,9 @@ package com.example.owen.pruebasliderfragment;
  * Created by Owen on 15/04/2015.
  */
 
+import android.util.Log;
+import java.util.Date;
+
 /**
  * SM2 spaced repetition algorithm implementation.
  *
@@ -16,6 +19,10 @@ public class SM2 {
 
     double eFactor;
     int qualityResponse;
+    private static int NUM_SEC_DAY = 86400;
+    // valores de repeticion I(1) e I(2)
+    private static int FIRST_REPEAT = 1;
+    private static int SECOND_REPEAT = 6;
 
     public SM2() {
         eFactor = 2.5f;
@@ -28,19 +35,23 @@ public class SM2 {
     }
 
     /**
-     * Get new interval
+     * Get new interval in epoch Unix format (seconds)
      * @param n
      * @return
      */
-    public int getNextInterval(int n) {
+    public long getNextInterval(int n) {
+        Date date = new Date();
+        long epoch = date.getTime()/1000;
         if (n==1) {
-            return 1;
+            return epoch + (FIRST_REPEAT*NUM_SEC_DAY);
         }
         else if (n==2) {
-            return 6;
+            return epoch + (SECOND_REPEAT*NUM_SEC_DAY);
         }
         else if (n>2) {
-            return (int) ((n-1)*eFactor);
+            // I(n) = (I(2) * EF^(n-2))
+            epoch += ((int) (SECOND_REPEAT*Math.pow(eFactor, n-2)))*NUM_SEC_DAY;
+            return epoch;
         }
         else {
             return 0;

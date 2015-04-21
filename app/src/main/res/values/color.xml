@@ -5,7 +5,8 @@
     <color name="White">#FFFFFF</color>
     <color name="Black">#000000</color>
     <color name="Hint_color">#848484</color>
-    <color name="Light_orange"> #FE9A2E</color>
+    <color name="Light_grey">#AFACAC</color>
+    <color name="Light_orange">#FE9A2E</color>
     <color name="Dark_orange">#c67720</color>
     <color name="Initial_buttons">#46e5e5e5</color>
     <color name="Initial_buttons_pressed">#96FFFFFF</color>

@@ -17,18 +17,30 @@
         android:layout_weight="1"
         android:background="@color/Initial_buttons"/>
 
-    <TextView
-        android:id="@+id/respuesta"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
         android:gravity="center"
-        android:textStyle="bold"
-        android:textSize="20dp"
-        android:layout_weight="1"
-        android:textColor="@color/White"
-        android:background="@android:color/darker_gray"/>
+        android:layout_weight="1">
+
+        <TextView
+            android:id="@+id/respuesta"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="50dp"
+            android:textStyle="bold"
+            android:textSize="20dp"
+            android:textColor="@color/White"
+            android:text="Prueba"
+            android:background="@drawable/textview_answer"/>
+
+    </LinearLayout>
+
 
     <ImageView
         android:id="@+id/next"
