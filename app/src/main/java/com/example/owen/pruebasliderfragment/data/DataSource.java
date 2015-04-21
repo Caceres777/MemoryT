@@ -9,8 +9,10 @@ import com.example.owen.pruebasliderfragment.JavaBean.BeanChapter;
 import com.example.owen.pruebasliderfragment.JavaBean.BeanCourse;
 import com.example.owen.pruebasliderfragment.JavaBean.BeanQuestions;
 import com.example.owen.pruebasliderfragment.data.SQLContract.*;
+import com.example.owen.pruebasliderfragment.parse.ParseContract;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -36,7 +38,7 @@ public class DataSource {
     private static String CONSULTA_PREGUNTA_BY_IDPARSE = "SELECT * FROM "+QuestionEntry.TABLE_NAME+" WHERE "+QuestionEntry.ID_PARSE+" = ";
     private static String CONSULTA_SELECTALL_PREGUNTAS = "SELECT * FROM "+QuestionEntry.TABLE_NAME+" WHERE "+QuestionEntry.FK_ID_THEME+" = ";
     private static String CONSULTA_SELECT_RESPUESTAS_INCORRECTAS = "SELECT * FROM "+QuestionEntry.TABLE_NAME+" WHERE "+QuestionEntry.FK_ID_THEME+" = ";
-    private static String CONSULTA_REVIEW_QUESTIONS = "SELECT COUNT(*) FROM "+QuestionEntry.TABLE_NAME+" WHERE "+QuestionEntry.REVIEW+" < ";
+    private static String CONSULTA_REVIEW_QUESTIONS = "SELECT COUNT(*) FROM "+QuestionEntry.TABLE_NAME+" WHERE "+QuestionEntry.REVIEW+" != '0' AND "+QuestionEntry.REVIEW+" <= ";
 
     public DataSource(Context context) {
         mContext = context;
@@ -315,11 +317,40 @@ public class DataSource {
     }
 
 
-    public int getNumReviewQuestions(long epoch){
+    public int getNumReviewQuestions(){
         SQLiteDatabase db = this.openReadable();
         int cont = 0;
-        Cursor c = db.rawQuery(CONSULTA_REVIEW_QUESTIONS+"'"+epoch+"'", null);
+        Cursor c = db.rawQuery(CONSULTA_REVIEW_QUESTIONS+"'"+(new Date().getTime() / 1000)+"'", null);
         c.moveToFirst();
+        cont= c.getInt(0);
+        c.close();
+        this.close(db);
+        return cont;
+    }
+
+
+    public int getNumReviewQuestionsByChapter(int idChapter){
+        SQLiteDatabase db = this.openReadable();
+        int cont = 0;
+        Cursor c = db.rawQuery(CONSULTA_REVIEW_QUESTIONS+"'"+(new Date().getTime() / 1000)+" AND "+QuestionEntry.FK_ID_THEME+" = "+idChapter, null);
+        c.moveToFirst();
+        cont= c.getInt(0);
+        c.close();
+        this.close(db);
+        return cont;
+    }
+
+
+    public int getNumReviewQuestionsByCourse(int idCourse){
+        SQLiteDatabase db = this.openReadable();
+        int cont = 0;
+        Cursor c = db.rawQuery(CONSULTA_SELECTALL_TEMAS+idCourse, null);
+        if(c.moveToFirst()) {
+            for (int i = 0; i < c.getCount(); i++) {
+                cont += getNumReviewQuestionsByChapter(c.getInt(c.getColumnIndex(ChapterEntry.ID)));
+                c.moveToNext();
+            }
+        }
         cont= c.getInt(0);
         c.close();
         this.close(db);
@@ -334,6 +365,7 @@ public class DataSource {
         args.put(String.valueOf(QuestionEntry.TOTAL), String.valueOf(pregunta.getTOTAL()));
         args.put(String.valueOf(QuestionEntry.WRONG), String.valueOf(pregunta.getWRONG()));
         args.put(String.valueOf(QuestionEntry.EF), String.valueOf(pregunta.getEF()));
+        args.put(String.valueOf(QuestionEntry.REVIEW), pregunta.getREVIEW());
 
         db.update(QuestionEntry.TABLE_NAME, args, QuestionEntry.ID+" = ?", new String[] { String.valueOf(pregunta.getID()) });
         this.close(db);
