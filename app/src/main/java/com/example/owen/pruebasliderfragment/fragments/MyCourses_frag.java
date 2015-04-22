@@ -4,7 +4,6 @@ import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -12,17 +11,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ExpandableListView;
-
 import com.example.owen.pruebasliderfragment.Controller;
 import com.example.owen.pruebasliderfragment.JavaBean.BeanCourse;
 import com.example.owen.pruebasliderfragment.ListViewItems.RowItemMyCourses;
 import com.example.owen.pruebasliderfragment.ListViewItems.SubrowItemMyCourses;
 import com.example.owen.pruebasliderfragment.R;
 import com.example.owen.pruebasliderfragment.adapters.MyCoursesAdapter;
-import com.example.owen.pruebasliderfragment.data.DataSource;
-
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 

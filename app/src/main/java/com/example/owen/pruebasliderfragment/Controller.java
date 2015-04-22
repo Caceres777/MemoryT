@@ -6,11 +6,9 @@ import com.example.owen.pruebasliderfragment.JavaBean.BeanChapter;
 import com.example.owen.pruebasliderfragment.JavaBean.BeanCourse;
 import com.example.owen.pruebasliderfragment.JavaBean.BeanQuestions;
 import com.example.owen.pruebasliderfragment.data.DataSource;
-import com.example.owen.pruebasliderfragment.parse.ParseContract;
 import com.example.owen.pruebasliderfragment.parse.ParseHelper;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
-
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -161,7 +159,7 @@ public class Controller {
     public int getNumReviewQuestions(){
         Calendar calendar= Calendar.getInstance();
         Date date = calendar.getTime();
-        int cont = datasourse.getNumReviewQuestions(date.getTime()/1000);
+        int cont = datasourse.getNumReviewQuestions();
         return cont;
     }
 }

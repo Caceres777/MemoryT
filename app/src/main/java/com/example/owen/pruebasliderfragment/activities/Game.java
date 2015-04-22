@@ -3,11 +3,9 @@ package com.example.owen.pruebasliderfragment.activities;
 import android.app.FragmentTransaction;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.WindowManager;
-
 import com.example.owen.pruebasliderfragment.Controller;
 import com.example.owen.pruebasliderfragment.JavaBean.BeanQuestions;
 import com.example.owen.pruebasliderfragment.R;
@@ -17,7 +15,6 @@ import com.example.owen.pruebasliderfragment.fragments.GameFinishScreen_frag;
 import com.example.owen.pruebasliderfragment.fragments.GameTestQuestion_frag;
 import com.example.owen.pruebasliderfragment.fragments.GameStudy_frag;
 import com.example.owen.pruebasliderfragment.fragments.GameWriteQuestion_frag;
-
 import java.util.ArrayList;
 import java.util.List;
 

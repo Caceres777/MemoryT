@@ -1,7 +1,6 @@
 package com.example.owen.pruebasliderfragment.JavaBean;
 
 import java.io.Serializable;
-import java.util.Date;
 
 /**
  * Created by Owen on 04/03/2015.

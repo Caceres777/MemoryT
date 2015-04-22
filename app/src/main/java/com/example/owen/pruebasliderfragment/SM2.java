@@ -4,7 +4,6 @@ package com.example.owen.pruebasliderfragment;
  * Created by Owen on 15/04/2015.
  */
 
-import android.util.Log;
 import java.util.Date;
 
 /**
