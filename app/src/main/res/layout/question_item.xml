@@ -36,7 +36,7 @@
             android:layout_height="50dp"
             android:textStyle="bold"
             android:gravity="center"
-            android:drawableRight="@drawable/ic_wrongtick"
+            android:drawableRight="@drawable/ic_wrongTick"
             android:layout_weight="1"/>
 
     </LinearLayout>
